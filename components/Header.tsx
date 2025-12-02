@@ -34,7 +34,7 @@ const Header: React.FC = () => {
           : 'bg-transparent border-transparent py-6'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
         {/* Logo */}
         <div className="flex-shrink-0 z-50">
@@ -50,7 +50,7 @@ const Header: React.FC = () => {
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out ${
+                `px-5 py-2 rounded-full text-lg font-medium transition-all duration-300 ease-out ${
                   isActive
                     ? 'bg-slate-900 text-white shadow-lg scale-105 dark:bg-blue-600 dark:text-white dark:shadow-blue-900/20'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'
@@ -105,8 +105,8 @@ const Header: React.FC = () => {
                 >
                   {({ isActive }) => (
                     <>
-                      <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
-                      <span className="text-lg">{link.label}</span>
+                      <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+                      <span className="text-xl">{link.label}</span>
                     </>
                   )}
                 </NavLink>
