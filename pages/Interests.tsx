@@ -52,12 +52,15 @@ const Interests: React.FC = () => {
   const currentlyReading = allBooks.filter(b => b.status === 'Reading');
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-24 space-y-36">
-      <SectionTitle title="Interests" subtitle="What keeps me busy away from the keyboard." />
+    <div className="max-w-7xl mx-auto px-6 py-24 space-y-24">
+      <SectionTitle 
+        title="Interests" 
+        subtitle="What keeps me busy away from the keyboard." 
+      />
 
       {/* 1. SPORTS */}
       <section>
-        <div className="flex items-center gap-3 mb-12 border-b border-slate-200 dark:border-slate-800 pb-4">
+        <div className="flex items-center gap-3 mb-8 border-b border-slate-200 dark:border-slate-800 pb-4">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 uppercase tracking-tight">
             Sports
           </h2>

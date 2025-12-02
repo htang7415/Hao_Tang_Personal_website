@@ -98,8 +98,8 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string; hre
 };
 
 // --- SECTION TITLE ---
-export const SectionTitle: React.FC<{ title: string; subtitle?: string }> = ({ title, subtitle }) => (
-  <div className="mb-16">
+export const SectionTitle: React.FC<{ title: string; subtitle?: string; className?: string }> = ({ title, subtitle, className = 'mb-16' }) => (
+  <div className={className}>
     <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-6 tracking-tight">{title}</h2>
     {subtitle && <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed font-light">{subtitle}</p>}
   </div>
