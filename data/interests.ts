@@ -12,7 +12,33 @@ const generateBooks = (): InterestItem[] => {
       type: 'Biography',
       note: '',
     },
-    
+    {
+      id: 'b2',
+      category: 'Reading',
+      title: 'Einstein: His Life and Universe',
+      subtitle: 'Walter Isaacson',
+      status: 'Read',
+      type: 'Biography',
+      note: 'Exploration',
+    },
+    {
+      id: 'b3',
+      category: 'Reading',
+      title: 'Tim Cook',
+      subtitle: 'Leander Kahney',
+      status: 'Read',
+      type: 'Biography',
+      note: 'Management',
+    },
+    {
+      id: 'b4',
+      category: 'Reading',
+      title: 'Elon Musk',
+      subtitle: 'Walter Isaacson',
+      status: 'Read',
+      type: 'Biography',
+      note: 'Technology',
+    },
     // Adding more diverse books to reach > 25 for pagination demo
   ];
   return baseBooks;
