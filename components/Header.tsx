@@ -1,67 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Home, Package, FlaskConical, PenTool, Library, Heart } from 'lucide-react';
 import { useTheme } from './ThemeContext';
-
-const NavItem: React.FC<{ to: string; label: string; onClick?: () => void }> = ({ to, label, onClick }) => (
-  <NavLink
-    to={to}
-    onClick={onClick}
-    className={({ isActive }) =>
-      `text-lg font-medium transition-colors duration-200 ${
-        isActive
-          ? 'text-cyan-600 dark:text-cyan-400'
-          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-      }`
-    }
-  >
-    {label}
-  </NavLink>
-);
+import { profile } from '../data/profile';
 
 const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'Products', path: '/products' },
-    { label: 'Research', path: '/research' },
-    { label: 'Blogs', path: '/blogs' },
-    { label: 'Resources', path: '/resources' },
-    { label: 'Interests', path: '/interests' },
+    { label: 'Home', path: '/', icon: Home },
+    { label: 'Products', path: '/products', icon: Package },
+    { label: 'Research', path: '/research', icon: FlaskConical },
+    { label: 'Blogs', path: '/blogs', icon: PenTool },
+    { label: 'Resources', path: '/resources', icon: Library },
+    { label: 'Interests', path: '/interests', icon: Heart },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+        isScrolled 
+          ? 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 py-3 shadow-sm' 
+          : 'bg-transparent border-transparent py-6'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
         {/* Logo */}
-        <div className="flex-shrink-0">
-          <NavLink to="/" className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Hao Tang
+        <div className="flex-shrink-0 z-50">
+          <NavLink to="/" className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+            {profile.name}
           </NavLink>
         </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-8">
+        {/* Desktop Nav - "Dynamic Pill" Style */}
+        <nav className="hidden md:flex items-center gap-1 p-1 rounded-full transition-all">
           {navLinks.map((link) => (
-            <NavItem key={link.path} to={link.path} label={link.label} />
+            <NavLink
+              key={link.path}
+              to={link.path}
+              className={({ isActive }) =>
+                `px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out ${
+                  isActive
+                    ? 'bg-slate-900 text-white shadow-lg scale-105 dark:bg-blue-600 dark:text-white dark:shadow-blue-900/20'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'
+                }`
+              }
+            >
+              {link.label}
+            </NavLink>
           ))}
         </nav>
 
-        {/* Right Actions (Theme + Mobile Menu Trigger) */}
-        <div className="flex items-center gap-4">
+        {/* Right Actions */}
+        <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 transition-colors"
+            className={`p-2 rounded-full transition-all duration-300 ${
+              isScrolled 
+                ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400' 
+                : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 shadow-sm border border-slate-200 dark:border-slate-700'
+            } hover:scale-110 active:scale-95`}
             aria-label="Toggle Theme"
           >
-            {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
+            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
 
           <button
-            className="md:hidden p-2 text-slate-600 dark:text-slate-300"
+            className="md:hidden p-2 text-slate-900 dark:text-slate-100"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -70,20 +86,34 @@ const Header: React.FC = () => {
       </div>
 
       {/* Mobile Nav Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
-          <div className="px-4 pt-4 pb-8 space-y-6 flex flex-col">
-            {navLinks.map((link) => (
-              <NavItem 
-                key={link.path} 
-                to={link.path} 
-                label={link.label} 
-                onClick={() => setIsMenuOpen(false)} 
-              />
-            ))}
-          </div>
+      <div className={`md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-xl transition-all duration-300 origin-top ${isMenuOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 h-0 overflow-hidden'}`}>
+        <div className="px-4 py-6 space-y-2">
+          {navLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `flex items-center gap-4 px-4 py-4 rounded-xl transition-all ${
+                      isActive
+                        ? 'bg-slate-100 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 font-bold'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900'
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                      <span className="text-lg">{link.label}</span>
+                    </>
+                  )}
+                </NavLink>
+              );
+          })}
         </div>
-      )}
+      </div>
     </header>
   );
 };

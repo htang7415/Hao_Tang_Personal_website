@@ -18,6 +18,21 @@
               background: {
                 light: '#f8fafc', // slate-50
                 dark: '#020617', // slate-950
+              },
+              // Custom "Comfortable True Blue" Palette
+              // Less violet than default Tailwind blue, more "tech/royal" blue.
+              blue: {
+                50: '#f0f7ff',
+                100: '#e0effe',
+                200: '#bae0fd',
+                300: '#7cc5f8',
+                400: '#36a6f1',
+                500: '#0c8de4',
+                600: '#0071e3', // Comfortable "Apple-style" Link Blue
+                700: '#005bb7',
+                800: '#004c97',
+                900: '#064079',
+                950: '#04284d',
               }
             }
           },
@@ -45,7 +60,7 @@
 }
 </script>
 </head>
-  <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased selection:bg-cyan-500/30 leading-relaxed">
+  <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased selection:bg-blue-500/30 leading-relaxed">
     <div id="root"></div>
   </body>
 </html>
