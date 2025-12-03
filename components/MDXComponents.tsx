@@ -35,7 +35,7 @@ export const MDXComponents = {
   // Paragraphs
   p: (props: any) => (
     <p
-      className="text-xl text-slate-600 dark:text-slate-400 mb-12 leading-relaxed font-light"
+      className="text-xl text-slate-600 dark:text-slate-400 mb-16 leading-relaxed font-light"
       style={{ lineHeight: '1.8' }}
       {...props}
     />
