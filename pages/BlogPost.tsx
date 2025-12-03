@@ -83,7 +83,7 @@ const BlogPost: React.FC = () => {
         </header>
 
         {/* MDX Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none">
+        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:scroll-mt-24">
           <Component />
         </div>
 

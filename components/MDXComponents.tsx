@@ -5,25 +5,25 @@ export const MDXComponents = {
   // Headings with consistent styling
   h1: (props: any) => (
     <h1
-      className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-8 mt-12 tracking-tight"
+      className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-10 mt-16 tracking-tight"
       {...props}
     />
   ),
   h2: (props: any) => (
     <h2
-      className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-6 mt-10 tracking-tight border-b border-slate-200 dark:border-slate-800 pb-3"
+      className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-8 mt-16 tracking-tight border-b-2 border-slate-200 dark:border-slate-700 pb-4"
       {...props}
     />
   ),
   h3: (props: any) => (
     <h3
-      className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4 mt-8"
+      className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 mb-6 mt-12"
       {...props}
     />
   ),
   h4: (props: any) => (
     <h4
-      className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-3 mt-6"
+      className="text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-4 mt-8"
       {...props}
     />
   ),
@@ -31,7 +31,7 @@ export const MDXComponents = {
   // Paragraphs
   p: (props: any) => (
     <p
-      className="text-lg text-slate-700 dark:text-slate-300 mb-6 leading-relaxed font-light"
+      className="text-lg text-slate-700 dark:text-slate-300 mb-8 leading-loose font-normal tracking-wide"
       {...props}
     />
   ),
@@ -39,19 +39,19 @@ export const MDXComponents = {
   // Lists
   ul: (props: any) => (
     <ul
-      className="list-disc list-outside ml-6 mb-6 space-y-2 text-lg text-slate-700 dark:text-slate-300"
+      className="list-disc list-outside ml-6 mb-8 space-y-3 text-lg text-slate-700 dark:text-slate-300"
       {...props}
     />
   ),
   ol: (props: any) => (
     <ol
-      className="list-decimal list-outside ml-6 mb-6 space-y-2 text-lg text-slate-700 dark:text-slate-300"
+      className="list-decimal list-outside ml-6 mb-8 space-y-3 text-lg text-slate-700 dark:text-slate-300"
       {...props}
     />
   ),
   li: (props: any) => (
     <li
-      className="leading-relaxed font-light"
+      className="leading-loose font-normal pl-2"
       {...props}
     />
   ),
@@ -59,7 +59,7 @@ export const MDXComponents = {
   // Code blocks
   pre: (props: any) => (
     <pre
-      className="bg-slate-900 dark:bg-slate-950 text-slate-100 p-6 rounded-lg overflow-x-auto mb-8 border border-slate-800"
+      className="bg-slate-900 dark:bg-slate-950 text-slate-100 p-6 rounded-lg overflow-x-auto my-8 border border-slate-700 dark:border-slate-800 shadow-lg"
       {...props}
     />
   ),
@@ -80,7 +80,7 @@ export const MDXComponents = {
   // Links
   a: (props: any) => (
     <a
-      className="text-blue-600 dark:text-blue-400 hover:underline decoration-2 underline-offset-4 font-medium"
+      className="text-blue-600 dark:text-blue-400 hover:underline decoration-2 underline-offset-4 font-medium transition-colors hover:text-blue-700 dark:hover:text-blue-300"
       target={props.href?.startsWith('http') ? '_blank' : undefined}
       rel={props.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
       {...props}
@@ -90,7 +90,7 @@ export const MDXComponents = {
   // Blockquotes
   blockquote: (props: any) => (
     <blockquote
-      className="border-l-4 border-blue-500 pl-6 py-2 mb-8 italic text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 rounded-r-lg"
+      className="border-l-4 border-blue-500 dark:border-blue-600 pl-8 pr-6 py-4 my-8 italic text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 rounded-r-lg"
       {...props}
     />
   ),
@@ -98,7 +98,7 @@ export const MDXComponents = {
   // Horizontal rule
   hr: (props: any) => (
     <hr
-      className="border-slate-200 dark:border-slate-800 my-12"
+      className="border-t-2 border-slate-200 dark:border-slate-800 my-16"
       {...props}
     />
   ),
@@ -108,6 +108,22 @@ export const MDXComponents = {
     <img
       className="rounded-lg shadow-lg mb-8 max-w-full h-auto"
       loading="lazy"
+      {...props}
+    />
+  ),
+
+  // Strong/Bold text
+  strong: (props: any) => (
+    <strong
+      className="font-semibold text-slate-900 dark:text-slate-100"
+      {...props}
+    />
+  ),
+
+  // Emphasis/Italic text
+  em: (props: any) => (
+    <em
+      className="italic text-slate-700 dark:text-slate-300"
       {...props}
     />
   ),
