@@ -26,11 +26,12 @@ const Interests: React.FC = () => {
   // --- READING LOGIC ---
   const filteredBooks = useMemo(() => {
     return allBooks.filter(book => {
-      const matchesSearch = 
-        book.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      const matchesSearch =
+        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (book.subtitle && book.subtitle.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (book.type && book.type.toLowerCase().includes(searchTerm.toLowerCase()));
-      
+        (book.type && book.type.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (book.year && book.year.includes(searchTerm));
+
       const matchesStatus = filterStatus === 'All' ? true : book.status === filterStatus;
 
       return matchesSearch && matchesStatus;
@@ -181,7 +182,7 @@ const Interests: React.FC = () => {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <input
               type="text"
-              placeholder="Search title, author, or type..."
+              placeholder="Search title, author, type, or year..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-12 pr-4 py-3 w-full md:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:text-slate-200 placeholder:text-slate-500 text-slate-900 transition-all"
@@ -192,27 +193,34 @@ const Interests: React.FC = () => {
         {/* Book List Grid */}
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
            {/* Header Row (Desktop) */}
-           <div className="hidden md:grid grid-cols-12 gap-6 px-8 py-5 bg-slate-50 dark:bg-slate-800/50 text-xs font-bold text-slate-500 dark:text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
-             <div className="col-span-5">Title</div>
+           <div className="hidden md:grid grid-cols-13 gap-6 px-8 py-5 bg-slate-50 dark:bg-slate-800/50 text-xs font-bold text-slate-500 dark:text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
+             <div className="col-span-4">Title</div>
              <div className="col-span-3">Author</div>
+             <div className="col-span-1 text-center">Year</div>
              <div className="col-span-2">Type</div>
-             <div className="col-span-2 text-right">Status</div>
+             <div className="col-span-3 text-right">Status</div>
            </div>
 
            {/* List Items */}
            <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
             {currentBooks.length > 0 ? (
               currentBooks.map((book) => (
-                <div key={book.id} className="grid md:grid-cols-12 gap-4 md:gap-6 px-8 py-6 items-center hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
+                <div key={book.id} className="grid md:grid-cols-13 gap-4 md:gap-6 px-8 py-6 items-center hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
                   {/* Title Mobile/Desktop */}
-                  <div className="col-span-12 md:col-span-5 font-bold text-xl text-slate-900 dark:text-slate-200">
+                  <div className="col-span-12 md:col-span-4 font-bold text-xl text-slate-900 dark:text-slate-200">
                     {book.title}
                   </div>
-                  
+
                   {/* Author */}
                   <div className="col-span-6 md:col-span-3 text-lg text-slate-600 dark:text-slate-400 font-light">
                     <span className="md:hidden text-xs text-slate-500 mr-2 font-bold uppercase">By:</span>
                     {book.subtitle}
+                  </div>
+
+                  {/* Year */}
+                  <div className="col-span-6 md:col-span-1 text-sm font-mono text-slate-600 dark:text-slate-400 md:text-center">
+                    <span className="md:hidden text-xs text-slate-500 mr-2 font-bold uppercase">Year:</span>
+                    {book.year}
                   </div>
 
                   {/* Type */}
@@ -225,7 +233,7 @@ const Interests: React.FC = () => {
                   </div>
 
                   {/* Status */}
-                  <div className="col-span-12 md:col-span-2 flex md:justify-end mt-3 md:mt-0">
+                  <div className="col-span-12 md:col-span-3 flex md:justify-end mt-3 md:mt-0">
                     <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${
                       book.status === 'Reading' ? 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-300' :
                       book.status === 'Want to Read' ? 'bg-slate-50 border-slate-200 text-slate-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400' :

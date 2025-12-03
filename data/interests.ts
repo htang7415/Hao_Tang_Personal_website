@@ -10,6 +10,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Walter Isaacson',
       status: 'Read',
       type: 'Biography',
+      year: '2011',
       note: '',
     },
     {
@@ -19,6 +20,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Walter Isaacson',
       status: 'Read',
       type: 'Biography',
+      year: '2007',
       note: 'Exploration',
     },
     {
@@ -28,6 +30,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Leander Kahney',
       status: 'Read',
       type: 'Biography',
+      year: '2019',
       note: 'Management',
     },
     {
@@ -37,6 +40,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Walter Isaacson',
       status: 'Read',
       type: 'Biography',
+      year: '2023',
       note: 'Technology',
     },
     {
@@ -46,6 +50,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: '李一冰',
       status: 'Read',
       type: 'Biography',
+      year: '1983',
       note: 'Life',
     },
     {
@@ -55,6 +60,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: '雷军',
       status: 'Read',
       type: 'Business',
+      year: '2022',
       note: 'Business',
     },
     {
@@ -64,6 +70,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Yuval Noah Harari',
       status: 'Read',
       type: 'History',
+      year: '2011',
       note: 'Humankind',
     },
     {
@@ -73,6 +80,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Jared Diamond',
       status: 'Read',
       type: 'History',
+      year: '1997',
       note: 'Humankind',
     },
     {
@@ -82,6 +90,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Daniel Immerwahr',
       status: 'Read',
       type: 'History',
+      year: '2019',
       note: 'USA',
     },
     {
@@ -91,6 +100,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Tony Judt',
       status: 'Read',
       type: 'History',
+      year: '2005',
       note: 'Europe',
     },
     {
@@ -100,6 +110,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Rowland Miller',
       status: 'Read',
       type: 'Sociology',
+      year: '2006',
       note: 'Psychology',
     },
     {
@@ -109,6 +120,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Graham Allison',
       status: 'Read',
       type: 'Politics',
+      year: '2017',
       note: 'International relationship',
     },
     {
@@ -118,6 +130,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Henry Kissinger',
       status: 'Read',
       type: 'Politics',
+      year: '2011',
       note: 'International relationship',
     },
     {
@@ -127,6 +140,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Marshall Rosenberg',
       status: 'Read',
       type: 'Sociology',
+      year: '1999',
       note: 'People',
     },
     {
@@ -136,6 +150,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Charles Munger',
       status: 'Read',
       type: 'Life',
+      year: '2005',
       note: 'Life',
     },
     {
@@ -145,6 +160,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Peter Theiel',
       status: 'Read',
       type: 'Business',
+      year: '2014',
       note: 'Investment',
     },
     {
@@ -154,6 +170,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Lev Tolstoy',
       status: 'Read',
       type: 'Fiction',
+      year: '1878',
       note: '',
     },
     {
@@ -163,6 +180,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Albert Camus',
       status: 'Read',
       type: 'Fiction',
+      year: '1942',
       note: '',
     },
     {
@@ -172,6 +190,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Gabriel Garcia Marquez',
       status: 'Read',
       type: 'Fiction',
+      year: '1967',
       note: '',
     },
     {
@@ -181,6 +200,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Gabriel Garcia Marquez',
       status: 'Read',
       type: 'Fiction',
+      year: '1985',
       note: '',
     },
     {
@@ -190,6 +210,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Victor Hugo',
       status: 'Read',
       type: 'Fiction',
+      year: '1862',
       note: '',
     },
     {
@@ -199,6 +220,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Henry David Thoreau',
       status: 'Read',
       type: 'Fiction',
+      year: '1854',
       note: '',
     },
     {
@@ -208,6 +230,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Somerset Maugham',
       status: 'Read',
       type: 'Fiction',
+      year: '1944',
       note: '',
     },
     {
@@ -217,6 +240,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Fyodor Dostoevsky',
       status: 'Read',
       type: 'Fiction',
+      year: '1880',
       note: '',
     },
     {
@@ -226,6 +250,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: 'Fyodor Dostoevsky',
       status: 'Read',
       type: 'Fiction',
+      year: '1866',
       note: '',
     },
     {
@@ -235,6 +260,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: '余华',
       status: 'Read',
       type: 'Fiction',
+      year: '1995',
       note: '',
     },
     {
@@ -244,6 +270,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: '路遥',
       status: 'Read',
       type: 'Fiction',
+      year: '1986',
       note: '',
     },
     {
@@ -253,6 +280,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: '沈从文',
       status: 'Read',
       type: 'Fiction',
+      year: '1934',
       note: '',
     },
     {
@@ -262,6 +290,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: '钱钟书',
       status: 'Read',
       type: 'Fiction',
+      year: '1947',
       note: '',
     },
     {
@@ -271,6 +300,7 @@ const generateBooks = (): InterestItem[] => {
       subtitle: '史铁生',
       status: 'Read',
       type: 'Prose',
+      year: '1989',
       note: '',
     },
     // Adding more diverse books to reach > 25 for pagination demo
