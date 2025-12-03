@@ -19,7 +19,7 @@ export const resources: ResourceItem[] = [
     id: 'res3',
     title: 'Lex Fridman on YouTube',
     description: 'Deep interviews with experts from all kinds of fields.',
-    category: 'Podcast',
+    category: 'Channel',
     url: 'https://www.youtube.com/c/lexfridman',
   },
   {
