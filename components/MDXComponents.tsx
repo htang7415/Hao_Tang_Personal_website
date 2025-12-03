@@ -5,25 +5,29 @@ export const MDXComponents = {
   // Headings with consistent styling
   h1: (props: any) => (
     <h1
-      className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-10 mt-16 tracking-tight"
+      className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-12 mt-20 tracking-tight"
+      style={{ lineHeight: '1.2' }}
       {...props}
     />
   ),
   h2: (props: any) => (
     <h2
-      className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-8 mt-16 tracking-tight border-b-2 border-slate-200 dark:border-slate-700 pb-4"
+      className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-10 mt-20 tracking-tight"
+      style={{ lineHeight: '1.3' }}
       {...props}
     />
   ),
   h3: (props: any) => (
     <h3
-      className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 mb-6 mt-12"
+      className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 mb-8 mt-16"
+      style={{ lineHeight: '1.4' }}
       {...props}
     />
   ),
   h4: (props: any) => (
     <h4
-      className="text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-4 mt-8"
+      className="text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-6 mt-12"
+      style={{ lineHeight: '1.4' }}
       {...props}
     />
   ),
@@ -31,7 +35,8 @@ export const MDXComponents = {
   // Paragraphs
   p: (props: any) => (
     <p
-      className="text-lg text-slate-700 dark:text-slate-300 mb-8 leading-loose font-normal tracking-wide"
+      className="text-xl text-slate-600 dark:text-slate-400 mb-10 leading-relaxed font-light"
+      style={{ lineHeight: '1.8' }}
       {...props}
     />
   ),
@@ -39,19 +44,20 @@ export const MDXComponents = {
   // Lists
   ul: (props: any) => (
     <ul
-      className="list-disc list-outside ml-6 mb-8 space-y-3 text-lg text-slate-700 dark:text-slate-300"
+      className="list-disc list-outside ml-6 mb-10 space-y-4 text-xl text-slate-600 dark:text-slate-400"
       {...props}
     />
   ),
   ol: (props: any) => (
     <ol
-      className="list-decimal list-outside ml-6 mb-8 space-y-3 text-lg text-slate-700 dark:text-slate-300"
+      className="list-decimal list-outside ml-6 mb-10 space-y-4 text-xl text-slate-600 dark:text-slate-400"
       {...props}
     />
   ),
   li: (props: any) => (
     <li
-      className="leading-loose font-normal pl-2"
+      className="font-light pl-2"
+      style={{ lineHeight: '1.8' }}
       {...props}
     />
   ),
@@ -59,7 +65,7 @@ export const MDXComponents = {
   // Code blocks
   pre: (props: any) => (
     <pre
-      className="bg-slate-900 dark:bg-slate-950 text-slate-100 p-6 rounded-lg overflow-x-auto my-8 border border-slate-700 dark:border-slate-800 shadow-lg"
+      className="bg-slate-900 dark:bg-slate-950 text-slate-100 p-8 rounded-lg overflow-x-auto my-12 border border-slate-700 dark:border-slate-800 shadow-lg"
       {...props}
     />
   ),
@@ -90,7 +96,8 @@ export const MDXComponents = {
   // Blockquotes
   blockquote: (props: any) => (
     <blockquote
-      className="border-l-4 border-blue-500 dark:border-blue-600 pl-8 pr-6 py-4 my-8 italic text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 rounded-r-lg"
+      className="border-l-4 border-blue-500 dark:border-blue-600 pl-8 pr-6 py-6 my-12 italic text-xl text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/50 rounded-r-lg"
+      style={{ lineHeight: '1.8' }}
       {...props}
     />
   ),
@@ -98,7 +105,7 @@ export const MDXComponents = {
   // Horizontal rule
   hr: (props: any) => (
     <hr
-      className="border-t-2 border-slate-200 dark:border-slate-800 my-16"
+      className="border-t border-slate-200 dark:border-slate-800 my-20"
       {...props}
     />
   ),
@@ -106,7 +113,7 @@ export const MDXComponents = {
   // Images
   img: (props: any) => (
     <img
-      className="rounded-lg shadow-lg mb-8 max-w-full h-auto"
+      className="rounded-lg shadow-lg my-12 max-w-full h-auto"
       loading="lazy"
       {...props}
     />
@@ -115,7 +122,7 @@ export const MDXComponents = {
   // Strong/Bold text
   strong: (props: any) => (
     <strong
-      className="font-semibold text-slate-900 dark:text-slate-100"
+      className="font-semibold text-slate-800 dark:text-slate-200"
       {...props}
     />
   ),

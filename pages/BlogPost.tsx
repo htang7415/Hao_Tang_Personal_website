@@ -42,7 +42,7 @@ const BlogPost: React.FC = () => {
 
   return (
     <MDXProvider components={MDXComponents}>
-      <article className="max-w-3xl mx-auto px-6 py-24">
+      <article className="max-w-2xl mx-auto px-6 py-24">
         {/* Back button */}
         <Link
           to="/blogs"
