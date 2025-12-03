@@ -193,19 +193,19 @@ const Interests: React.FC = () => {
         {/* Book List Grid */}
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
            {/* Header Row (Desktop) */}
-           <div className="hidden md:grid grid-cols-13 gap-6 px-8 py-5 bg-slate-50 dark:bg-slate-800/50 text-xs font-bold text-slate-500 dark:text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
+           <div className="hidden md:grid grid-cols-12 gap-6 px-8 py-5 bg-slate-50 dark:bg-slate-800/50 text-xs font-bold text-slate-500 dark:text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
              <div className="col-span-4">Title</div>
              <div className="col-span-3">Author</div>
              <div className="col-span-1 text-center">Year</div>
              <div className="col-span-2">Type</div>
-             <div className="col-span-3 text-right">Status</div>
+             <div className="col-span-2 text-right">Status</div>
            </div>
 
            {/* List Items */}
            <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
             {currentBooks.length > 0 ? (
               currentBooks.map((book) => (
-                <div key={book.id} className="grid md:grid-cols-13 gap-4 md:gap-6 px-8 py-6 items-center hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
+                <div key={book.id} className="grid md:grid-cols-12 gap-4 md:gap-6 px-8 py-6 items-center hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
                   {/* Title Mobile/Desktop */}
                   <div className="col-span-12 md:col-span-4 font-bold text-xl text-slate-900 dark:text-slate-200">
                     {book.title}
@@ -233,7 +233,7 @@ const Interests: React.FC = () => {
                   </div>
 
                   {/* Status */}
-                  <div className="col-span-12 md:col-span-3 flex md:justify-end mt-3 md:mt-0">
+                  <div className="col-span-12 md:col-span-2 flex md:justify-end mt-3 md:mt-0">
                     <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${
                       book.status === 'Reading' ? 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-300' :
                       book.status === 'Want to Read' ? 'bg-slate-50 border-slate-200 text-slate-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400' :
