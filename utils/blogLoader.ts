@@ -10,7 +10,12 @@ export function getAllBlogPosts(): BlogPost[] {
   const posts: BlogPost[] = [];
 
   for (const [path, module] of Object.entries(blogModules)) {
-    const { frontmatter } = module;
+    const frontmatter = (module as { frontmatter?: BlogPostFrontmatter }).frontmatter;
+
+    // Skip malformed MDX files without frontmatter to avoid hard crashes
+    if (!frontmatter) {
+      continue;
+    }
 
     // Skip unpublished posts in production
     if (import.meta.env.PROD && !frontmatter.published) {
@@ -36,9 +41,11 @@ export function getAllBlogPosts(): BlogPost[] {
 
 export function getBlogPostBySlug(slug: string) {
   for (const [path, module] of Object.entries(blogModules)) {
-    if (module.frontmatter.slug === slug) {
+    const frontmatter = (module as { frontmatter?: BlogPostFrontmatter }).frontmatter;
+
+    if (frontmatter?.slug === slug) {
       return {
-        frontmatter: module.frontmatter,
+        frontmatter,
         Component: module.default,
       };
     }
