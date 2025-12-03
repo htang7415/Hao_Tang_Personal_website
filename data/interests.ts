@@ -175,7 +175,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b18',
+      id: 'b20',
       category: 'Reading',
       title: 'Love in the Time of Cholera',
       subtitle: 'Gabriel Garcia Marquez',
@@ -184,7 +184,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b20',
+      id: 'b21',
       category: 'Reading',
       title: 'Les Misérables',
       subtitle: 'Victor Hugo',
@@ -193,7 +193,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b21',
+      id: 'b22',
       category: 'Reading',
       title: 'Walden',
       subtitle: 'Henry David Thoreau',
@@ -202,7 +202,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b22',
+      id: 'b23',
       category: 'Reading',
       title: 'The Razor\'s Edge',
       subtitle: 'Somerset Maugham',
@@ -211,7 +211,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b23',
+      id: 'b24',
       category: 'Reading',
       title: 'The Brothers Karamazov',
       subtitle: 'Fyodor Dostoevsky',
@@ -220,7 +220,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b24',
+      id: 'b25',
       category: 'Reading',
       title: 'Crime and Punishment',
       subtitle: 'Fyodor Dostoevsky',
@@ -229,7 +229,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b25',
+      id: 'b26',
       category: 'Reading',
       title: '许三观卖血记',
       subtitle: '余华',
@@ -238,7 +238,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b26',
+      id: 'b27',
       category: 'Reading',
       title: '平凡的世界',
       subtitle: '路遥',
@@ -247,7 +247,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b27',
+      id: 'b28',
       category: 'Reading',
       title: '边城',
       subtitle: '沈从文',
@@ -256,7 +256,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b28',
+      id: 'b29',
       category: 'Reading',
       title: '围城',
       subtitle: '钱钟书',
@@ -265,7 +265,7 @@ const generateBooks = (): InterestItem[] => {
       note: '',
     },
     {
-      id: 'b29',
+      id: 'b30',
       category: 'Reading',
       title: '我与地坛',
       subtitle: '史铁生',
