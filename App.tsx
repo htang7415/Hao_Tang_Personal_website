@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import Research from './pages/Research';
 import Blogs from './pages/Blogs';
+import BlogPost from './pages/BlogPost';
 import Resources from './pages/Resources';
 import Interests from './pages/Interests';
 
@@ -36,6 +37,7 @@ const App: React.FC = () => {
               <Route path="/products" element={<Products />} />
               <Route path="/research" element={<Research />} />
               <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blogs/:slug" element={<BlogPost />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/interests" element={<Interests />} />
             </Routes>

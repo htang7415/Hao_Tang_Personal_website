@@ -1,0 +1,218 @@
+---
+title: "Building Resilient APIs"
+date: "2024-06-20"
+summary: "Strategies for rate limiting, caching, and graceful degradation in production services."
+tags: ["Backend", "System Design"]
+slug: "resilient-apis"
+published: true
+---
+
+Your API will fail. The question isn't *if*, but *when*—and how gracefully. [API resilience refers to the ability of an API to consistently perform its intended functions even in the face of errors, high traffic, or unexpected conditions](https://api7.ai/blog/10-common-api-resilience-design-patterns)—accepting that failures will happen and responding in ways that avoid downtime or data loss. Here are battle-tested patterns for building resilient backend services.
+
+## Rate Limiting: The First Line of Defense
+
+[Rate limiting should be a fundamental part of API contract design](https://www.getambassador.io/blog/rate-limiting-apis-scale-patterns-strategies), with well-designed rate limits aligning with user expectations, business models, and technical constraints to create a predictable, fair experience for all API consumers.
+
+Implement rate limiting at multiple layers:
+
+### Per-User Limits (Prevent Abuse)
+```python
+from flask_limiter import Limiter
+
+limiter = Limiter(
+    app,
+    key_func=lambda: request.headers.get('X-User-ID'),
+    default_limits=["100 per hour"]
+)
+
+@app.route('/api/data')
+@limiter.limit("10 per minute")
+def get_data():
+    return jsonify(data)
+```
+
+### Global Limits (Protect Infrastructure)
+Use Redis to track global request counts:
+
+```python
+def check_global_limit():
+    key = f"global_requests:{datetime.now().strftime('%Y%m%d%H%M')}"
+    count = redis.incr(key)
+    redis.expire(key, 60)  # 1-minute window
+
+    if count > 10000:  # 10k requests/min
+        raise RateLimitExceeded()
+```
+
+[Fallback strategies for rate limiting](https://www.getambassador.io/blog/rate-limiting-apis-scale-patterns-strategies) might include local caching of recent decisions, degraded service modes with more conservative limits, or circuit breakers that temporarily allow traffic but monitor for signs of overload.
+
+## Caching: Speed and Resilience
+
+[API Gateways can implement caching and response aggregation](https://api7.ai/blog/10-common-api-resilience-design-patterns), reducing the number of calls to backend services and improving overall system performance.
+
+Cache at multiple levels for different use cases:
+
+| Layer | Use Case | TTL |
+|-------|----------|-----|
+| CDN | Static assets | 1 year |
+| Redis | API responses | 5 to 60 min |
+| In-memory | Config data | 10 min |
+
+**Key insight**: Stale data is better than no data. Use cache even when backend is down:
+
+```python
+def get_user_profile(user_id):
+    cache_key = f"user:{user_id}"
+
+    # Try cache first
+    cached = redis.get(cache_key)
+    if cached:
+        return cached
+
+    # Fetch from database
+    try:
+        profile = db.query(user_id)
+        redis.setex(cache_key, 300, profile)
+        return profile
+    except DatabaseError:
+        # If DB fails, check if we have stale cache
+        stale_cache = redis.get(f"{cache_key}:stale")
+        if stale_cache:
+            return stale_cache  # Better than 500 error
+        raise
+```
+
+[Fallback mechanisms can return cached data when a dependent service fails](https://medium.com/@fahimad/resilient-apis-retry-logic-circuit-breakers-and-fallback-mechanisms-cfd37f523f43), which could be cached data, a default value, or an error message.
+
+## Circuit Breakers: Fail Fast, Recover Faster
+
+[The Circuit Breaker pattern prevents a system from making calls to a service that is likely to fail](https://medium.com/@kittikawin_ball/circuit-breakers-and-rate-limiting-building-resilient-apis-2c1f0e236a24), thus protecting the system from cascading failures. A circuit breaker prevents your API from continuously calling a failing service—once the failure threshold is reached, the circuit "opens" and short-circuits further calls for a cooldown period.
+
+Stop calling broken services immediately:
+
+```python
+from circuitbreaker import circuit
+
+@circuit(failure_threshold=5, recovery_timeout=60)
+def call_external_api():
+    response = requests.get('https://external-api.com/data')
+    response.raise_for_status()
+    return response.json()
+```
+
+When the circuit "opens" after 5 failures, requests fail instantly for 60 seconds instead of timing out. This prevents cascading failures. [When failures are caused by overload, retries that increase load can make matters significantly worse](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/), potentially delaying recovery by keeping the load high long after the original issue is resolved.
+
+## Retry Logic with Exponential Backoff
+
+[Exponential backoff is a technique where operations are retried by increasing wait times for a specified number of retry attempts](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html). The most common pattern is exponential backoff, where the wait time is increased exponentially after every attempt.
+
+### Recommended Configuration
+
+[A good retry strategy uses exponential backoff and randomization, with 3 retries, and delay from 1s to 5s](https://developer.doordash.com/en-US/docs/drive/reference/retry_pattern/).
+
+```python
+import time
+import random
+
+def call_with_retry(func, max_retries=3, base_delay=1, max_delay=32):
+    for attempt in range(max_retries):
+        try:
+            return func()
+        except TransientError as e:
+            if attempt == max_retries - 1:
+                raise
+
+            # Calculate backoff with jitter
+            delay = min(base_delay * (2 ** attempt), max_delay)
+            jitter = random.uniform(0, delay * 0.1)
+            time.sleep(delay + jitter)
+```
+
+### Essential Best Practices
+
+1. **Limit Retries**: [Always set a maximum limit on retries](https://betterstack.com/community/guides/monitoring/exponential-backoff/) to prevent infinite loops.
+
+2. **Add Jitter**: [Jitter adds some amount of randomness to the backoff to spread the retries around in time](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/). This prevents synchronized retries from creating additional load.
+
+3. **Cap Maximum Delay**: [Setting an upper limit (typically 30-60 seconds) prevents extremely long waits](https://docs.fluentcommerce.com/essential-knowledge/api-retries-and-exponential-back-offs) after multiple retries.
+
+4. **Error Type Consideration**: [Not all errors are worth retrying](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-retries-exponential-backoff). For example, retrying after a 404 (Not Found) or 401 (Unauthorized) error usually doesn't make sense. This approach is not recommended for client-side errors including authentication or invalid data (i.e., 300- and 400-level errors).
+
+5. **Idempotency**: [A best practice is designing APIs to be idempotent](https://docs.openbridge.com/en/articles/8250517-api-backoff-retry), meaning they can be safely retried.
+
+6. **Timeout Settings**: [Ensure that your overall timeout settings for the operation are adjusted to account for the time spent in retries](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly).
+
+7. **Monitoring**: Log retry attempts and monitor the rate of retries to understand the health of the external services and the network.
+
+## Graceful Degradation
+
+[In the event of a service failure, the API Gateway can reroute traffic or provide fallback responses](https://www.syncloop.com/blogs/02-04-2025/how-to-build-a-resilient-api-architecture-with-syncloop.html), ensuring that the system degrades gracefully and continues to provide functionality. Rather than failing entirely, it's better to skip over non-critical functionality—[gracefully degrading is always better compared to total failures](https://dev.to/itxshakil/falling-gracefully-the-art-of-software-resilience-1odg).
+
+Identify **must-have** vs. **nice-to-have** features:
+
+```python
+def get_dashboard_data(user_id):
+    data = {
+        "user": get_user(user_id),  # CRITICAL
+        "stats": None,
+        "recommendations": None,
+    }
+
+    # Try optional features, but don't fail entire request
+    try:
+        data["stats"] = get_user_stats(user_id)
+    except Exception as e:
+        log_error(e)
+
+    try:
+        data["recommendations"] = get_recommendations(user_id)
+    except Exception as e:
+        log_error(e)
+
+    return data
+```
+
+Users get a functional dashboard even if recommendations service is down. [To maximize resilience, combine retry logic, circuit breakers, and fallback mechanisms](https://dev.to/gabrielle_eduarda_776996b/resilient-apis-how-to-build-failure-tolerant-backends-in-net-and-aws-5he2): retry failed requests before considering operations failed, stop retrying when failures reach a threshold, and return cached or default data if both retries and circuit breakers fail.
+
+## Monitoring and Alerts
+
+Track these metrics religiously:
+
+- **Error rate**: Alert if more than 1% requests fail
+- **Latency (P99)**: Alert if P99 exceeds 1s
+- **Rate limit hits**: Alert if users hitting limits frequently
+- **Cache hit rate**: Alert if less than 70% hit rate
+
+[LinkedIn's School of SRE emphasizes](https://linkedin.github.io/school-of-sre/level102/system_design/resiliency/) that monitoring is essential for understanding system health and catching issues before they cascade. Track circuit breaker state transitions and retry attempt distributions to understand failure patterns.
+
+## SLA Considerations
+
+[Introducing exponential backoff can have an impact on the service timeout, resulting in longer wait times for the end user](https://www.alibabacloud.com/help/en/kms/key-management-service/use-cases/use-the-exponential-backoff-method-to-retry-requests). [Distinguish between user-facing and background operations](https://betterstack.com/community/guides/monitoring/exponential-backoff/). User-facing operations might prioritize responsiveness with more aggressive timeout values, while background jobs can afford more patience with longer delays and more retry attempts.
+
+---
+
+**Resilience Checklist:**
+- [ ] Rate limiting implemented at multiple layers
+- [ ] Multi-layer caching configured with stale cache fallback
+- [ ] Circuit breakers on external calls with appropriate thresholds
+- [ ] Retry logic with exponential backoff and jitter
+- [ ] Graceful degradation for non-critical features
+- [ ] Comprehensive monitoring and alerting
+- [ ] Idempotent API design for safe retries
+- [ ] Error classification (retriable vs. non-retriable)
+
+[Smart API design includes mechanisms to detect trouble early and respond gracefully](https://www.getambassador.io/blog/rate-limiting-apis-scale-patterns-strategies), not blindly pile on more requests. Build these patterns early—retrofitting resilience is exponentially harder once you're fighting production fires at 3 AM.
+
+## Sources
+
+- [10 Common API Resilience Design Patterns - API7.ai](https://api7.ai/blog/10-common-api-resilience-design-patterns)
+- [Circuit Breakers and Rate Limiting - Building Resilient APIs - Medium](https://medium.com/@kittikawin_ball/circuit-breakers-and-rate-limiting-building-resilient-apis-2c1f0e236a24)
+- [Resilient APIs: Retry Logic, Circuit Breakers, and Fallback Mechanisms - Medium](https://medium.com/@fahimad/resilient-apis-retry-logic-circuit-breakers-and-fallback-mechanisms-cfd37f523f43)
+- [API Rate Limiting at Scale: Patterns, Failures, and Control Strategies - Ambassador](https://www.getambassador.io/blog/rate-limiting-apis-scale-patterns-strategies)
+- [Retry with Backoff Pattern - AWS Prescriptive Guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html)
+- [Timeouts, Retries and Backoff with Jitter - AWS Builders Library](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/)
+- [Best Practice of Retry Strategy - DoorDash Developer Services](https://developer.doordash.com/en-US/docs/drive/reference/retry_pattern/)
+- [Mastering Exponential Backoff in Distributed Systems - Better Stack](https://betterstack.com/community/guides/monitoring/exponential-backoff/)
+- [Implement Retries with Exponential Backoff - Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-retries-exponential-backoff)
+- [Falling Gracefully: The Art of Software Resilience - DEV Community](https://dev.to/itxshakil/falling-gracefully-the-art-of-software-resilience-1odg)
+- [Resiliency - LinkedIn School of SRE](https://linkedin.github.io/school-of-sre/level102/system_design/resiliency/)

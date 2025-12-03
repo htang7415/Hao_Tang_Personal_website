@@ -32,6 +32,21 @@ export interface BlogPost {
   summary: string;
   tags: string[];
   url: string;
+  slug: string;
+}
+
+export interface BlogPostFrontmatter {
+  title: string;
+  date: string;
+  summary: string;
+  tags: string[];
+  slug: string;
+  published: boolean;
+}
+
+export interface MDXContent {
+  default: React.ComponentType;
+  frontmatter: BlogPostFrontmatter;
 }
 
 export interface ResourceItem {

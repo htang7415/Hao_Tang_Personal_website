@@ -1,0 +1,118 @@
+---
+title: "Why I Switched from Redux to Zustand"
+date: "2024-10-12"
+summary: "A look at state management simplicity and why boilerplate reduction matters for velocity."
+tags: ["Engineering", "React"]
+slug: "redux-to-zustand"
+published: true
+---
+
+State management in React has always been a hot topic. For years, Redux was the de facto standard, but as applications grew, so did the boilerplate. With [hundreds of thousands of monthly downloads](https://redux.js.org/faq/performance) and usage by hundreds of companies, Redux has proven itself at scale. Yet for many teams, the complexity trade-offs no longer make sense. Here's why I made the switch to Zustand and never looked back.
+
+## The Redux Fatigue
+
+Redux offers a [predictable state container with centralized application state](https://dev.to/hamzakhan/state-management-in-react-comparing-redux-toolkit-vs-zustand-3no), facilitating organized data access through strict unidirectional data flow. But this predictability comes at a cost.
+
+Working with Redux requires setting up:
+- Actions and action creators
+- Reducers with switch statements
+- Middleware for async operations (redux-thunk or redux-saga)
+- Provider setup at the app root
+- Selectors for deriving state
+
+For a simple counter, you'd write something like this:
+
+```javascript
+// actions.js
+export const INCREMENT = 'INCREMENT';
+export const increment = () => ({ type: INCREMENT });
+
+// reducer.js
+const counterReducer = (state = 0, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return state + 1;
+    default:
+      return state;
+  }
+};
+
+// component.js
+import { useDispatch, useSelector } from 'react-redux';
+const count = useSelector(state => state.counter);
+const dispatch = useDispatch();
+dispatch(increment());
+```
+
+That's a lot of ceremony for a simple operation. While [Redux Toolkit](https://redux-toolkit.js.org/rtk-query/comparison) (RTK) has reduced this overhead with an estimated 9kb min+gzip bundle size for RTK Query and 2kb for hooks, the conceptual complexity remains.
+
+## Enter Zustand
+
+Zustand simplifies this to a single store definition:
+
+```javascript
+import create from 'zustand';
+
+const useStore = create((set) => ({
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+}));
+
+// In component
+const { count, increment } = useStore();
+```
+
+The difference is striking. [Zustand requires minimal setup and reduces the amount of boilerplate code needed](https://blogs.perficient.com/2024/12/18/redux-vs-zustand-a-quick-comparison/), with a gentler learning curve compared to Redux.
+
+**Benefits:**
+1. **Minimal footprint**: [Extremely lightweight solution](https://www.subhojit.me/blog/zustand-vs-redux-toolkit-a-comprehensive-comparison-in-state-management/) with faster performance due to minimal overhead
+2. **Direct state updates**: Call `set()` anywhere in your store without action creators
+3. **No Provider wrapper**: Import and use anywhere without context providers
+4. **TypeScript-first**: Excellent type inference out of the box
+5. **DevTools support**: Still works with Redux DevTools for debugging
+
+## Real-World Impact
+
+On a recent project, switching from Redux to Zustand reduced our state management code by approximately 60%. More importantly, onboarding new developers became trivial—they could understand the entire state flow in minutes rather than hours.
+
+[React-Redux is heavily optimized to cut down on unnecessary re-renders](https://redux.js.org/faq/performance), but Zustand achieves similar performance without the mental overhead. The work done by Redux—processing actions in middleware, updating immutable state, and notifying subscribers—is technically efficient, but the developer experience cost is substantial.
+
+## Bundle Size Considerations
+
+For teams concerned about performance, the numbers matter:
+- Redux core: Small base, but grows with middleware
+- [Redux Toolkit: ~9kb for RTK Query + 2kb for hooks](https://bundlephobia.com/package/react-redux) (if already using Redux Toolkit)
+- Zustand: [Significantly smaller](https://www.wisp.blog/blog/zustand-vs-redux-making-sense-of-react-state-management), often under 3kb total
+
+The [fixed one-time bundle size addition](https://redux-toolkit.js.org/rtk-query/comparison) for RTK Query means additional endpoints add minimal bytes, but the initial investment is higher.
+
+## When Redux Still Makes Sense
+
+Don't throw Redux out entirely. [Redux is perfect for big, complex applications](https://launchyourapp.dev/blog/redux_vs_zustand_in_react_which_one_is_better) and still valuable for:
+
+- **Time-travel debugging**: Redux DevTools' replay feature for complex state investigations
+- **Strict architectural patterns**: When you need enforced unidirectional data flow across large teams
+- **Large teams**: Where [conventions prevent chaos](https://www.expertivia.net/en/articles/mastering-state-management-in-react-a-2024-comparison-redux-toolkit-vs-zustand-vs-jotai-6yxuqvbnmd) and extensive ecosystem support matters
+- **Existing infrastructure**: When you already have Redux and migration costs outweigh benefits
+
+[Zustand excels in simplicity and quick implementation](https://prakashinfotech.com/state-management-comparing-redux-toolkit-zustand-and-react-context), while Redux Toolkit provides a robust structure for complex applications. The key is matching tool complexity to problem complexity.
+
+## The Bottom Line
+
+As one developer noted, ["Redux's reliance on boilerplate code and its steep learning curve may deter developers"](https://iambhavya.medium.com/zustand-or-redux-which-one-is-a-better-state-management-library-0a7e70c7b650), while Zustand offers fast setup and ease of use with minimal fuss.
+
+For new projects under 50k lines of code or teams prioritizing velocity over structure, Zustand is increasingly the right choice. For enterprise applications with hundreds of developers or strict compliance requirements, Redux's maturity and tooling ecosystem remain unmatched.
+
+---
+
+**Takeaway**: Choose tools that match your complexity needs. State management should accelerate development, not slow it down. Sometimes the "boring" choice is Redux. Sometimes it's Zustand. The wisdom is knowing which problem you actually have.
+
+## Sources
+
+- [The Battle of State Management: Redux vs Zustand - DEV Community](https://dev.to/ingeniouswebster/the-battle-of-state-management-redux-vs-zustand-6k4)
+- [State Management in React: Comparing Redux Toolkit vs. Zustand - DEV Community](https://dev.to/hamzakhan/state-management-in-react-comparing-redux-toolkit-vs-zustand-3no)
+- [Comparison - Zustand Documentation](https://zustand.docs.pmnd.rs/getting-started/comparison)
+- [Redux vs Zustand: A Quick Comparison - Perficient](https://blogs.perficient.com/2024/12/18/redux-vs-zustand-a-quick-comparison/)
+- [Zustand vs. Redux Toolkit - A Comprehensive Comparison](https://www.subhojit.me/blog/zustand-vs-redux-toolkit-a-comprehensive-comparison-in-state-management/)
+- [Performance FAQ - Redux](https://redux.js.org/faq/performance)
+- [Redux Toolkit Comparison - RTK Query](https://redux-toolkit.js.org/rtk-query/comparison)
