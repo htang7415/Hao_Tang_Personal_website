@@ -13,7 +13,7 @@ export const resources: ResourceItem[] = [
     title: 'Marketplace',
     description: 'Daily business news and economic stories.',
     category: 'Podcast',
-    url: 'https://www.youtube.com/c/lexfridman',
+    url: 'https://www.marketplace.org/',
   },
   {
     id: 'res3',
