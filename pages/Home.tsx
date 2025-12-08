@@ -15,10 +15,10 @@ const Home: React.FC = () => {
       {/* HERO SECTION */}
       <section className="pt-20 md:pt-40 max-w-5xl mx-auto text-center px-4">
         <h1 className="text-6xl md:text-8xl font-bold tracking-tight text-slate-900 dark:text-slate-50 mb-10">
-          Software & <span className="text-blue-600 dark:text-blue-500">AI Engineer</span>
+          {profile.role.split(' & ')[0]} & <span className="text-blue-600 dark:text-blue-500">{profile.role.split(' & ')[1]}</span>
         </h1>
         <p className="text-xl md:text-3xl text-slate-600 dark:text-slate-400 mb-12 leading-relaxed max-w-4xl mx-auto font-light">
-          I build robust web applications and software products. I apply Artificial Intelligence where it solves real problems, focusing on clarity, utility, and user experience.
+          {profile.tagline}
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-16">
@@ -45,12 +45,11 @@ const Home: React.FC = () => {
             </div>
           </div>
           <div className="space-y-8 text-xl text-slate-600 dark:text-slate-400 leading-loose font-light">
-            <p>
-              I have a background in full-stack engineering with a recent focus on integrating Large Language Models (LLMs) into practical workflows. I believe that technology should be invisible, enabling users to achieve their goals without friction.
-            </p>
-            <p>
-              Currently, I'm interested in roles or collaborations that sit at the intersection of traditional product engineering and applied AI research. I enjoy the challenge of taking a rough prototype and turning it into a production-ready system.
-            </p>
+            {profile.about.paragraphs.map((paragraph, index) => (
+              <p key={index}>
+                {paragraph}
+              </p>
+            ))}
           </div>
         </div>
       </section>

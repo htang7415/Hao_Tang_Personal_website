@@ -23,6 +23,7 @@ export interface ResearchItem {
     demo?: string;
   };
   featured: boolean;
+  highlights?: string; // markdown list
 }
 
 export interface BlogPost {
@@ -68,4 +69,19 @@ export interface InterestItem {
   type?: string; // For Books (e.g. History) or Albums (e.g. Genre)
   url?: string;
   year?: string; // For Albums
+}
+
+export interface Profile {
+  name: string;
+  role: string;
+  tagline: string;
+  email: string;
+  avatar: string;
+  social: {
+    github: string;
+    linkedin: string;
+  };
+  about: {
+    paragraphs: string[];
+  };
 }
