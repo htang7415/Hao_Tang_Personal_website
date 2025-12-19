@@ -282,7 +282,7 @@ Don't just track uptime—measure business impact. A 99.9% uptime means nothing 
 
 **P99 latency with fallback coverage:**
 - Monitor how many responses come from cache vs. live systems
-- Measure whether user journeys stay within target latency (e.g., <200ms for API responses)
+- Measure whether user journeys stay within target latency (e.g., less than 200ms for API responses)
 
 **Mean time to mitigate (MTTM):**
 - How quickly you move to degraded-but-usable state when something fails
@@ -329,7 +329,7 @@ Start with circuit breakers and basic rate limiting. Measure your baseline error
 
 ## References & Further Reading
 
-- [1] Google SRE Book, "Service Level Objectives" ([sre.google/sre-book/service-level-objectives](https://sre.google/sre-book/service-level-objectives))
-- [2] AWS Builders Library, "Timeouts, retries, and backoff with jitter" ([aws.amazon.com/builders-library](https://aws.amazon.com/builders-library/timeouts-retries-backoff))
-- [3] Stripe API Docs, "Rate limits and idempotency" ([stripe.com/docs/rate-limits](https://stripe.com/docs/rate-limits))
-- [4] Microsoft Azure Architecture Center, "Circuit Breaker" pattern ([learn.microsoft.com/azure/architecture/patterns/circuit-breaker](https://learn.microsoft.com/azure/architecture/patterns/circuit-breaker))
+- Google SRE Book, "Service Level Objectives" ([sre.google/sre-book/service-level-objectives](https://sre.google/sre-book/service-level-objectives))
+- AWS Builders Library, "Timeouts, retries, and backoff with jitter" ([aws.amazon.com/builders-library](https://aws.amazon.com/builders-library/timeouts-retries-backoff))
+- Stripe API Docs, "Rate limits and idempotency" ([stripe.com/docs/rate-limits](https://stripe.com/docs/rate-limits))
+- Microsoft Azure Architecture Center, "Circuit Breaker" pattern ([learn.microsoft.com/azure/architecture/patterns/circuit-breaker](https://learn.microsoft.com/azure/architecture/patterns/circuit-breaker))

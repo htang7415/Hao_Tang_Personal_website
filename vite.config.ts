@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => {
       plugins: [
         // MDX plugin MUST come before React plugin
         mdx({
+          providerImportSource: '@mdx-js/react',
           remarkPlugins: [
             remarkGfm,
             remarkFrontmatter,
