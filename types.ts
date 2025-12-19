@@ -43,6 +43,10 @@ export interface BlogPostFrontmatter {
   tags: string[];
   slug: string;
   published: boolean;
+  readingTime?: number; // Reading time in minutes
+  author?: string; // Optional author override
+  coverImage?: string; // Optional hero/cover image
+  views?: number; // View count
 }
 
 export interface MDXContent {

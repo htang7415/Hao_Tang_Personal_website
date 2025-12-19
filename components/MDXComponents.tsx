@@ -1,4 +1,7 @@
 import React from 'react';
+import { CodeBlock } from './CodeBlock';
+import { Callout } from './Callout';
+import { Figure } from './Figure';
 
 // Custom components for MDX content styling
 export const MDXComponents = {
@@ -11,7 +14,7 @@ export const MDXComponents = {
   ),
   h2: (props: any) => (
     <h2
-      className="text-2xl md:text-[26px] font-semibold text-slate-900 dark:text-slate-100 mb-6 mt-12 leading-snug"
+      className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 mb-6 mt-16 leading-snug"
       {...props}
     />
   ),
@@ -31,7 +34,7 @@ export const MDXComponents = {
   // Paragraphs
   p: (props: any) => (
     <p
-      className="text-[17px] md:text-[18px] text-slate-700 dark:text-slate-300 mb-12 leading-[1.7] font-normal"
+      className="text-[17px] md:text-[18px] text-slate-800 dark:text-slate-200 mb-6 leading-[1.75] font-normal"
       {...props}
     />
   ),
@@ -39,13 +42,13 @@ export const MDXComponents = {
   // Lists
   ul: (props: any) => (
     <ul
-      className="list-disc list-outside pl-6 mb-10 space-y-4 text-[17px] md:text-[18px] text-slate-700 dark:text-slate-300"
+      className="list-disc list-outside pl-6 mb-10 space-y-4 text-[17px] md:text-[18px] text-slate-800 dark:text-slate-200"
       {...props}
     />
   ),
   ol: (props: any) => (
     <ol
-      className="list-decimal list-outside pl-6 mb-10 space-y-4 text-[17px] md:text-[18px] text-slate-700 dark:text-slate-300"
+      className="list-decimal list-outside pl-6 mb-10 space-y-4 text-[17px] md:text-[18px] text-slate-800 dark:text-slate-200"
       {...props}
     />
   ),
@@ -57,19 +60,14 @@ export const MDXComponents = {
   ),
 
   // Code blocks
-  pre: (props: any) => (
-    <pre
-      className="bg-slate-900 dark:bg-slate-950 text-slate-100 p-6 rounded-lg overflow-x-auto my-10 border border-slate-800 shadow-lg"
-      {...props}
-    />
-  ),
+  pre: (props: any) => <CodeBlock {...props} />,
   code: (props: any) => {
     // Inline code vs code block
     const isInline = !props.className;
     if (isInline) {
       return (
         <code
-          className="bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400 px-2 py-1 rounded text-base font-mono"
+          className="bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400 px-2 py-1 rounded text-base font-mono font-medium"
           {...props}
         />
       );
@@ -159,4 +157,8 @@ export const MDXComponents = {
   tbody: (props: any) => (
     <tbody {...props} />
   ),
+
+  // Custom MDX components
+  Callout,
+  Figure,
 };

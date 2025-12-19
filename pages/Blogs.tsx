@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, X } from 'lucide-react';
+import { Search, X, Eye } from 'lucide-react';
 import Fuse from 'fuse.js';
 import { SectionTitle } from '../components/LayoutComponents';
 import { getAllBlogPosts } from '../utils/blogLoader';
+import { getViewCount, formatViewCount } from '../utils/viewCounter';
 
 const Blogs: React.FC = () => {
   const blogPosts = getAllBlogPosts();
@@ -104,9 +105,14 @@ const Blogs: React.FC = () => {
                   {post.summary}
                 </p>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap">
                   <span className="text-blue-600 dark:text-blue-500 font-medium text-sm group-hover:underline decoration-2 underline-offset-4">
                     Read Article
+                  </span>
+                  <div className="h-px w-8 bg-slate-200 dark:bg-slate-800"></div>
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-slate-500 dark:text-slate-500">
+                    <Eye size={12} />
+                    {formatViewCount(getViewCount(post.slug))}
                   </span>
                   <div className="h-px w-8 bg-slate-200 dark:bg-slate-800"></div>
                   <div className="flex gap-2">

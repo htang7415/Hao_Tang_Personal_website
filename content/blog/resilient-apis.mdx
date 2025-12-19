@@ -5,9 +5,16 @@ summary: "Practical reliability patterns so your APIs stay online, degrade grace
 tags: ["Backend", "System Design"]
 slug: "resilient-apis"
 published: true
+readingTime: 8
 ---
 
 Reliability is a product feature. When an API flakes during checkout or login, customers churn and teams burn time firefighting instead of shipping. Resilient services absorb traffic spikes, fail gracefully when dependencies misbehave, and keep users informed instead of blocked.
+
+<Callout type="info" title="What You'll Learn">
+This guide covers production-ready patterns for API reliability: circuit breakers, rate limiting, graceful degradation, and observability. Each pattern includes code examples and real-world metrics.
+</Callout>
+
+## Why API Resilience Matters
 
 **What this means for your platform:**
 
@@ -15,22 +22,314 @@ Reliability is a product feature. When an API flakes during checkout or login, c
 - **Keep users informed instead of blocked:** Cache with stale-if-error and targeted fallbacks return something useful while you repair the root cause.
 - **Stop cascades early:** Circuit breakers plus jittered retries keep failures contained and reduce the blast radius when a dependency slows down.
 
-**Patterns to ship this quarter:**
+## Core Resilience Patterns
 
-- **Layered rate limits:** Per-tenant, per-endpoint, and global limits that are published in docs and observability dashboards.
-- **Cache with a fallback path:** Tiered caches and stale data for non-critical reads so pages load even if the source system is unhealthy.
-- **Circuit breakers and jittered retries:** Break hot loops quickly, then retry with exponential backoff only for errors that are safe to repeat.
-- **SLOs with fast feedback:** Health checks, synthetic probes, and on-call runbooks that make it obvious when to shift into degraded mode.
+### Circuit Breaker Pattern
 
-**How to measure success:**
+Circuit breakers prevent cascading failures by stopping requests to unhealthy services. Here's a production-ready implementation:
 
-- **Error budgets tied to KPIs:** Map 99.9% availability to business events like successful sessions or checkouts, not just request counts.
-- **P99 latency with fallback coverage:** Track how many responses come from cache vs. live systems and whether user journeys stay within target latency.
-- **Mean time to mitigate:** Measure how quickly you move to a degraded-but-usable state when something fails.
+<Callout type="tip" title="Implementation Example">
+This circuit breaker tracks failures and opens the circuit after crossing a threshold, preventing request storms to failing services.
+</Callout>
 
-### Citations
+```typescript
+class CircuitBreaker {
+  private failures = 0;
+  private lastFailureTime = 0;
+  private state: 'closed' | 'open' | 'half-open' = 'closed';
+  private readonly threshold = 5;
+  private readonly resetTimeout = 60000; // 1 minute
 
-- [1] Google SRE Book, "Service Level Objectives" (sre.google/sre-book/service-level-objectives)
-- [2] AWS Builders Library, "Timeouts, retries, and backoff with jitter" (aws.amazon.com/builders-library/timeouts-retries-backoff)
-- [3] Stripe API Docs, "Rate limits and idempotency" (stripe.com/docs/rate-limits)
-- [4] Microsoft Azure Architecture Center, "Circuit Breaker" pattern (learn.microsoft.com/azure/architecture/patterns/circuit-breaker)
+  async execute<T>(fn: () => Promise<T>): Promise<T> {
+    if (this.state === 'open') {
+      if (Date.now() - this.lastFailureTime > this.resetTimeout) {
+        this.state = 'half-open';
+      } else {
+        throw new Error('Circuit breaker is open');
+      }
+    }
+
+    try {
+      const result = await fn();
+      this.onSuccess();
+      return result;
+    } catch (error) {
+      this.onFailure();
+      throw error;
+    }
+  }
+
+  private onSuccess() {
+    this.failures = 0;
+    this.state = 'closed';
+  }
+
+  private onFailure() {
+    this.failures++;
+    this.lastFailureTime = Date.now();
+    if (this.failures >= this.threshold) {
+      this.state = 'open';
+    }
+  }
+
+  getState() {
+    return this.state;
+  }
+}
+
+// Usage
+const breaker = new CircuitBreaker();
+const data = await breaker.execute(() => fetchUserData(userId));
+```
+
+<Callout type="warning">
+Always set appropriate timeout values based on your p99 latency. Too aggressive timeouts can cascade failures across your system.
+</Callout>
+
+### Exponential Backoff with Jitter
+
+Retries without jitter can create thundering herd problems. Here's the correct implementation:
+
+```javascript
+async function retryWithBackoff(fn, maxRetries = 3) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt === maxRetries - 1) throw error;
+
+      // Exponential backoff: 100ms, 200ms, 400ms...
+      const baseDelay = 100 * Math.pow(2, attempt);
+
+      // Add jitter to prevent thundering herd
+      const jitter = Math.random() * baseDelay;
+      const delay = baseDelay + jitter;
+
+      console.log(`Retry ${attempt + 1}/${maxRetries} after ${delay}ms`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+}
+
+// Usage
+const result = await retryWithBackoff(() => api.fetchData());
+```
+
+<Callout type="success" title="Why Jitter Matters">
+Without jitter, all clients retry at the same time (100ms, 200ms, 400ms), creating synchronized traffic spikes. Jitter spreads retries across time, reducing load.
+</Callout>
+
+### Rate Limiting
+
+Protect your API from abuse and ensure fair resource allocation:
+
+```python
+from time import time
+from collections import defaultdict
+
+class RateLimiter:
+    def __init__(self, max_requests: int, window_seconds: int):
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self.requests = defaultdict(list)
+
+    def allow_request(self, client_id: str) -> bool:
+        now = time()
+        window_start = now - self.window_seconds
+
+        # Remove old requests outside the window
+        self.requests[client_id] = [
+            req_time for req_time in self.requests[client_id]
+            if req_time > window_start
+        ]
+
+        # Check if under limit
+        if len(self.requests[client_id]) < self.max_requests:
+            self.requests[client_id].append(now)
+            return True
+
+        return False
+
+# Usage: Allow 100 requests per minute per client
+limiter = RateLimiter(max_requests=100, window_seconds=60)
+
+if limiter.allow_request(client_id):
+    return handle_request()
+else:
+    return error_response(429, "Rate limit exceeded")
+```
+
+<Callout type="danger">
+Never implement rate limiting in application code for high-traffic APIs. Use Redis or a dedicated rate limiting service (like Kong, Envoy, or AWS API Gateway) for production workloads.
+</Callout>
+
+## Graceful Degradation
+
+### Cache with Fallback
+
+When primary data sources fail, serve stale data instead of errors:
+
+```go
+package main
+
+import (
+    "context"
+    "time"
+)
+
+type CacheWithFallback struct {
+    cache     Cache
+    db        Database
+    staleTTL  time.Duration
+}
+
+func (c *CacheWithFallback) GetUser(ctx context.Context, id string) (*User, error) {
+    // Try fresh cache first
+    if user, err := c.cache.Get(id); err == nil {
+        return user, nil
+    }
+
+    // Try database
+    user, dbErr := c.db.GetUser(ctx, id)
+    if dbErr == nil {
+        c.cache.Set(id, user, 5*time.Minute)
+        return user, nil
+    }
+
+    // If DB fails, try stale cache
+    if staleUser, err := c.cache.GetStale(id, c.staleTTL); err == nil {
+        // Return stale data but log the degradation
+        logger.Warn("Serving stale user data", "user_id", id, "db_error", dbErr)
+        return staleUser, nil
+    }
+
+    // All fallbacks exhausted
+    return nil, dbErr
+}
+```
+
+<Callout type="tip" title="Pro Tip">
+Set HTTP headers to indicate degraded responses: `X-Cache-Status: STALE` and `Warning: 110 - "Response is Stale"`. This helps clients understand service health.
+</Callout>
+
+## Observability & Monitoring
+
+### Health Check Endpoint
+
+Implement comprehensive health checks:
+
+```rust
+use actix_web::{web, HttpResponse, Responder};
+use serde::Serialize;
+
+#[derive(Serialize)]
+struct HealthStatus {
+    status: String,
+    checks: Vec<ComponentHealth>,
+}
+
+#[derive(Serialize)]
+struct ComponentHealth {
+    name: String,
+    status: String,
+    latency_ms: u64,
+}
+
+async fn health_check() -> impl Responder {
+    let mut checks = vec![];
+
+    // Check database
+    let db_start = std::time::Instant::now();
+    let db_ok = check_database().await;
+    checks.push(ComponentHealth {
+        name: "database".to_string(),
+        status: if db_ok { "healthy" } else { "unhealthy" }.to_string(),
+        latency_ms: db_start.elapsed().as_millis() as u64,
+    });
+
+    // Check cache
+    let cache_start = std::time::Instant::now();
+    let cache_ok = check_cache().await;
+    checks.push(ComponentHealth {
+        name: "cache".to_string(),
+        status: if cache_ok { "healthy" } else { "unhealthy" }.to_string(),
+        latency_ms: cache_start.elapsed().as_millis() as u64,
+    });
+
+    let overall_healthy = checks.iter().all(|c| c.status == "healthy");
+
+    let status = HealthStatus {
+        status: if overall_healthy { "healthy" } else { "degraded" }.to_string(),
+        checks,
+    };
+
+    let status_code = if overall_healthy { 200 } else { 503 };
+    HttpResponse::build(status_code.into()).json(status)
+}
+```
+
+## Measuring Success
+
+### Key Metrics to Track
+
+<Callout type="info">
+Don't just track uptime—measure business impact. A 99.9% uptime means nothing if failures happen during peak hours.
+</Callout>
+
+**Error budgets tied to KPIs:**
+- Map 99.9% availability to business events like successful sessions or checkouts, not just request counts
+- Track error rates by criticality: login failures are worse than profile update failures
+
+**P99 latency with fallback coverage:**
+- Monitor how many responses come from cache vs. live systems
+- Measure whether user journeys stay within target latency (e.g., <200ms for API responses)
+
+**Mean time to mitigate (MTTM):**
+- How quickly you move to degraded-but-usable state when something fails
+- Track time from incident detection to circuit breaker activation
+
+### Sample SLO Dashboard
+
+```yaml
+# Example SLO configuration
+slos:
+  - name: "API Availability"
+    target: 99.9%
+    window: 30d
+    indicators:
+      - metric: "http_requests_total"
+        success_criteria: "status < 500"
+
+  - name: "API Latency"
+    target: 95.0%  # 95% of requests under threshold
+    threshold: 200ms
+    window: 7d
+
+  - name: "Error Budget"
+    allowed_failures: 43.2  # minutes per month at 99.9%
+    burn_rate_alert: 10x    # Alert if burning budget 10x faster
+```
+
+## Production Checklist
+
+Before deploying resilient APIs, ensure you have:
+
+- ✅ Circuit breakers on all external dependencies
+- ✅ Retry logic with exponential backoff and jitter
+- ✅ Rate limiting at multiple layers (global, per-tenant, per-endpoint)
+- ✅ Cache with stale-while-revalidate for non-critical reads
+- ✅ Health check endpoints with dependency status
+- ✅ SLOs defined with error budgets
+- ✅ Runbooks for degraded mode operation
+- ✅ Automated alerts on SLO violations
+
+<Callout type="success" title="Next Steps">
+Start with circuit breakers and basic rate limiting. Measure your baseline error rates and latency, then iterate on cache strategies and fallback paths based on real incident data.
+</Callout>
+
+## References & Further Reading
+
+- [1] Google SRE Book, "Service Level Objectives" ([sre.google/sre-book/service-level-objectives](https://sre.google/sre-book/service-level-objectives))
+- [2] AWS Builders Library, "Timeouts, retries, and backoff with jitter" ([aws.amazon.com/builders-library](https://aws.amazon.com/builders-library/timeouts-retries-backoff))
+- [3] Stripe API Docs, "Rate limits and idempotency" ([stripe.com/docs/rate-limits](https://stripe.com/docs/rate-limits))
+- [4] Microsoft Azure Architecture Center, "Circuit Breaker" pattern ([learn.microsoft.com/azure/architecture/patterns/circuit-breaker](https://learn.microsoft.com/azure/architecture/patterns/circuit-breaker))

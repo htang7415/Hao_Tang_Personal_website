@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MDXProvider } from '@mdx-js/react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Eye } from 'lucide-react';
 import { MDXComponents } from '../components/MDXComponents';
 import { getBlogPostBySlug } from '../utils/blogLoader';
+import { ReadingProgress } from '../components/ReadingProgress';
+import { TableOfContents } from '../components/TableOfContents';
+import { incrementViewCount, formatViewCount } from '../utils/viewCounter';
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [viewCount, setViewCount] = useState<number>(0);
+
+  // Increment view count on mount
+  useEffect(() => {
+    if (slug) {
+      const count = incrementViewCount(slug);
+      setViewCount(count);
+    }
+  }, [slug]);
 
   if (!slug) {
     return (
@@ -41,8 +53,11 @@ const BlogPost: React.FC = () => {
   const { frontmatter, Component } = post;
 
   return (
-    <MDXProvider components={MDXComponents}>
-      <article className="max-w-4xl mx-auto px-6 py-20">
+    <>
+      <ReadingProgress />
+      <div className="relative">
+        <MDXProvider components={MDXComponents}>
+          <article className="max-w-3xl mx-auto px-6 py-20">
         <Link
           to="/blogs"
           className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 mb-10 transition-colors"
@@ -51,10 +66,46 @@ const BlogPost: React.FC = () => {
           <span className="font-medium">Back to all posts</span>
         </Link>
 
-        <header className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 leading-tight tracking-tight">
+        <header className="mb-12 pb-8 border-b border-slate-200 dark:border-slate-800">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-50 leading-tight tracking-tight mb-4">
             {frontmatter.title}
           </h1>
+
+          {/* Metadata row */}
+          <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400 font-mono">
+            <time dateTime={frontmatter.date}>
+              {new Date(frontmatter.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
+            {frontmatter.readingTime && (
+              <>
+                <span>·</span>
+                <span>{frontmatter.readingTime} min read</span>
+              </>
+            )}
+            <span>·</span>
+            <span className="inline-flex items-center gap-1">
+              <Eye size={14} />
+              {formatViewCount(viewCount)}
+            </span>
+          </div>
+
+          {/* Tags */}
+          {frontmatter.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {frontmatter.tags.map(tag => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 text-sm rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </header>
 
         <div className="text-slate-800 dark:text-slate-100">
@@ -70,8 +121,13 @@ const BlogPost: React.FC = () => {
             Back to all posts
           </Link>
         </footer>
-      </article>
-    </MDXProvider>
+          </article>
+        </MDXProvider>
+
+        {/* Table of Contents - Desktop only */}
+        <TableOfContents />
+      </div>
+    </>
   );
 };
 
