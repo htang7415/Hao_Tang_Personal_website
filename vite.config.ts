@@ -7,7 +7,6 @@ import remarkFrontmatter from 'remark-frontmatter';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
@@ -28,7 +27,6 @@ export default defineConfig(({ mode }) => {
           rehypePlugins: [
             rehypeHighlight,
             rehypeSlug,
-            [rehypeAutolinkHeadings, { behavior: 'wrap' }],
           ],
         }),
         react(),

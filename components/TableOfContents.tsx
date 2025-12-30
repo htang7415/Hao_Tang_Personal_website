@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface Heading {
   id: string;
@@ -9,6 +10,8 @@ interface Heading {
 export const TableOfContents: React.FC = () => {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>('');
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Extract headings after MDX renders
   useEffect(() => {
@@ -51,10 +54,19 @@ export const TableOfContents: React.FC = () => {
     return () => observer.disconnect();
   }, [headings]);
 
+  useEffect(() => {
+    if (!headings.length || !location.hash) return;
+    const targetId = decodeURIComponent(location.hash.slice(1));
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [headings, location.hash]);
+
   if (headings.length === 0) return null;
 
   return (
-    <aside className="hidden xl:block fixed right-8 top-32 w-64">
+    <aside className="hidden xl:block fixed right-8 top-32 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
       <nav className="space-y-1">
         <h4 className="font-semibold text-slate-900 dark:text-slate-100 mb-3 text-sm">
           On This Page
@@ -63,7 +75,21 @@ export const TableOfContents: React.FC = () => {
           {headings.map(h => (
             <li key={h.id}>
               <a
-                href={`#${h.id}`}
+                href={`#${location.pathname}${location.search}#${h.id}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  const target = document.getElementById(h.id);
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                  const targetHash = `#${h.id}`;
+                  if (location.hash !== targetHash) {
+                    navigate(
+                      { pathname: location.pathname, search: location.search, hash: targetHash },
+                      { replace: true }
+                    );
+                  }
+                }}
                 className={`
                   block py-1 transition-colors
                   ${h.level === 3 ? 'pl-4' : 'pl-0'}
