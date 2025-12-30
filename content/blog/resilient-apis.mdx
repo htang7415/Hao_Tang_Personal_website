@@ -314,14 +314,14 @@ slos:
 
 Before deploying resilient APIs, ensure you have:
 
-- ✅ Circuit breakers on all external dependencies
-- ✅ Retry logic with exponential backoff and jitter
-- ✅ Rate limiting at multiple layers (global, per-tenant, per-endpoint)
-- ✅ Cache with stale-while-revalidate for non-critical reads
-- ✅ Health check endpoints with dependency status
-- ✅ SLOs defined with error budgets
-- ✅ Runbooks for degraded mode operation
-- ✅ Automated alerts on SLO violations
+- Circuit breakers on all external dependencies
+- Retry logic with exponential backoff and jitter
+- Rate limiting at multiple layers (global, per-tenant, per-endpoint)
+- Cache with stale-while-revalidate for non-critical reads
+- Health check endpoints with dependency status
+- SLOs defined with error budgets
+- Runbooks for degraded mode operation
+- Automated alerts on SLO violations
 
 <Callout type="success" title="Next Steps">
 Start with circuit breakers and basic rate limiting. Measure your baseline error rates and latency, then iterate on cache strategies and fallback paths based on real incident data.
