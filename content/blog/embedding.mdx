@@ -594,7 +594,7 @@ image1 = Image.open(requests.get(url1, stream=True).raw).convert("RGB")
 image2 = Image.open(requests.get(url2, stream=True).raw).convert("RGB")
 
 # Text queries
-texts = ["two cats on a couch", "a person on a skateboard", "a dog"]
+texts = ["two cats on a couch", "a red double-decker bus on a city street", "a dog"]
 
 # Encode
 inputs = processor(text=texts, images=[image1, image2],
@@ -612,7 +612,7 @@ with torch.no_grad():
 print("Image-to-text similarity:")
 print(probs)
 # Output: image1 → "two cats on a couch" (high prob)
-# image2 → "a person on a skateboard" (high prob)
+# image2 → "a red double-decker bus on a city street" (high prob)
 ```
 
 **Key takeaway:** CLIP's contrastive training enables zero-shot retrieval. No fine-tuning needed.
