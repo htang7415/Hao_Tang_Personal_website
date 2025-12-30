@@ -272,12 +272,12 @@ class QFormer(nn.Module):
 
 **Trade-offs:**
 - ✅ **Compression:** 197 tokens → 32 tokens (6× reduction)
-- ✅ **Works with frozen models:** Only Q-Former is trainable
+- ✅ **Works with frozen models:** Only Q-Former + projection are trainable
 - ✅ **Fixed cost:** Always 32 tokens regardless of input size
-- ❌ **More parameters:** Adds ~12M parameters (Q-Former weights)
+- ❌ **More parameters:** Adds tens of millions of parameters (e.g., ~40M for a 6-layer, 768-dim Q-Former)
 - ❌ **Information bottleneck:** May lose fine-grained visual details
 
-**Real numbers:** BLIP-2 reduces 197 image tokens to 32, saving ~84% of context window. For 8-frame video: 1,568 → 32 tokens (98% reduction!)
+**Real numbers:** BLIP-2 reduces 197 image tokens to 32, saving ~84% of context window. For 8-frame video: 1,576 → 32 tokens (98% reduction!)
 
 ```mermaid
 graph LR
@@ -478,7 +478,7 @@ Here's a quick comparison of the three main patterns:
 |---------|-------------|------------|----------|---------|
 | **Early Fusion** | Sum of all modalities | O(n²) where n=total | Simple tasks, small inputs | Image (196) + Text (50) = 246 tokens |
 | **Cross-Attention** | Text tokens only | O(n×m) | Fine-grained reasoning | Text (50) attends to Image (196) |
-| **Latent Queries** | Fixed (32-64) | O(1) | Videos, multiple images | 8 frames (1,568) → 32 tokens |
+| **Latent Queries** | Fixed (32-64) | O(1) | Videos, multiple images | 8 frames (1,576) → 32 tokens |
 
 ### Pattern 1: Early Fusion (Concatenate)
 
@@ -507,7 +507,7 @@ def early_fusion(image_embeds, text_embeds, audio_embeds):
 
 **Cons:**
 - ❌ Quadratic complexity: O((196+50)²) = 60K operations
-- ❌ Doesn't scale: 8-frame video = 1,618 tokens = 2.6M operations
+- ❌ Doesn't scale: 8-frame video = 1,576 tokens ≈ 2.48M operations
 - ❌ Wastes context: Visual tokens compete with text for attention
 
 **When to use:** Single image + short text (< 100 tokens total), research prototypes
@@ -560,7 +560,7 @@ graph TD
 **Pros:**
 - ✅ Fixed compute: Always 32 tokens regardless of input (1 image vs 100 images)
 - ✅ Works with frozen models: CLIP + GPT-3 stay frozen
-- ✅ Massive compression: 1,568 video tokens → 32 (98% reduction)
+- ✅ Massive compression: 1,576 video tokens → 32 (98% reduction)
 
 **Cons:**
 - ❌ Information bottleneck: May lose fine-grained details (small text, precise counts)
@@ -664,7 +664,7 @@ class ImageCaptioningModel(nn.Module):
 # loss = model(images, caption_ids)
 ```
 
-**Key takeaway:** Q-Former is the "bridge" between frozen vision and language models. Cheap to train (~12M params), enables powerful captioning.
+**Key takeaway:** Q-Former is the "bridge" between frozen vision and language models. Relatively small vs LLMs (tens of millions of params), enables powerful captioning.
 
 ### Example 3: Audio-Text Retrieval (ImageBind-Inspired)
 
@@ -728,7 +728,7 @@ print(similarity)
 | **Q-Former** | 197 → 32 (84%) | Minimal (&lt;5%) | Use BLIP-2 architecture |
 | **Spatial pooling** | 197 → 49 (75%) | Low (~10%) | Average 2×2 patches |
 | **Cross-attention** | 0 (stored separately) | None | Modify LLM architecture |
-| **Resize images** | 224²→112² = 49 tokens | Moderate (~20%) | Smaller patch size |
+| **Resize images** | 224²→112² = 49 tokens | Moderate (~20%) | Downsample images |
 
 **Quick fix:** Use BLIP-2's Q-Former. It's pretrained and works out-of-the-box.
 
@@ -754,7 +754,8 @@ similarity = image_embeds @ text_embeds.t()       # Range: [-1, 1]
 
 **Pro tip:** Add an assertion during development:
 ```python
-assert torch.allclose(image_embeds.norm(dim=-1), torch.ones(len(image_embeds)))
+norms = image_embeds.norm(dim=-1)
+assert torch.allclose(norms, torch.ones_like(norms))
 ```
 
 ### Problem 3: Catastrophic Forgetting ("My LLM forgot how to write!")
@@ -777,7 +778,7 @@ text_only_perplexity = 45.7  # Bad! Language degraded
 1. **Freeze the LLM, train only adapters** (BLIP-2 approach)
    - Keep LLM frozen, train Q-Former + projection only
    - Preserves 100% of language performance
-   - Cost: ~12M trainable params
+   - Cost: tens of millions of trainable params (Q-Former + projection)
 
 2. **Use LoRA** (parameter-efficient tuning)
    - Add low-rank matrices: `W' = W + AB` where A, B are small
