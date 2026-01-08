@@ -13,10 +13,11 @@ export const researchItems: ResearchItem[] = [
     },
     featured: true,
     highlights: `
-- Build diffusion- and transformer-based models to generate polymers with valid connection points and realistic chemical structures.
-- Train LLM-based fragment encoders to capture chemical grammar and improve property-guided generation for resistance, solubility, and stability.
-- Develop reinforcement learning and Bayesian optimization pipelines for goal-directed molecule generation to reduce manual screening effort.
-- Integrate preprocessing, generation, and evaluation into a scalable pipeline with automated metrics for validity, novelty, and goal satisfaction.
+- Built Diffusion Transformer (DiT) and transformer-based inverse design models across polymer representations (SMILES, SELFIES, Group SELFIES, and graph tokens), enabling controllable sampling with constraints on connectivity, validity, uniqueness, and synthetic feasibility.
+- Designed multimodal tokenizers and embedding spaces, training LLM-based fragment encoders and graph-aware embeddings to align sequence- and structure-level representations, improving chemical grammar learning and downstream property prediction.
+- Developed property- and function-guided generation for single- and multi-objective targets (e.g., resistance, solubility, stability, functional-group constraints), combining DiT sampling with reinforcement learning and Bayesian optimization for structure refinement.
+- Built an AI-agent-driven generation loop to orchestrate prompting, sampling, scoring, and iterative refinement, automating evaluation and reducing manual screening via validity/novelty/goal-satisfaction metrics.
+- Ran systematic representation and scaling comparisons, benchmarking tokenizer choices and DiT/transformer scaling behavior, and showed multimodal transformer embeddings outperform traditional feature engineering for inverse design and property prediction tasks.
 `
   },
   {
