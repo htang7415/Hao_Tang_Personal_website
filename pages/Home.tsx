@@ -14,9 +14,6 @@ const Home: React.FC = () => {
       
       {/* HERO SECTION */}
       <section className="pt-20 md:pt-40 max-w-5xl mx-auto text-center px-4">
-        <h1 className="text-6xl md:text-8xl font-bold tracking-tight text-slate-900 dark:text-slate-50 mb-10">
-          {profile.role.split(' & ')[0]} & <span className="text-blue-600 dark:text-blue-500">{profile.role.split(' & ')[1]}</span>
-        </h1>
         <p className="text-xl md:text-3xl text-slate-600 dark:text-slate-400 mb-12 leading-relaxed max-w-4xl mx-auto font-light">
           {profile.tagline}
         </p>
