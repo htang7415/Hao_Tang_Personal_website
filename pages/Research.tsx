@@ -8,7 +8,7 @@ const Research: React.FC = () => {
     <div className="max-w-4xl mx-auto px-6 py-24">
       <SectionTitle 
         title="Research" 
-        subtitle="Exploring how to turn advances in LLMs and generative AI into real software products, with a focus on bridging the gap between academic research and commercial applications."
+        subtitle="Research and research software across retrieval infrastructure, agent-memory evaluation, generative modeling, uncertainty quantification, and stochastic mechanics."
       />
 
       <div className="space-y-16">

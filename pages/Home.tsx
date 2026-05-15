@@ -54,7 +54,7 @@ const Home: React.FC = () => {
       {/* FEATURED PRODUCTS */}
       <section className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-end mb-12 max-w-6xl mx-auto">
-           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100">Featured Products</h2>
+           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100">Featured Products & Systems</h2>
            <Button asLink to="/products" variant="outline" className="hidden sm:inline-flex text-sm py-2.5 px-5 rounded-full">View all</Button>
         </div>
         <div className="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
           ))}
         </div>
         <div className="mt-8 text-center sm:hidden">
-            <Button asLink to="/products" variant="outline" className="text-sm rounded-full w-full">View all products</Button>
+            <Button asLink to="/products" variant="outline" className="text-sm rounded-full w-full">View all products and systems</Button>
         </div>
       </section>
 
@@ -95,7 +95,7 @@ const Home: React.FC = () => {
               </div>
               <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-4xl leading-relaxed font-light">{item.summary}</p>
               <div className="flex gap-6">
-                <a href={item.links?.pdf || item.links?.demo || '#'} className="text-blue-600 dark:text-blue-500 text-lg font-medium hover:underline flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                <a href="#/research" className="text-blue-600 dark:text-blue-500 text-lg font-medium hover:underline flex items-center gap-2 group-hover:translate-x-1 transition-transform">
                   View Details <ArrowRight size={20} />
                 </a>
               </div>

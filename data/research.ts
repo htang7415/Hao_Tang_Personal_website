@@ -2,132 +2,103 @@ import { ResearchItem } from '../types';
 
 export const researchItems: ResearchItem[] = [
   {
-    id: 'r1',
-    title: 'Generative AI for Functional Polymer Inverse Design',
-    typeOrVenue: 'Research Assistant, UW–Madison, 2025–present',
+    id: 'maxionbench',
+    title: 'MaxionBench: Retrieval Infrastructure Decision Audits',
+    typeOrVenue: 'Research software, 2026',
     summary:
-      'Developing diffusion- and transformer-based generative models with LLM-based fragment encoders for inverse design of functional polymers under validity, uniqueness, and synthetic feasibility constraints.',
-    tags: ['Generative Models', 'Diffusion', 'AI for Science'],
+      'A reproducible Python benchmark for evaluating vector retrieval engines as operational memory candidates under explicit conformance, quality, latency, throughput, budget-stability, and context-cost constraints.',
+    tags: ['Retrieval', 'Benchmarking', 'FAISS', 'Qdrant'],
+    featured: true,
+    highlights: `
+- Built a Python benchmark package with CLI workflows, typed result schemas, engine adapters, dataset loaders, orchestration, reporting, and archive tooling for FAISS, LanceDB, pgvector, and Qdrant.
+- Designed a shared adapter contract covering lifecycle, CRUD, filtering, update/delete semantics, batch query, flush/commit, compaction, and resource stats.
+- Implemented B0/B1/B2 orchestration with promotion gates and strict-schema validation; validated 72 archived run directories with 0 schema errors.
+- Evaluated static retrieval, streaming memory, and multi-evidence retrieval workloads, reporting objective-sensitive decisions rather than a single universal ranking.
+`
+  },
+  {
+    id: 'memtrace',
+    title: 'MEMTRACE: Persistent-Memory Risk in Tool-Using Agents',
+    typeOrVenue: 'Research software, 2026',
+    summary:
+      'A Python/MLX benchmark harness that separates retrieval exposure, memory admission, trigger-time retrieval, planner proposals, policy-check diagnostics, unsafe tool execution, and execution-format failures.',
+    tags: ['LLM Agents', 'Memory', 'Evaluation', 'MLX'],
+    featured: true,
+    highlights: `
+- Built a trace-level evaluation protocol for delayed memory-mediated risk in tool-using agents with matched clean, one-shot, and stateful attack episodes.
+- Produced a 324-trace audited pilot across three memory-system variants, plus a 72-trace oracle-retrieved-memory calibration packet.
+- Implemented Pydantic trace schemas, deterministic tool stubs, causal-chain scoring, Wilson intervals, no-inference metric regeneration, and pytest-covered validation.
+- Showed why one-shot unsafe execution, poisoned-memory admission, trigger-time retrieval, and delayed unsafe execution need to be measured as separate outcomes.
+`
+  },
+  {
+    id: 'polydit',
+    title: 'PolyDiT: Five-Representation Diffusion Transformer',
+    typeOrVenue: 'Research Assistant, UW-Madison, 2025-present',
+    summary:
+      'A five-view Diffusion Transformer framework for generation, representation learning, property prediction, retrieval, OOD analysis, and reranking across sequence and graph representations.',
+    tags: ['Diffusion Models', 'Transformers', 'Distributed Training'],
     links: {
       code: 'https://github.com/htang7415/PolyDiffusion'
     },
     featured: true,
     highlights: `
-- Built Diffusion Transformer (DiT) and transformer-based inverse design models across polymer representations (SMILES, SELFIES, Group SELFIES, and graph tokens), enabling controllable sampling with constraints on connectivity, validity, uniqueness, and synthetic feasibility.
-- Designed multimodal tokenizers and embedding spaces, training LLM-based fragment encoders and graph-aware embeddings to align sequence- and structure-level representations, improving chemical grammar learning and downstream property prediction.
-- Developed property- and function-guided generation for single- and multi-objective targets (e.g., resistance, solubility, stability, functional-group constraints), combining DiT sampling with reinforcement learning and Bayesian optimization for structure refinement.
-- Built an AI-agent-driven generation loop to orchestrate prompting, sampling, scoring, and iterative refinement, automating evaluation and reducing manual screening via validity/novelty/goal-satisfaction metrics.
-- Ran systematic representation and scaling comparisons, benchmarking tokenizer choices and DiT/transformer scaling behavior, and showed multimodal transformer embeddings outperform traditional feature engineering for inverse design and property prediction tasks.
+- Built Slurm/PyTorch DDP workflows for character p-SMILES, BPE p-SMILES, SELFIES, Group SELFIES, and graph-token DiT pipelines on a 4-node, 16-GPU cluster.
+- Benchmarked 20 model-size/view generation runs across 200,000 generated candidates, tracking validity, two-star validity, uniqueness, novelty, diversity, synthetic accessibility, and valid-per-second throughput.
+- Achieved up to 99.77% valid two-attachment generation with SELFIES, 89.37% with Graph, and 83.21% with Group SELFIES on 10,000-sample benchmarks.
+- Reused pretrained DiT backbones as property predictors across eight tasks, reaching holdout-test R2 up to 0.919 and average best-view R2 of 0.800.
 `
   },
   {
-    id: 'r2',
-    title: 'Machine Learning for Water-Soluble Polymer Discovery',
-    typeOrVenue: 'Research Assistant, UW–Madison, 2024–2025',
+    id: 'rl-inverse-design',
+    title: 'RL-Guided Water-Miscible Inverse Design',
+    typeOrVenue: 'Research Assistant, UW-Madison, 2026',
     summary:
-      'Combines high-throughput simulation, physics-informed neural networks, and Bayesian optimization to discover synthesizable water-soluble polymers at scale.',
-    tags: ['Machine Learning', 'Bayesian Optimization', 'HPC'],
-    links: {
-      code: 'https://github.com/htang7415/Water_soluble_polymer_discovery',
-      demo: 'https://polymer-prediction-platform-ht.streamlit.app/'
-    },
+      'A target-conditioned diffusion workflow comparing supervised conditional generation, classifier-free guidance, best-of-k oracle guidance, and PPO/GRPO/DPO/RL alignment for constrained molecular design.',
+    tags: ['Inverse Design', 'Reinforcement Learning', 'Diffusion'],
     featured: true,
     highlights: `
-- Built an HPC data-generation pipeline using MPI and Slurm to process 14.8M+ candidate polymers, accelerating screening and reducing compute latency.
-- Developed PINNs and transfer-learning models that achieve 0.98 R² and 97% classification accuracy for molecular property prediction.
-- Implemented Bayesian optimization over LogP and Flory–Huggins χ to prioritize promising candidates and reduce evaluation time.
-- Deployed a web-based prediction platform with Streamlit (Polymer-Discovery-Platform) for interactive model inference and visualization.
+- Built the Step 5 inverse-design driver for target-conditioned diffusion, resolving target rows, manifests, validation diagnostics, config snapshots, and enabled S0-S4 runs.
+- Implemented 7-dimensional condition bundles, shift-only conditional transformer modulation, classifier-free guidance, family-aware decode priors, and final repair heuristics.
+- Evaluated generated candidates with gates for validity, novelty, terminal-star correctness, solubility, chi bounds, class match, and synthetic accessibility.
+- Compared S0-S4 methods across four target settings; S2 reached a 93.2% mean discovery hit rate, while aligned S4 variants reached 96.7%-98.9%.
 `
   },
   {
-    id: 'r3',
-    title: 'Uncertainty Quantification in Machine Learning for Polymer Informatics',
-    typeOrVenue: 'Research Assistant, UW–Madison, 2023–2024',
+    id: 'uq-benchmark',
+    title: 'Uncertainty Quantification for ML Property Prediction',
+    typeOrVenue: 'Journal of Chemical Information and Modeling, 2025',
     summary:
-      'Designs an ML infrastructure and uncertainty-aware evaluation framework for robust polymer property prediction across in- and out-of-distribution regimes.',
-    tags: ['Uncertainty Quantification', 'Machine learning', 'AI for Science'],
+      'A systematic benchmark of nine uncertainty quantification methods across multiple property targets, OOD data, high-temperature subsets, and structural classes.',
+    tags: ['Uncertainty Quantification', 'Bayesian ML', 'Calibration'],
     links: {
       pdf: 'https://pubs.acs.org/doi/full/10.1021/acs.jcim.5c00550',
       code: 'https://github.com/htang7415/Uncertianty_quantification_Polymer_informatics'
     },
     featured: true,
     highlights: `
-- Designed a modular ML infrastructure in PyTorch and scikit-learn for large-scale polymer property prediction.
-- Benchmarked 9 uncertainty quantification methods to improve reliability on both in-distribution and out-of-distribution datasets.
-- Automated evaluation pipelines with R², Spearman’s ρ, and calibration metrics, significantly reducing manual analysis effort.
-- Containerized end-to-end workflows with Docker and optimized job scheduling using Slurm to enable reproducible, scalable HPC training.
+- Benchmarked Ensemble, GPR, MCD, MVE, BNN-VI, BNN-MCMC, EDL, QR, and NGBoost across Tg, Eg, Tm, and Td targets.
+- Used 5-fold cross-validation, Optuna tuning, R2, Spearman correlation, and calibration area to evaluate accuracy and uncertainty quality together.
+- Evaluated 240 experimental OOD Tg samples, 566 MD-derived OOD Tg samples, 442 high-Tg candidates, and nine structural classes.
+- Found context-dependent winners: Ensemble for in-distribution prediction, BNN-MCMC for OOD Tg, NGBoost for high-Tg candidates, and BNN-VI across structural classes.
 `
   },
   {
-    id: 'r4',
-    title: 'Stochastic Isogeometric Buckling Analysis of Composite Shells with Multiple Uncertainties',
-    typeOrVenue: 'Research Assistant, Dalian University of Technology, 2021–2022',
+    id: 'siga',
+    title: 'Stochastic Isogeometric Buckling Analysis of Composite Shells',
+    typeOrVenue: 'Reliability Engineering & System Safety, 2023',
     summary:
-      'Introduces a stochastic isogeometric analysis framework for composite shells to quantify probabilistic buckling behavior under multiple sources of uncertainty.',
-    tags: ['Isogeometric Analysis', 'Stochastic Modeling', 'Composite Structures'],
+      'A stochastic isogeometric analysis framework for composite-shell buckling under thickness, material-property, and fiber-angle uncertainty.',
+    tags: ['Stochastic Modeling', 'Reliability', 'Isogeometric Analysis'],
     links: {
       pdf: 'https://www.sciencedirect.com/science/article/pii/S0951832022005270'
     },
     featured: true,
     highlights: `
-- Built an isogeometric analysis framework in MATLAB/C++ that integrates uncertainty and reliability evaluation for shell structures.
-- Modeled spatially varying randomness using Karhunen–Loève expansions for stochastic representation of material and geometric properties.
-- Predicted probabilistic buckling behavior and assessed structural safety using perturbation-based stochastic methods.
-`
-  },
-  {
-    id: 'r5',
-    title: 'NURBS-Based Degenerated Stiffener Element for Isogeometric Static and Buckling Analysis',
-    typeOrVenue: 'Research Assistant, Dalian University of Technology, 2021',
-    summary:
-      'Develops a NURBS-based degenerated stiffener element to enable accurate and efficient static and buckling analysis of stiffened shell structures.',
-    tags: ['Isogeometric Analysis', 'NURBS', 'Structural Mechanics'],
-    links: {
-      pdf: '#'
-    },
-    featured: false,
-    highlights: `
-- Proposed a stiffener design strategy based on main stress-line analysis to guide optimal reinforcement layouts in stiffened shells.
-- Designed thin-walled stiffeners via isogeometric analysis (IGA), improving load transfer efficiency in complex shell geometries.
-- Verified stiffener accuracy and design efficiency through Abaqus finite element simulations.
-`
-  },
-  {
-    id: 'r6',
-    title: 'Modal Analysis of Pipe Structures Considering Fluid-Structure Interaction',
-    typeOrVenue: 'Research Assistant, Dalian University of Technology, 2020–2021',
-    summary:
-      'Modal and acoustic analysis of pipe structures under fluid–structure interaction using CAD modeling and finite element simulations, validated against experiments.',
-    tags: ['Fluid–Structure Interaction', 'Modal Analysis', 'FEA'],
-    links: {
-      pdf: '#'
-    },
-    featured: false,
-    highlights: `
-  - Modeled and assembled a water tunnel pipe structure in UG CAD, producing simulation-ready 3D geometry.
-  - Performed acoustic and pre-stress modal analysis in ANSYS Workbench to capture coupled fluid–structure effects.
-  - Validated simulation results against experiments, reducing error to below 10% and ensuring predictive accuracy.
-  `
-  },
-  {
-    id: 'r7',
-    title: 'Computational Mechanics & Structural Optimization Studies',
-    typeOrVenue: 'Research Assistant, Dalian University of Technology, 2021–2022',
-    summary:
-      'A series of projects on fluid-structure interaction, modal analysis, and lightweight structural design using CAD/FEA tools and genetic algorithms.',
-    tags: ['Computational Mechanics', 'FEA', 'Genetic Algorithms'],
-    links: {
-      pdf: '#'
-    },
-    featured: false,
-    highlights: `
-- Modeled and assembled water tunnel pipe structures in UG CAD and performed acoustic and pre-stress modal analysis in ANSYS Workbench.
-- Validated simulation results against experiments, reducing error to below 10% and ensuring predictive accuracy.
-- Built parametric CAD and finite element models (UG, Creo, Abaqus) for lightweight aerospace structures.
-- Applied genetic algorithm optimization in MATLAB to increase satellite capsule frequency by 30% and improve structural reliability under varied loads.
+- Developed a SIGA framework for composite-shell buckling, representing uncertain thickness, material properties, and fiber angles as spatial random fields.
+- Discretized Gaussian random fields with Karhunen-Loeve expansion and isogeometric Galerkin projection, then derived first-order perturbation terms.
+- Validated probabilistic buckling estimates against SFEM and MCS, keeping free-form-shell response errors below 1.5% in tested cases.
+- Matched reliability-analysis probability-of-failure estimates with relative errors below 5% for tested cases while reducing computational cost versus SFEM and MCS.
 `
   }
 ];
-
-
-

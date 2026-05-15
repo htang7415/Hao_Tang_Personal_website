@@ -6,8 +6,8 @@ const Products: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-6 py-24">
       <SectionTitle 
-        title="Products" 
-        subtitle="I build a mix of AI-related and non-AI web/software products. Each card below links to its own website."
+        title="Products & Systems" 
+        subtitle="A focused set of shipped software and benchmark systems, from native iOS product work to reproducible AI evaluation infrastructure."
       />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
