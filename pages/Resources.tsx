@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ExternalLink, Search, Mic, Users, MonitorPlay, Wrench, LayoutGrid } from 'lucide-react';
+import { ExternalLink, LayoutGrid, Mic, MonitorPlay, Search, Users, Wrench } from '../components/icons';
 import { SectionTitle } from '../components/LayoutComponents';
 import { resources } from '../data/resources';
 

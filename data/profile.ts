@@ -2,8 +2,8 @@ import { Profile } from '../types';
 
 export const profile: Profile = {
   name: "Hao Tang",
-  role: "Software and ML Systems Engineer",
-  tagline: "I build reliable software, ML evaluation systems, and scientific AI workflows with clear interfaces and measurable behavior.",
+  role: "AI Research Engineer / ML Systems Research Engineer",
+  tagline: "I build agent-evaluation systems, retrieval-memory benchmarks, post-training workflows, and reliable ML infrastructure with measurable behavior.",
   email: "htang7415@gmail.com",
   // To replace the image:
   // 1. Add your image file to your project's public folder (e.g., 'me.jpg')
@@ -15,8 +15,8 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "I'm a Ph.D. student in Mechanical Engineering at UW-Madison with a parallel M.S. in Computer Sciences. My work connects production software, ML systems, retrieval benchmarks, agent-memory evaluation, uncertainty quantification, and generative modeling.",
-      "Recent work includes HyprShare, a native SwiftUI expense-sharing app, and Python benchmark systems for vector retrieval infrastructure, tool-using AI agents, and polymer inverse design."
+      "I'm a Ph.D. student in Mechanical Engineering at UW-Madison with a parallel M.S. in Computer Sciences. My work connects AI evaluations, retrieval-memory infrastructure, post-training and RL workflows, uncertainty quantification, and production software.",
+      "Recent work includes MEMTRACE for tool-using agent memory risk, MaxionBench for vector retrieval decision audits, HyprShare as a native SwiftUI product, and diffusion/uncertainty pipelines for scientific ML."
     ]
   }
 };

@@ -2,12 +2,51 @@ import { ResearchItem } from '../types';
 
 export const researchItems: ResearchItem[] = [
   {
+    id: 'memtrace',
+    title: 'MEMTRACE: Memory-Safety Benchmark for Tool-Using Agents',
+    typeOrVenue: 'Research software, 2026',
+    summary:
+      'A Python/MLX benchmark for tracing delayed memory risk in tool-using agents from retrieval exposure through memory admission, planning, policy diagnostics, and tool execution.',
+    tags: ['LLM Agents', 'Memory', 'Evaluation', 'MLX'],
+    featured: true,
+    highlights: `
+- Produced a 324-trace audited pilot across three memory-system variants plus a 72-trace oracle-retrieved-memory calibration packet.
+- Implemented Pydantic trace schemas, deterministic tool stubs, causal-chain scoring, Wilson intervals, no-inference metric regeneration, and pytest-covered validation.
+`
+  },
+  {
+    id: 'maxionbench',
+    title: 'MaxionBench: Agent Memory Retrieval Benchmark',
+    typeOrVenue: 'Research software, 2026',
+    summary:
+      'A reproducible Python benchmark for comparing vector retrieval engines as operational-memory candidates under explicit conformance, quality, latency, context-cost, and budget constraints.',
+    tags: ['Retrieval', 'Benchmarking', 'FAISS', 'Qdrant'],
+    featured: true,
+    highlights: `
+- Built engine adapters and a shared contract for FAISS, LanceDB, pgvector, and Qdrant across lifecycle, CRUD, filtering, query, batch query, flush, compaction, and stats operations.
+- Validated 72 archived run directories with 0 strict-schema errors and reported objective-sensitive decisions instead of a single universal ranking.
+`
+  },
+  {
+    id: 'rl-inverse-design',
+    title: 'RL-Guided Target-Conditioned Generative Modeling',
+    typeOrVenue: 'Research Assistant, UW-Madison, 2026',
+    summary:
+      'A target-conditioned diffusion workflow with CFG, best-of-k guidance, reward design, PPO, GRPO, DPO, and RL-style alignment for constrained generation.',
+    tags: ['Post-Training', 'Reinforcement Learning', 'Diffusion'],
+    featured: true,
+    highlights: `
+- Built condition bundles, classifier-free guidance, family-aware decode priors, and gates for validity, novelty, solubility, chi bounds, class match, and synthetic accessibility.
+- Compared S0-S4 methods across four target settings; supervised S2 reached 93.2% mean discovery hit rate and aligned S4 variants reached 96.7%-98.9%.
+`
+  },
+  {
     id: 'polydit',
-    title: 'PolyDiT: Five-Representation Diffusion Transformer',
+    title: 'PolyDiT: Multi-View Diffusion Transformer Pipelines',
     typeOrVenue: 'Research Assistant, UW-Madison, 2025-present',
     summary:
-      'A five-view Diffusion Transformer framework for polymer generation, property prediction, inverse design, retrieval, OOD analysis, and reranking.',
-    tags: ['Diffusion Models', 'Transformers', 'Polymer Informatics'],
+      'A five-view Diffusion Transformer framework for generation, property prediction, inverse design, retrieval, OOD analysis, and reranking.',
+    tags: ['Diffusion Models', 'Transformers', 'Representation Learning'],
     links: {
       code: 'https://github.com/htang7415/PolyDiffusion'
     },
@@ -19,10 +58,10 @@ export const researchItems: ResearchItem[] = [
   },
   {
     id: 'uq-benchmark',
-    title: 'Uncertainty Quantification for Polymer Property Prediction',
+    title: 'Uncertainty, Calibration, and OOD Reliability Benchmark',
     typeOrVenue: 'Journal of Chemical Information and Modeling, 2025',
     summary:
-      'A systematic benchmark of uncertainty methods for polymer-property prediction under in-distribution, OOD, high-Tg, and class-specific evaluation settings.',
+      'A systematic benchmark of uncertainty methods for property prediction under in-distribution, OOD, high-Tg, and class-specific evaluation settings.',
     tags: ['Uncertainty Quantification', 'Bayesian ML', 'Calibration'],
     links: {
       pdf: 'https://pubs.acs.org/doi/full/10.1021/acs.jcim.5c00550',
@@ -35,47 +74,8 @@ export const researchItems: ResearchItem[] = [
 `
   },
   {
-    id: 'rl-inverse-design',
-    title: 'RL-Guided Water-Miscible Inverse Design',
-    typeOrVenue: 'Research Assistant, UW-Madison, 2026',
-    summary:
-      'A target-conditioned diffusion workflow for constrained water-miscible polymer design with CFG, best-of-k guidance, PPO, GRPO, DPO, and RL alignment.',
-    tags: ['Inverse Design', 'Reinforcement Learning', 'Diffusion'],
-    featured: true,
-    highlights: `
-- Built condition bundles, classifier-free guidance, family-aware decode priors, and gates for validity, novelty, solubility, chi bounds, class match, and synthetic accessibility.
-- Compared S0-S4 methods across four target settings; supervised S2 reached 93.2% mean discovery hit rate and aligned S4 variants reached 96.7%-98.9%.
-`
-  },
-  {
-    id: 'maxionbench',
-    title: 'MaxionBench: Retrieval Infrastructure Decision Audits',
-    typeOrVenue: 'Research software, 2026',
-    summary:
-      'A reproducible Python benchmark for comparing vector retrieval engines as operational-memory candidates under explicit quality, latency, context-cost, and conformance constraints.',
-    tags: ['Retrieval', 'Benchmarking', 'FAISS', 'Qdrant'],
-    featured: true,
-    highlights: `
-- Built engine adapters and a shared contract for FAISS, LanceDB, pgvector, and Qdrant across lifecycle, CRUD, filtering, query, batch query, flush, compaction, and stats operations.
-- Validated 72 archived run directories with 0 strict-schema errors and reported objective-sensitive decisions instead of a single universal ranking.
-`
-  },
-  {
-    id: 'memtrace',
-    title: 'MEMTRACE: Persistent-Memory Risk in Tool-Using Agents',
-    typeOrVenue: 'Research software, 2026',
-    summary:
-      'A Python/MLX benchmark for tracing delayed memory risk in tool-using agents from retrieval exposure through memory admission, planning, policy diagnostics, and tool execution.',
-    tags: ['LLM Agents', 'Memory', 'Evaluation', 'MLX'],
-    featured: true,
-    highlights: `
-- Produced a 324-trace audited pilot across three memory-system variants plus a 72-trace oracle-retrieved-memory calibration packet.
-- Implemented Pydantic trace schemas, deterministic tool stubs, causal-chain scoring, Wilson intervals, no-inference metric regeneration, and pytest-covered validation.
-`
-  },
-  {
     id: 'siga',
-    title: 'Stochastic Isogeometric Buckling Analysis of Composite Shells',
+    title: 'Stochastic Isogeometric Reliability Modeling',
     typeOrVenue: 'Reliability Engineering & System Safety, 2023',
     summary:
       'A stochastic isogeometric analysis framework for composite-shell buckling under thickness, material-property, and fiber-angle uncertainty.',

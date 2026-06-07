@@ -1,3 +1,5 @@
+import 'react';
+
 declare module '*.mdx' {
   import { ComponentType } from 'react';
 
@@ -12,6 +14,13 @@ declare module '*.mdx' {
 
   const MDXComponent: ComponentType;
   export default MDXComponent;
+}
+
+declare module 'lucide-react/dist/esm/icons/*.js' {
+  import type { LucideIcon } from 'lucide-react';
+
+  const Icon: LucideIcon;
+  export default Icon;
 }
 
 declare module 'react' {

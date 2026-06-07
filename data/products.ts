@@ -2,7 +2,31 @@ import { Product } from '../types';
 
 export const products: Product[] = [
   {
-    id: 'p1',
+    id: 'memtrace',
+    name: 'MEMTRACE',
+    subtitle: 'Memory-Safety Evaluation for Tool-Using Agents',
+    description:
+      'A Python/MLX benchmark for tracing persistent-memory risk in tool-using agents, with Pydantic schemas, deterministic tool stubs, causal scoring, Wilson intervals, and pytest validation.',
+    role: 'AI Evaluation Research Engineer',
+    year: '2026',
+    tags: ['LLM Agents', 'Evaluation', 'MLX', 'Pydantic'],
+    url: '/research',
+    featured: true,
+  },
+  {
+    id: 'maxionbench',
+    name: 'MaxionBench',
+    subtitle: 'Agent Memory Retrieval Benchmark',
+    description:
+      'A conformance-gated benchmark for vector retrieval infrastructure across FAISS, LanceDB, pgvector, and Qdrant, reporting quality, p99 latency, throughput, context cost, and budget stability.',
+    role: 'Research Software Engineer',
+    year: '2026',
+    tags: ['Python', 'Retrieval', 'FAISS', 'Qdrant'],
+    url: '/research',
+    featured: true,
+  },
+  {
+    id: 'hyprshare',
     name: 'HyprShare',
     subtitle: 'Native iOS Expense Sharing',
     description:
@@ -14,19 +38,7 @@ export const products: Product[] = [
     featured: true,
   },
   {
-    id: 'p2',
-    name: 'AI Benchmark Systems',
-    subtitle: 'Retrieval and Agent-Memory Evaluation',
-    description:
-      'Python benchmark systems for retrieval infrastructure and tool-using AI agents, including MaxionBench vector-engine decision audits and MEMTRACE persistent-memory evaluation.',
-    role: 'Research Software Engineer',
-    year: '2026',
-    tags: ['Python', 'Evaluation', 'FAISS', 'MLX'],
-    url: '/research',
-    featured: true,
-  },
-  {
-    id: 'p3',
+    id: 'polymer-design',
     name: 'Polymer Design Systems',
     subtitle: 'Diffusion Generation and Inverse Design',
     description:

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MDXProvider } from '@mdx-js/react';
-import { ArrowLeft, Eye } from 'lucide-react';
+import { ArrowLeft, Eye } from '../components/icons';
 import { MDXComponents } from '../components/MDXComponents';
 import { getBlogPostBySlug } from '../utils/blogLoader';
 import { ReadingProgress } from '../components/ReadingProgress';

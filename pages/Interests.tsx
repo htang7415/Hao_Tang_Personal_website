@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, ChevronLeft, ChevronRight, Disc, Mic2, BookOpen } from 'lucide-react';
+import { BookOpen, ChevronLeft, ChevronRight, Disc, Mic2, Search } from '../components/icons';
 import { SectionTitle } from '../components/LayoutComponents';
 import { interests } from '../data/interests';
 

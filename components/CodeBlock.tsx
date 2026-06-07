@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { Check, Copy } from './icons';
 
 interface CodeBlockProps {
   children: React.ReactNode;

@@ -4,6 +4,7 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "module": "ESNext",
+    "esModuleInterop": true,
     "lib": [
       "ES2022",
       "DOM",
@@ -11,7 +12,9 @@
     ],
     "skipLibCheck": true,
     "types": [
-      "node"
+      "node",
+      "vite/client",
+      "react"
     ],
     "moduleResolution": "bundler",
     "isolatedModules": true,
@@ -25,5 +28,21 @@
     },
     "allowImportingTsExtensions": true,
     "noEmit": true
-  }
+  },
+  "include": [
+    "App.tsx",
+    "index.tsx",
+    "components/**/*.tsx",
+    "components/**/*.ts",
+    "pages/**/*.tsx",
+    "data/**/*.ts",
+    "utils/**/*.ts",
+    "types.ts",
+    "*.d.ts",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Sun, Moon, Home, Package, FlaskConical, PenTool, Library, Heart } from 'lucide-react';
+import { FlaskConical, Heart, Home, Library, Menu, Moon, Package, PenTool, Sun, X } from './icons';
 import { useTheme } from './ThemeContext';
 import { profile } from '../data/profile';
 
@@ -43,16 +43,16 @@ const Header: React.FC = () => {
           </NavLink>
         </div>
 
-        {/* Desktop Nav - "Dynamic Pill" Style */}
+        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1 p-1 rounded-full transition-all">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `px-5 py-2 rounded-full text-xl font-medium transition-all duration-300 ease-out ${
+                `px-4 py-2 rounded-full text-sm lg:text-base font-medium transition-all duration-300 ease-out ${
                   isActive
-                    ? 'bg-slate-900 text-white shadow-lg scale-105 dark:bg-blue-600 dark:text-white dark:shadow-blue-900/20'
+                    ? 'bg-slate-900 text-white shadow-md dark:bg-blue-600 dark:text-white dark:shadow-blue-900/20'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'
                 }`
               }
@@ -72,6 +72,7 @@ const Header: React.FC = () => {
                 : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 shadow-sm border border-slate-200 dark:border-slate-700'
             } hover:scale-110 active:scale-95`}
             aria-label="Toggle Theme"
+            aria-pressed={theme === 'dark'}
           >
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
@@ -79,6 +80,8 @@ const Header: React.FC = () => {
           <button
             className="md:hidden p-2 text-slate-900 dark:text-slate-100"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -106,7 +109,7 @@ const Header: React.FC = () => {
                   {({ isActive }) => (
                     <>
                       <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-                      <span className="text-2xl">{link.label}</span>
+                      <span className="text-xl">{link.label}</span>
                     </>
                   )}
                 </NavLink>

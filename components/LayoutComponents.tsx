@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink } from './icons';
 import { Link } from 'react-router-dom';
 
 // --- BUTTONS ---
@@ -19,7 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   external,
   ...props 
 }) => {
-  const baseStyles = "inline-flex items-center justify-center px-6 py-3 rounded-md font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyles = "inline-flex items-center justify-center px-6 py-3 rounded-md font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-950 disabled:opacity-50 disabled:cursor-not-allowed";
   
   const variants = {
     primary: "bg-slate-900 text-white hover:bg-slate-800 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-500 focus:ring-slate-500 dark:focus:ring-blue-500",
@@ -70,7 +70,7 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string; hre
     <div className={`
       bg-white dark:bg-slate-900 
       border border-slate-200 dark:border-slate-800 
-      rounded-xl p-8
+      rounded-lg p-6
       shadow-sm
       transition-all duration-300 
       ${href ? 'hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg hover:-translate-y-1 cursor-pointer group' : ''}
@@ -78,7 +78,7 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string; hre
     `}>
       {children}
       {href && (
-        <div className="absolute top-8 right-8 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-blue-600 dark:text-blue-400">
+        <div className="absolute top-6 right-6 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-blue-600 dark:text-blue-400">
           <ExternalLink size={20} />
         </div>
       )}
@@ -98,9 +98,9 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string; hre
 };
 
 // --- SECTION TITLE ---
-export const SectionTitle: React.FC<{ title: string; subtitle?: string; className?: string }> = ({ title, subtitle, className = 'mb-16' }) => (
+export const SectionTitle: React.FC<{ title: string; subtitle?: string; className?: string }> = ({ title, subtitle, className = 'mb-12' }) => (
   <div className={className}>
-    <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-6 tracking-tight">{title}</h2>
-    {subtitle && <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed font-light">{subtitle}</p>}
+    <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-5 tracking-tight">{title}</h2>
+    {subtitle && <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed font-light">{subtitle}</p>}
   </div>
 );

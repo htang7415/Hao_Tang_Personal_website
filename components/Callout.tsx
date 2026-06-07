@@ -1,5 +1,5 @@
 import React from 'react';
-import { Info, AlertTriangle, CheckCircle2, XCircle, Lightbulb } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Info, Lightbulb, XCircle } from './icons';
 
 interface CalloutProps {
   type: 'info' | 'warning' | 'success' | 'danger' | 'tip';

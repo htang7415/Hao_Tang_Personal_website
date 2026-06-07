@@ -4,7 +4,7 @@ import { BlogPost, BlogPostFrontmatter } from '../types';
 const blogModules = import.meta.glob<{
   frontmatter: BlogPostFrontmatter;
   default: React.ComponentType;
-}>('/content/blog/*.mdx', { eager: true });
+}>('../content/blog/*.mdx', { eager: true });
 
 export function getAllBlogPosts(): BlogPost[] {
   const posts: BlogPost[] = [];

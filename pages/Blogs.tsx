@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, X, Eye } from 'lucide-react';
+import { Eye, Search, X } from '../components/icons';
 import Fuse from 'fuse.js';
 import { SectionTitle } from '../components/LayoutComponents';
 import { getAllBlogPosts } from '../utils/blogLoader';
