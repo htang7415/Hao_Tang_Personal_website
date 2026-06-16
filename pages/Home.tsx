@@ -82,9 +82,9 @@ const Home: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-10">
           <div>
             <div className="flex items-center justify-between gap-4 mb-4">
-              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Selected Systems</h2>
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Product</h2>
               <a href="#/products" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
-                All products <ArrowRight size={15} />
+                View product <ArrowRight size={15} />
               </a>
             </div>
             <div className="divide-y divide-slate-200 dark:divide-slate-800">

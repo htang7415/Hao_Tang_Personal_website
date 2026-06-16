@@ -19,7 +19,7 @@ const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'Home', path: '/', icon: Home },
-    { label: 'Products', path: '/products', icon: Package },
+    { label: 'Product', path: '/products', icon: Package },
     { label: 'Research', path: '/research', icon: FlaskConical },
     { label: 'Blogs', path: '/blogs', icon: PenTool },
     { label: 'Resources', path: '/resources', icon: Library },

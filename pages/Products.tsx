@@ -4,13 +4,13 @@ import { products } from '../data/products';
 
 const Products: React.FC = () => {
   return (
-    <div className="max-w-7xl mx-auto px-6 py-24 md:py-28">
+    <div className="max-w-5xl mx-auto px-6 py-24 md:py-28">
       <SectionTitle 
-        title="Products & Systems" 
-        subtitle="Shipped software and reproducible AI systems spanning agent evaluation, retrieval memory, native iOS product work, and ML research tooling."
+        title="Product" 
+        subtitle="HyprShare is a native iOS app for shared expense tracking, settlements, group notes, and optional Supabase sync."
       />
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="max-w-2xl">
         {products.map((p) => (
           <Card key={p.id} href={p.url} className="flex flex-col h-full">
             <div className="flex-grow">
