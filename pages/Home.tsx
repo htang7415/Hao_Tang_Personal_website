@@ -28,8 +28,7 @@ const Home: React.FC = () => {
           />
 
           <div className="max-w-3xl">
-            <p className="text-sm font-medium text-blue-600 dark:text-blue-400">{profile.role}</p>
-            <h1 className="mt-2 text-4xl md:text-5xl font-bold text-slate-950 dark:text-slate-50">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-950 dark:text-slate-50">
               {profile.name}
             </h1>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">

@@ -77,7 +77,6 @@ export interface InterestItem {
 
 export interface Profile {
   name: string;
-  role: string;
   tagline: string;
   email: string;
   avatar: string;
