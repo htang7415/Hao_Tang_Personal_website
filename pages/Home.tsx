@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Github, Linkedin, Mail } from '../components/icons';
+import { ArrowRight, BookOpen, Github, Linkedin, Mail } from '../components/icons';
 import { profile } from '../data/profile';
 
 const interests = [
@@ -85,20 +85,20 @@ const Home: React.FC = () => {
   return (
     <div className="pb-20">
       <section className="max-w-4xl mx-auto px-6 pt-28 md:pt-32">
-        <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 border-b border-slate-200 dark:border-slate-800 pb-10">
-          <img
-            src={profile.avatar}
-            alt={profile.name}
-            className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-lg object-cover border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 flex-none"
-          />
+        <div className="flex flex-col md:flex-row md:items-stretch gap-8 md:gap-10 border-b border-slate-200 dark:border-slate-800 pb-10">
+          <div className="h-48 w-48 sm:h-56 sm:w-56 md:h-auto md:w-56 flex-none overflow-hidden rounded-lg border border-slate-200 bg-slate-100 dark:border-slate-800 dark:bg-slate-900">
+            <img
+              src={profile.avatar}
+              alt={profile.name}
+              className="h-full w-full object-cover"
+            />
+          </div>
 
           <div className="min-w-0 flex-1">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-950 dark:text-slate-50">
-              {profile.name}
-            </h1>
-
-            <div className="mt-6">
-              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">About</h2>
+            <div>
+              <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-4">
+                About {profile.name}
+              </h1>
               <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
                 {profile.about.paragraphs.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
@@ -118,6 +118,10 @@ const Home: React.FC = () => {
               <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
                 <Linkedin size={16} />
                 LinkedIn
+              </a>
+              <a href={profile.social.googleScholar} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
+                <BookOpen size={16} />
+                Google Scholar
               </a>
             </div>
           </div>

@@ -11,6 +11,7 @@ export const profile: Profile = {
   social: {
     github: "https://github.com/htang7415",
     linkedin: "https://www.linkedin.com/in/hao-tang-1b9069255/",
+    googleScholar: "https://scholar.google.com/citations?user=L0lvjVkAAAAJ&hl=en",
   },
   about: {
     paragraphs: [

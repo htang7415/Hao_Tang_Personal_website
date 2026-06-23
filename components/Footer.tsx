@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin } from './icons';
+import { BookOpen, Github, Linkedin } from './icons';
 import { profile } from '../data/profile';
 
 const Footer: React.FC = () => {
@@ -19,6 +19,10 @@ const Footer: React.FC = () => {
           <a href={profile.social.linkedin} aria-label="LinkedIn profile" className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
             <span className="sr-only">LinkedIn</span>
             <Linkedin size={20} />
+          </a>
+          <a href={profile.social.googleScholar} aria-label="Google Scholar profile" className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
+            <span className="sr-only">Google Scholar</span>
+            <BookOpen size={20} />
           </a>
         </div>
       </div>

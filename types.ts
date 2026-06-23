@@ -83,6 +83,7 @@ export interface Profile {
   social: {
     github: string;
     linkedin: string;
+    googleScholar: string;
   };
   about: {
     paragraphs: string[];
