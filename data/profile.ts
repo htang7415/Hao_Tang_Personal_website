@@ -15,8 +15,8 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "Hao Tang is an M.S. Computer Sciences student at UW-Madison working across AI evaluation, retrieval systems, scientific ML, and product software.",
-      "My recent work includes MEMTRACE for agent memory risk, MaxionBench for retrieval decisions, HyprShare for shared expenses, and diffusion/UQ research for reliability."
+      "Hao Tang is an M.S. Computer Sciences student at UW-Madison focused on AI evaluation, retrieval systems, scientific ML, and practical product software.",
+      "His recent work includes MEMTRACE, MaxionBench, HyprShare, and diffusion/UQ research. Outside work, he enjoys reading, sports, music, and podcasts."
     ]
   }
 };
