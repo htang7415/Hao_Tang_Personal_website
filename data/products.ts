@@ -8,7 +8,7 @@ export const products: Product[] = [
     description:
       'A SwiftUI app for group expense tracking, QR/code joins, equal-split expense entry, settlement suggestions, notification history, Core Data persistence, and optional Supabase sync.',
     role: 'Founder & Full-stack iOS Developer',
-    year: '2025',
+    year: 'May 2025 - Nov. 2025',
     tags: ['iOS', 'SwiftUI', 'Supabase', 'Product'],
     url: 'https://hyprshare.vercel.app/',
     featured: true,

@@ -24,7 +24,7 @@ const interests = [
 const selectedWork = [
   {
     title: 'MEMTRACE',
-    meta: 'Agent memory evaluation, 2026',
+    meta: 'Agent memory evaluation · Jan. 2026 - May 2026',
     href: '#/research#memtrace',
     summary: 'Trace-level benchmark for persistent-memory risk in tool-using agents, with 324 main traces and 72 oracle calibration traces across 12 synthetic enterprise tasks.',
     points: [
@@ -34,8 +34,19 @@ const selectedWork = [
     tags: ['LLM agents', 'Memory', 'Evaluation', 'Python'],
   },
   {
+    title: 'RL-Aligned Conditional Diffusion Transformer',
+    meta: 'Research assistant, UW-Madison · Sept. 2025 - Mar. 2026',
+    href: '#/research#rl-inverse-design',
+    summary: 'Target-conditioned discrete diffusion workflow for constrained inverse design with classifier-free guidance, oracle-guided sampling, PPO, GRPO, and DPO alignment.',
+    points: [
+      'Uses 7-dimensional condition bundles and reward-shaped evaluation over validity, novelty, class match, feasibility, and target bounds.',
+      'Improved mean discovery hit rates from 93.2% with supervised conditional diffusion to 96.7%-98.9% with aligned variants.',
+    ],
+    tags: ['Diffusion', 'RL', 'PPO/GRPO/DPO', 'PyTorch'],
+  },
+  {
     title: 'MaxionBench',
-    meta: 'Retrieval decision benchmark, 2025-2026',
+    meta: 'Retrieval decision benchmark · Sept. 2025 - Feb. 2026',
     href: '#/research#maxionbench',
     summary: 'Conformance-gated benchmark for retrieval infrastructure used as operational memory, with shared adapters for FAISS, LanceDB, pgvector, and Qdrant.',
     points: [
@@ -46,7 +57,7 @@ const selectedWork = [
   },
   {
     title: 'HyprShare',
-    meta: 'Offline-first iOS app, 2025',
+    meta: 'Offline-first iOS app · May 2025 - Nov. 2025',
     href: 'https://hyprshare.vercel.app/',
     summary: 'Native SwiftUI app for shared expense tracking with invite-code and QR joining, equal-split entry, settlement suggestions, planning notes, notification history, and optional Supabase sync.',
     points: [
@@ -56,19 +67,8 @@ const selectedWork = [
     tags: ['SwiftUI', 'Core Data', 'Supabase', 'iOS'],
   },
   {
-    title: 'RL-Aligned Conditional Diffusion Transformer',
-    meta: 'Research assistant, UW-Madison, 2025-2026',
-    href: '#/research#rl-inverse-design',
-    summary: 'Target-conditioned discrete diffusion workflow for constrained inverse design with classifier-free guidance, oracle-guided sampling, PPO, GRPO, and DPO alignment.',
-    points: [
-      'Uses 7-dimensional condition bundles and reward-shaped evaluation over validity, novelty, class match, feasibility, and target bounds.',
-      'Improved mean discovery hit rates from 93.2% with supervised conditional diffusion to 96.7%-98.9% with aligned variants.',
-    ],
-    tags: ['Diffusion', 'RL', 'PPO/GRPO/DPO', 'PyTorch'],
-  },
-  {
     title: 'PolyDiT',
-    meta: 'Multi-representation diffusion modeling, 2024-2025',
+    meta: 'Multi-representation diffusion modeling · Sept. 2024 - Aug. 2025',
     href: '#/research#polydit',
     summary: 'Masked discrete Diffusion Transformer work across character, BPE, validity-preserving, fragment/group, and graph state spaces.',
     points: [

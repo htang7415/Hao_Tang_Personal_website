@@ -4,7 +4,7 @@ export const researchItems: ResearchItem[] = [
   {
     id: 'memtrace',
     title: 'MEMTRACE: Memory-Safety Benchmark for Tool-Using Agents',
-    typeOrVenue: 'Research software, 2026',
+    typeOrVenue: 'Research software · Jan. 2026 - May 2026',
     summary:
       'A Python/MLX benchmark for tracing delayed memory risk in tool-using agents from retrieval exposure through memory admission, planning, policy diagnostics, and tool execution.',
     tags: ['LLM Agents', 'Memory', 'Evaluation', 'MLX'],
@@ -15,22 +15,9 @@ export const researchItems: ResearchItem[] = [
 `
   },
   {
-    id: 'maxionbench',
-    title: 'MaxionBench: Agent Memory Retrieval Benchmark',
-    typeOrVenue: 'Research software, 2026',
-    summary:
-      'A reproducible Python benchmark for comparing vector retrieval engines as operational-memory candidates under explicit conformance, quality, latency, context-cost, and budget constraints.',
-    tags: ['Retrieval', 'Benchmarking', 'FAISS', 'Qdrant'],
-    featured: true,
-    highlights: `
-- Built engine adapters and a shared contract for FAISS, LanceDB, pgvector, and Qdrant across lifecycle, CRUD, filtering, query, batch query, flush, compaction, and stats operations.
-- Validated 72 archived run directories with 0 strict-schema errors and reported objective-sensitive decisions instead of a single universal ranking.
-`
-  },
-  {
     id: 'rl-inverse-design',
     title: 'RL-Guided Target-Conditioned Generative Modeling',
-    typeOrVenue: 'Research Assistant, UW-Madison, 2026',
+    typeOrVenue: 'Research Assistant, UW-Madison · Sept. 2025 - Mar. 2026',
     summary:
       'A target-conditioned diffusion workflow with CFG, best-of-k guidance, reward design, PPO, GRPO, DPO, and RL-style alignment for constrained generation.',
     tags: ['Post-Training', 'Reinforcement Learning', 'Diffusion'],
@@ -41,9 +28,22 @@ export const researchItems: ResearchItem[] = [
 `
   },
   {
+    id: 'maxionbench',
+    title: 'MaxionBench: Agent Memory Retrieval Benchmark',
+    typeOrVenue: 'Research software · Sept. 2025 - Feb. 2026',
+    summary:
+      'A reproducible Python benchmark for comparing vector retrieval engines as operational-memory candidates under explicit conformance, quality, latency, context-cost, and budget constraints.',
+    tags: ['Retrieval', 'Benchmarking', 'FAISS', 'Qdrant'],
+    featured: true,
+    highlights: `
+- Built engine adapters and a shared contract for FAISS, LanceDB, pgvector, and Qdrant across lifecycle, CRUD, filtering, query, batch query, flush, compaction, and stats operations.
+- Validated 72 archived run directories with 0 strict-schema errors and reported objective-sensitive decisions instead of a single universal ranking.
+`
+  },
+  {
     id: 'polydit',
     title: 'PolyDiT: Multi-View Diffusion Transformer Pipelines',
-    typeOrVenue: 'Research Assistant, UW-Madison, 2025-present',
+    typeOrVenue: 'Research Assistant, UW-Madison · Sept. 2024 - Aug. 2025',
     summary:
       'A five-view Diffusion Transformer framework for generation, property prediction, inverse design, retrieval, OOD analysis, and reranking.',
     tags: ['Diffusion Models', 'Transformers', 'Representation Learning'],
@@ -59,7 +59,7 @@ export const researchItems: ResearchItem[] = [
   {
     id: 'uq-benchmark',
     title: 'Uncertainty, Calibration, and OOD Reliability Benchmark',
-    typeOrVenue: 'Journal of Chemical Information and Modeling, 2025',
+    typeOrVenue: 'Nov. 2023 - Apr. 2024 · JCIM, 2025',
     summary:
       'A systematic benchmark of uncertainty methods for property prediction under in-distribution, OOD, high-Tg, and class-specific evaluation settings.',
     tags: ['Uncertainty Quantification', 'Bayesian ML', 'Calibration'],
@@ -76,7 +76,7 @@ export const researchItems: ResearchItem[] = [
   {
     id: 'siga',
     title: 'Stochastic Isogeometric Reliability Modeling',
-    typeOrVenue: 'Reliability Engineering & System Safety, 2023',
+    typeOrVenue: 'Sept. 2020 - Mar. 2022 · Reliability Engineering & System Safety, 2023',
     summary:
       'A stochastic isogeometric analysis framework for composite-shell buckling under thickness, material-property, and fiber-angle uncertainty.',
     tags: ['Stochastic Modeling', 'Reliability', 'Isogeometric Analysis'],
