@@ -84,44 +84,43 @@ const externalHref = (href: string) => href.startsWith('http');
 const Home: React.FC = () => {
   return (
     <div className="pb-20">
-      <section className="max-w-3xl mx-auto px-6 pt-28 md:pt-32">
-        <div className="border-b border-slate-200 dark:border-slate-800 pb-10">
+      <section className="max-w-4xl mx-auto px-6 pt-28 md:pt-32">
+        <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 border-b border-slate-200 dark:border-slate-800 pb-10">
           <img
             src={profile.avatar}
             alt={profile.name}
-            className="w-20 h-20 rounded-md object-cover border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900"
+            className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-lg object-cover border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 flex-none"
           />
 
-          <h1 className="mt-6 text-4xl md:text-5xl font-bold text-slate-950 dark:text-slate-50">
-            {profile.name}
-          </h1>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-            {profile.tagline}
-          </p>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-950 dark:text-slate-50">
+              {profile.name}
+            </h1>
 
-          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium">
-            <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
-              <Mail size={16} />
-              {profile.email}
-            </a>
-            <a href={profile.social.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
-              <Github size={16} />
-              GitHub
-            </a>
-            <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
-              <Linkedin size={16} />
-              LinkedIn
-            </a>
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">About</h2>
+              <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                {profile.about.paragraphs.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium">
+              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
+                <Mail size={16} />
+                {profile.email}
+              </a>
+              <a href={profile.social.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
+                <Github size={16} />
+                GitHub
+              </a>
+              <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
+                <Linkedin size={16} />
+                LinkedIn
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">About</h2>
-        <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-          {profile.about.paragraphs.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
         </div>
       </section>
 

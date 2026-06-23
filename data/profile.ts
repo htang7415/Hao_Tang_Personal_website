@@ -2,7 +2,7 @@ import { Profile } from '../types';
 
 export const profile: Profile = {
   name: "Hao Tang",
-  tagline: "I build tools for evaluating agents, retrieval systems, scientific ML models, and useful software products.",
+  tagline: "",
   email: "hao.tang@wisc.edu",
   // To replace the image:
   // 1. Add your image file to your project's public folder (e.g., 'me.jpg')
@@ -14,8 +14,8 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "I'm pursuing an M.S. in Computer Sciences at UW-Madison. My work centers on measurable software: retained traces, typed schemas, reproducible benchmarks, and products that keep working outside ideal conditions.",
-      "Recent projects include MEMTRACE for agent memory risk, MaxionBench for retrieval decisions, HyprShare for shared expenses, and diffusion/UQ research for scientific data."
+      "I'm an M.S. Computer Sciences student at UW-Madison working across AI evaluation, retrieval systems, scientific ML, and product software.",
+      "My recent work includes MEMTRACE for agent memory risk, MaxionBench for retrieval decisions, HyprShare for shared expenses, and diffusion/UQ research for reliability."
     ]
   }
 };
