@@ -1,142 +1,213 @@
 import React from 'react';
 import { ArrowRight, Github, Linkedin, Mail } from '../components/icons';
-import { products } from '../data/products';
-import { researchItems } from '../data/research';
 import { profile } from '../data/profile';
 
-const focusAreas = [
-  'Agent evaluation and safety benchmarks',
-  'Retrieval and vector-memory systems',
-  'Post-training and RL workflows',
-  'Reliable ML for scientific applications',
+const interests = [
+  {
+    title: 'Agent behavior that can be audited',
+    description: 'Traces, stage-level metrics, scorer reconciliation, and release checks for understanding how agent failures happen.',
+  },
+  {
+    title: 'Retrieval systems as memory',
+    description: 'FAISS, LanceDB, pgvector, and Qdrant comparisons under quality, freshness, latency, cost, and stability constraints.',
+  },
+  {
+    title: 'Scientific ML with reliability in mind',
+    description: 'Discrete diffusion, reinforcement learning for inverse design, uncertainty quantification, calibration, and OOD testing.',
+  },
+  {
+    title: 'Products that stay useful in real settings',
+    description: 'Offline-first apps, exact accounting logic, sync conflict handling, localization, notifications, and end-to-end validation.',
+  },
 ];
 
+const selectedWork = [
+  {
+    title: 'MEMTRACE',
+    meta: 'Agent memory evaluation, 2026',
+    href: '#/research#memtrace',
+    summary: 'Trace-level benchmark for persistent-memory risk in tool-using agents, with 324 main traces and 72 oracle calibration traces across 12 synthetic enterprise tasks.',
+    points: [
+      'Separates retrieval exposure, memory admission, planner proposal, policy diagnostics, and tool execution.',
+      'Uses deterministic tool stubs, causal-chain scoring, Wilson intervals, and no-inference metric regeneration.',
+    ],
+    tags: ['LLM agents', 'Memory', 'Evaluation', 'Python'],
+  },
+  {
+    title: 'MaxionBench',
+    meta: 'Retrieval decision benchmark, 2025-2026',
+    href: '#/research#maxionbench',
+    summary: 'Conformance-gated benchmark for retrieval infrastructure used as operational memory, with shared adapters for FAISS, LanceDB, pgvector, and Qdrant.',
+    points: [
+      'Validated 72 archived run directories with 0 strict-schema errors.',
+      'Reports objective-sensitive decisions across quality, p99 latency, throughput, retrievability, context cost, and budget stability.',
+    ],
+    tags: ['Retrieval', 'Vector search', 'Schemas', 'Docker'],
+  },
+  {
+    title: 'HyprShare',
+    meta: 'Offline-first iOS app, 2025',
+    href: 'https://hyprshare.vercel.app/',
+    summary: 'Native SwiftUI app for shared expense tracking with invite-code and QR joining, equal-split entry, settlement suggestions, planning notes, notification history, and optional Supabase sync.',
+    points: [
+      'Designed a 10-entity Core Data ledger with sync metadata, soft deletes, dirty flags, and remote identifiers.',
+      'Built Supabase/PostgreSQL workflows with row-level security, RPC functions, triggers, Edge Functions, APNs, localization, and tests.',
+    ],
+    tags: ['SwiftUI', 'Core Data', 'Supabase', 'iOS'],
+  },
+  {
+    title: 'RL-Aligned Conditional Diffusion Transformer',
+    meta: 'Research assistant, UW-Madison, 2025-2026',
+    href: '#/research#rl-inverse-design',
+    summary: 'Target-conditioned discrete diffusion workflow for constrained inverse design with classifier-free guidance, oracle-guided sampling, PPO, GRPO, and DPO alignment.',
+    points: [
+      'Uses 7-dimensional condition bundles and reward-shaped evaluation over validity, novelty, class match, feasibility, and target bounds.',
+      'Improved mean discovery hit rates from 93.2% with supervised conditional diffusion to 96.7%-98.9% with aligned variants.',
+    ],
+    tags: ['Diffusion', 'RL', 'PPO/GRPO/DPO', 'PyTorch'],
+  },
+  {
+    title: 'PolyDiT',
+    meta: 'Multi-representation diffusion modeling, 2024-2025',
+    href: '#/research#polydit',
+    summary: 'Masked discrete Diffusion Transformer work across character, BPE, validity-preserving, fragment/group, and graph state spaces.',
+    points: [
+      'Scaled Transformer backbones from 10.9M to 681.1M parameters with DDP-compatible training, BF16, gradient accumulation, and memory-aware batching.',
+      'Benchmarked 200,000 generated samples and reused denoisers for downstream representation learning.',
+    ],
+    tags: ['Transformers', 'Discrete diffusion', 'Representation learning', 'Distributed training'],
+  },
+];
+
+const externalHref = (href: string) => href.startsWith('http');
+
 const Home: React.FC = () => {
-  const featuredProducts = products.filter(p => p.featured).slice(0, 3);
-  const featuredResearch = researchItems.filter(r => r.featured).slice(0, 3);
-
-  const productHref = (url: string) => url.startsWith('/') ? `#${url}` : url;
-
   return (
     <div className="pb-20">
-      <section className="max-w-5xl mx-auto px-6 pt-28 md:pt-32">
-        <div className="flex flex-col sm:flex-row gap-6 sm:items-start border-b border-slate-200 dark:border-slate-800 pb-10">
+      <section className="max-w-3xl mx-auto px-6 pt-28 md:pt-32">
+        <div className="border-b border-slate-200 dark:border-slate-800 pb-10">
           <img
             src={profile.avatar}
             alt={profile.name}
-            className="w-20 h-20 sm:w-24 sm:h-24 rounded-md object-cover border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900"
+            className="w-20 h-20 rounded-md object-cover border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900"
           />
 
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-950 dark:text-slate-50">
-              {profile.name}
-            </h1>
-            <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-              {profile.tagline}
-            </p>
+          <h1 className="mt-6 text-4xl md:text-5xl font-bold text-slate-950 dark:text-slate-50">
+            {profile.name}
+          </h1>
+          <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+            {profile.tagline}
+          </p>
 
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium">
-              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
-                <Mail size={16} />
-                {profile.email}
-              </a>
-              <a href={profile.social.github} className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
-                <Github size={16} />
-                GitHub
-              </a>
-              <a href={profile.social.linkedin} className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
-                <Linkedin size={16} />
-                LinkedIn
-              </a>
-            </div>
+          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium">
+            <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
+              <Mail size={16} />
+              {profile.email}
+            </a>
+            <a href={profile.social.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
+              <Github size={16} />
+              GitHub
+            </a>
+            <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
+              <Linkedin size={16} />
+              LinkedIn
+            </a>
           </div>
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
-        <div className="grid md:grid-cols-[1.4fr_0.8fr] gap-10">
-          <div>
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">About</h2>
-            <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-              {profile.about.paragraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">Focus</h2>
-            <ul className="space-y-3 text-base text-slate-600 dark:text-slate-400">
-              {focusAreas.map((area) => (
-                <li key={area} className="flex gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-blue-600 dark:bg-blue-400" />
-                  <span>{area}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">About</h2>
+        <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          {profile.about.paragraphs.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
-        <div className="grid lg:grid-cols-2 gap-10">
-          <div>
-            <div className="flex items-center justify-between gap-4 mb-4">
-              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Product</h2>
-              <a href="#/products" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
-                View product <ArrowRight size={15} />
-              </a>
+      <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-5">Interests</h2>
+        <div className="space-y-5">
+          {interests.map((interest) => (
+            <div key={interest.title}>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+                {interest.title}
+              </h3>
+              <p className="mt-1 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                {interest.description}
+              </p>
             </div>
-            <div className="divide-y divide-slate-200 dark:divide-slate-800">
-              {featuredProducts.map((p) => (
-                <article key={p.id} className="py-5 first:pt-0">
-                  <a href={productHref(p.url)} className="group inline-flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400">
-                    {p.name}
-                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                  </a>
-                  <p className="mt-1 text-sm font-medium text-slate-700 dark:text-slate-300">{p.subtitle}</p>
-                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{p.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between gap-4 mb-4">
-              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Research</h2>
-              <a href="#/research" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
-                All research <ArrowRight size={15} />
-              </a>
-            </div>
-            <div className="divide-y divide-slate-200 dark:divide-slate-800">
-              {featuredResearch.map((item) => (
-                <article key={item.id} className="py-5 first:pt-0">
-                  <a href={`#/research#${item.id}`} className="group inline-flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400">
-                    {item.title}
-                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                  </a>
-                  <p className="mt-1 text-xs font-medium uppercase text-slate-500 dark:text-slate-500">{item.typeOrVenue}</p>
-                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.summary}</p>
-                </article>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Contact</h2>
-            <p className="mt-2 text-base text-slate-600 dark:text-slate-400">
-              Interested in AI evaluation, retrieval systems, or ML infrastructure work.
-            </p>
-          </div>
-          <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 text-base font-medium text-blue-600 dark:text-blue-400 hover:underline">
-            <Mail size={18} />
-            {profile.email}
+      <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Selected Work</h2>
+          <a href="#/research" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+            Research <ArrowRight size={15} />
           </a>
         </div>
+
+        <div className="divide-y divide-slate-200 dark:divide-slate-800">
+          {selectedWork.map((item) => (
+            <article key={item.title} className="py-7 first:pt-0">
+              <p className="text-xs font-medium uppercase text-slate-500 dark:text-slate-500">
+                {item.meta}
+              </p>
+              <a
+                href={item.href}
+                target={externalHref(item.href) ? '_blank' : undefined}
+                rel={externalHref(item.href) ? 'noopener noreferrer' : undefined}
+                className="group mt-2 inline-flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                {item.title}
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </a>
+              <p className="mt-2 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                {item.summary}
+              </p>
+              <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                {item.points.map((point) => (
+                  <li key={point} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-blue-600 dark:bg-blue-400" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {item.tags.map((tag) => (
+                  <span key={tag} className="inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">Publications</h2>
+        <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p>
+            I have published work on uncertainty quantification for polymer informatics in JCIM and stochastic isogeometric reliability analysis in Reliability Engineering &amp; System Safety.
+          </p>
+          <a href="#/research" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+            View research details <ArrowRight size={15} />
+          </a>
+        </div>
+      </section>
+
+      <section className="max-w-3xl mx-auto px-6 py-10">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Contact</h2>
+        <p className="mt-2 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          I am interested in AI evaluation, retrieval systems, ML infrastructure, scientific ML, and product work with clear user value.
+        </p>
+        <a href={`mailto:${profile.email}`} className="mt-4 inline-flex items-center gap-2 text-base font-medium text-blue-600 dark:text-blue-400 hover:underline">
+          <Mail size={18} />
+          {profile.email}
+        </a>
       </section>
     </div>
   );
