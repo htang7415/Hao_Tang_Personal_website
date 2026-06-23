@@ -2,22 +2,22 @@ import React from 'react';
 import { ArrowRight, Github, GraduationCap, Linkedin, Mail } from '../components/icons';
 import { profile } from '../data/profile';
 
-const interests = [
+const coreAreas = [
   {
-    title: 'Agent behavior that can be audited',
-    description: 'Traces, stage-level metrics, scorer reconciliation, and release checks for understanding how agent failures happen.',
+    title: 'Agent Evaluation',
+    description: 'Trace-level benchmarks, stage-wise metrics, scorer reconciliation, and release checks for diagnosing agent behavior.',
   },
   {
-    title: 'Retrieval systems as memory',
-    description: 'FAISS, LanceDB, pgvector, and Qdrant comparisons under quality, freshness, latency, cost, and stability constraints.',
+    title: 'Retrieval Infrastructure',
+    description: 'Vector-search evaluation across FAISS, LanceDB, pgvector, and Qdrant with quality, latency, freshness, and cost constraints.',
   },
   {
-    title: 'Scientific ML with reliability in mind',
-    description: 'Discrete diffusion, reinforcement learning for inverse design, uncertainty quantification, calibration, and OOD testing.',
+    title: 'Reliable Scientific ML',
+    description: 'Discrete diffusion, RL-aligned generation, uncertainty quantification, calibration, and out-of-distribution evaluation.',
   },
   {
-    title: 'Products that stay useful in real settings',
-    description: 'Offline-first apps, exact accounting logic, sync conflict handling, localization, notifications, and end-to-end validation.',
+    title: 'Product Systems',
+    description: 'Offline-first apps, exact domain logic, sync conflict handling, localization, notifications, and end-to-end validation.',
   },
 ];
 
@@ -129,15 +129,15 @@ const Home: React.FC = () => {
       </section>
 
       <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-5">Interests</h2>
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-5">Core Areas</h2>
         <div className="space-y-5">
-          {interests.map((interest) => (
-            <div key={interest.title}>
+          {coreAreas.map((area) => (
+            <div key={area.title}>
               <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
-                {interest.title}
+                {area.title}
               </h3>
               <p className="mt-1 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                {interest.description}
+                {area.description}
               </p>
             </div>
           ))}
