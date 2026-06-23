@@ -16,6 +16,7 @@ export { default as Eye } from 'lucide-react/dist/esm/icons/eye.js';
 export { default as FlaskConical } from 'lucide-react/dist/esm/icons/flask-conical.js';
 export { default as GitBranch } from 'lucide-react/dist/esm/icons/git-branch.js';
 export { default as Github } from 'lucide-react/dist/esm/icons/github.js';
+export { default as GraduationCap } from 'lucide-react/dist/esm/icons/graduation-cap.js';
 export { default as Heart } from 'lucide-react/dist/esm/icons/heart.js';
 export { default as Home } from 'lucide-react/dist/esm/icons/house.js';
 export { default as Info } from 'lucide-react/dist/esm/icons/info.js';

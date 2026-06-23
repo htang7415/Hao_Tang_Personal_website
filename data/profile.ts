@@ -15,7 +15,7 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "I'm an M.S. Computer Sciences student at UW-Madison working across AI evaluation, retrieval systems, scientific ML, and product software.",
+      "Hao Tang is an M.S. Computer Sciences student at UW-Madison working across AI evaluation, retrieval systems, scientific ML, and product software.",
       "My recent work includes MEMTRACE for agent memory risk, MaxionBench for retrieval decisions, HyprShare for shared expenses, and diffusion/UQ research for reliability."
     ]
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, BookOpen, Github, Linkedin, Mail } from '../components/icons';
+import { ArrowRight, Github, GraduationCap, Linkedin, Mail } from '../components/icons';
 import { profile } from '../data/profile';
 
 const interests = [
@@ -97,7 +97,7 @@ const Home: React.FC = () => {
           <div className="min-w-0 flex-1">
             <div>
               <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-4">
-                About {profile.name}
+                About
               </h1>
               <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
                 {profile.about.paragraphs.map((paragraph, index) => (
@@ -120,7 +120,7 @@ const Home: React.FC = () => {
                 LinkedIn
               </a>
               <a href={profile.social.googleScholar} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400">
-                <BookOpen size={16} />
+                <GraduationCap size={16} />
                 Google Scholar
               </a>
             </div>
@@ -187,18 +187,6 @@ const Home: React.FC = () => {
               </div>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">Publications</h2>
-        <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-          <p>
-            I have published work on uncertainty quantification for polymer informatics in JCIM and stochastic isogeometric reliability analysis in Reliability Engineering &amp; System Safety.
-          </p>
-          <a href="#/research" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
-            View research details <ArrowRight size={15} />
-          </a>
         </div>
       </section>
 
