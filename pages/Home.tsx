@@ -193,7 +193,7 @@ const Home: React.FC = () => {
       <section className="max-w-3xl mx-auto px-6 py-10">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Contact</h2>
         <p className="mt-2 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-          I am interested in AI evaluation, retrieval systems, ML infrastructure, scientific ML, and product work with clear user value.
+          I am open to conversations about research, engineering roles, product ideas, and collaborations around AI systems, retrieval, and reliable ML.
         </p>
         <a href={`mailto:${profile.email}`} className="mt-4 inline-flex items-center gap-2 text-base font-medium text-blue-600 dark:text-blue-400 hover:underline">
           <Mail size={18} />
