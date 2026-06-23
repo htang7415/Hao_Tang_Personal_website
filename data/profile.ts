@@ -2,7 +2,7 @@ import { Profile } from '../types';
 
 export const profile: Profile = {
   name: "Hao Tang",
-  tagline: "",
+  tagline: "AI systems, ML evaluation, and product software",
   email: "hao.tang@wisc.edu",
   // To replace the image:
   // 1. Add your image file to your project's public folder (e.g., 'me.jpg')
@@ -15,8 +15,8 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "Hao Tang is an M.S. Computer Sciences student at UW-Madison focused on AI evaluation, retrieval systems, scientific ML, and practical product software.",
-      "His recent work includes MEMTRACE, MaxionBench, HyprShare, and diffusion/UQ research. Outside work, he enjoys reading, sports, music, and podcasts."
+      "Hao Tang is an M.S. Computer Sciences student at UW-Madison building AI systems, ML evaluation infrastructure, retrieval benchmarks, and production software.",
+      "Recent work includes MEMTRACE for agent memory-safety evaluation, MaxionBench for vector retrieval decisions, PolyDiT and RL-aligned diffusion for generative ML, and HyprShare as an offline-first iOS product."
     ]
   }
 };

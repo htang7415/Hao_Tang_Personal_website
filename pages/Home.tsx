@@ -4,20 +4,20 @@ import { profile } from '../data/profile';
 
 const coreAreas = [
   {
-    title: 'Agent Evaluation',
-    description: 'Trace-level benchmarks, stage-wise metrics, scorer reconciliation, and release checks for diagnosing agent behavior.',
+    title: 'AI Agent Evaluation',
+    description: 'Trace-level evaluation for tool-using agents: memory admission, planner behavior, policy diagnostics, execution, and audit-ready metrics.',
   },
   {
-    title: 'Retrieval Infrastructure',
-    description: 'Vector-search evaluation across FAISS, LanceDB, pgvector, and Qdrant with quality, latency, freshness, and cost constraints.',
+    title: 'Retrieval & Data Infrastructure',
+    description: 'Vector search and RAG infrastructure across FAISS, LanceDB, pgvector, and Qdrant with schema gates, latency budgets, and decision reports.',
   },
   {
-    title: 'Reliable Scientific ML',
-    description: 'Discrete diffusion, RL-aligned generation, uncertainty quantification, calibration, and out-of-distribution evaluation.',
+    title: 'ML Systems',
+    description: 'PyTorch diffusion and Transformer systems with DDP/BF16 training, batch inference, model selection, calibration, and OOD evaluation.',
   },
   {
-    title: 'Product Systems',
-    description: 'Offline-first apps, exact domain logic, sync conflict handling, localization, notifications, and end-to-end validation.',
+    title: 'Product Engineering',
+    description: 'Offline-first SwiftUI/Core Data apps, Supabase/PostgreSQL sync, exact domain logic, release validation, and tests.',
   },
 ];
 
@@ -26,10 +26,10 @@ const selectedWork = [
     title: 'MEMTRACE',
     meta: 'Agent memory evaluation · Jan. 2026 - May 2026',
     href: '#/research#memtrace',
-    summary: 'Trace-level benchmark for persistent-memory risk in tool-using agents, with 324 main traces and 72 oracle calibration traces across 12 synthetic enterprise tasks.',
+    summary: 'Evaluation harness for persistent-memory risk in tool-using agents, with 396 trace records across 12 synthetic enterprise tasks.',
     points: [
       'Separates retrieval exposure, memory admission, planner proposal, policy diagnostics, and tool execution.',
-      'Uses deterministic tool stubs, causal-chain scoring, Wilson intervals, and no-inference metric regeneration.',
+      'Uses Pydantic trace schemas, deterministic tools, causal-chain scoring, Wilson intervals, and no-inference metric regeneration.',
     ],
     tags: ['LLM agents', 'Memory', 'Evaluation', 'Python'],
   },
@@ -37,10 +37,10 @@ const selectedWork = [
     title: 'RL-Aligned Conditional Diffusion Transformer',
     meta: 'Research assistant, UW-Madison · Sept. 2025 - Mar. 2026',
     href: '#/research#rl-inverse-design',
-    summary: 'Target-conditioned discrete diffusion workflow for constrained inverse design with classifier-free guidance, oracle-guided sampling, PPO, GRPO, and DPO alignment.',
+    summary: 'Target-conditioned discrete diffusion system for constrained generation with classifier-free guidance, oracle-guided sampling, PPO, GRPO, and DPO.',
     points: [
-      'Uses 7-dimensional condition bundles and reward-shaped evaluation over validity, novelty, class match, feasibility, and target bounds.',
-      'Improved mean discovery hit rates from 93.2% with supervised conditional diffusion to 96.7%-98.9% with aligned variants.',
+      'Built a 10.9M-parameter masked Diffusion Transformer with 1,250 target rows, 7-dimensional conditions, and GPU batch inference.',
+      'Raised discovery hit rate from a 93.2% supervised baseline to 98.9% after RL-style alignment.',
     ],
     tags: ['Diffusion', 'RL', 'PPO/GRPO/DPO', 'PyTorch'],
   },
@@ -48,10 +48,10 @@ const selectedWork = [
     title: 'MaxionBench',
     meta: 'Retrieval decision benchmark · Sept. 2025 - Feb. 2026',
     href: '#/research#maxionbench',
-    summary: 'Conformance-gated benchmark for retrieval infrastructure used as operational memory, with shared adapters for FAISS, LanceDB, pgvector, and Qdrant.',
+    summary: 'Conformance-gated benchmark for choosing retrieval infrastructure used as operational memory.',
     points: [
-      'Validated 72 archived run directories with 0 strict-schema errors.',
-      'Reports objective-sensitive decisions across quality, p99 latency, throughput, retrievability, context cost, and budget stability.',
+      'Built shared adapters for FAISS, LanceDB, pgvector, and Qdrant with schema and lifecycle checks.',
+      'Validated 72 run directories with 0 schema errors and selected FAISS CPU/bge-small for 0.852 evidence coverage at 22.8 ms max p99 latency.',
     ],
     tags: ['Retrieval', 'Vector search', 'Schemas', 'Docker'],
   },
@@ -59,10 +59,10 @@ const selectedWork = [
     title: 'HyprShare',
     meta: 'Offline-first iOS app · May 2025 - Nov. 2025',
     href: 'https://hyprshare.vercel.app/',
-    summary: 'Native SwiftUI app for shared expense tracking with invite-code and QR joining, equal-split entry, settlement suggestions, planning notes, notification history, and optional Supabase sync.',
+    summary: 'Native SwiftUI expense app with offline-first persistence, exact settlement logic, invite/QR joins, notifications, localization, and optional Supabase sync.',
     points: [
-      'Designed a 10-entity Core Data ledger with sync metadata, soft deletes, dirty flags, and remote identifiers.',
-      'Built Supabase/PostgreSQL workflows with row-level security, RPC functions, triggers, Edge Functions, APNs, localization, and tests.',
+      'Designed a 10-entity Core Data ledger with Decimal arithmetic, residual-cent rounding, sync metadata, and soft deletes.',
+      'Built a 2,548-line sync engine with Supabase/PostgreSQL, row-level security, Edge Functions, APNs, and XCTest/UI coverage.',
     ],
     tags: ['SwiftUI', 'Core Data', 'Supabase', 'iOS'],
   },
@@ -70,10 +70,10 @@ const selectedWork = [
     title: 'PolyDiT',
     meta: 'Multi-representation diffusion modeling · Sept. 2024 - Aug. 2025',
     href: '#/research#polydit',
-    summary: 'Masked discrete Diffusion Transformer work across character, BPE, validity-preserving, fragment/group, and graph state spaces.',
+    summary: 'Masked discrete Diffusion Transformer stack across character, BPE, constrained-token, fragment, and graph representations.',
     points: [
-      'Scaled Transformer backbones from 10.9M to 681.1M parameters with DDP-compatible training, BF16, gradient accumulation, and memory-aware batching.',
-      'Benchmarked 200,000 generated samples and reused denoisers for downstream representation learning.',
+      'Trained over 19.3M train and 1.0M validation objects with reproducible tokenization, BF16 DDP, and 8-GPU/2-node launch support.',
+      'Scaled denoisers from 10.9M to 681.1M parameters and reached 1.0 validity, 0.943 held-out R-squared, and 0.903 diversity.',
     ],
     tags: ['Transformers', 'Discrete diffusion', 'Representation learning', 'Distributed training'],
   },
@@ -193,7 +193,7 @@ const Home: React.FC = () => {
       <section className="max-w-3xl mx-auto px-6 py-10">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Contact</h2>
         <p className="mt-2 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-          I am open to conversations about research, engineering roles, product ideas, and collaborations around AI systems, retrieval, and reliable ML.
+          I am open to AI Engineer, Machine Learning Engineer, Software Development Engineer, and research-engineering conversations around reliable AI systems, retrieval, and ML infrastructure.
         </p>
         <a href={`mailto:${profile.email}`} className="mt-4 inline-flex items-center gap-2 text-base font-medium text-blue-600 dark:text-blue-400 hover:underline">
           <Mail size={18} />
