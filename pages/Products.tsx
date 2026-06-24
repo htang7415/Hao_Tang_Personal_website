@@ -7,7 +7,7 @@ const Products: React.FC = () => {
     <div className="max-w-5xl mx-auto px-6 py-24 md:py-28">
       <SectionTitle 
         title="Product" 
-        subtitle="HyprShare is an offline-first SwiftUI app with exact settlement logic, Core Data persistence, and optional Supabase/PostgreSQL sync."
+        subtitle="HyprShare is a SwiftUI group expense and planning app with exact settlement logic, Core Data persistence, invite/QR collaboration, and Supabase/PostgreSQL sync."
       />
 
       <div className="max-w-2xl">

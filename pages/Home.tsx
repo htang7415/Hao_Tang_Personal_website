@@ -17,7 +17,7 @@ const coreAreas = [
   },
   {
     title: 'Product Engineering',
-    description: 'Offline-first SwiftUI/Core Data apps, Supabase/PostgreSQL sync, exact domain logic, release validation, and tests.',
+    description: 'SwiftUI/Core Data product apps with Supabase/PostgreSQL collaboration, exact domain logic, release validation, and tests.',
   },
 ];
 
@@ -57,9 +57,9 @@ const selectedWork = [
   },
   {
     title: 'HyprShare',
-    meta: 'Offline-first iOS app · May 2025 - Nov. 2025',
+    meta: 'Group expense iOS app · May 2025 - Nov. 2025',
     href: 'https://hyprshare.vercel.app/',
-    summary: 'Native SwiftUI expense app with offline-first persistence, exact settlement logic, invite/QR joins, notifications, localization, and optional Supabase sync.',
+    summary: 'Native SwiftUI expense and planning app with exact split/settlement logic, invite/QR joins, notifications, localization, and Supabase/PostgreSQL sync.',
     points: [
       'Designed a 10-entity Core Data ledger with Decimal arithmetic, residual-cent rounding, sync metadata, and soft deletes.',
       'Built a 2,548-line sync engine with Supabase/PostgreSQL, row-level security, Edge Functions, APNs, and XCTest/UI coverage.',
