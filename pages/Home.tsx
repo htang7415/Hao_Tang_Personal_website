@@ -39,7 +39,7 @@ const selectedWork = [
     href: '#/research#rl-inverse-design',
     summary: 'Target-conditioned discrete diffusion system for constrained generation with classifier-free guidance, oracle-guided sampling, PPO, GRPO, and DPO.',
     points: [
-      'Built a 10.9M-parameter masked Diffusion Transformer with 1,250 target rows, 7-dimensional conditions, and GPU batch inference.',
+      'Built a 10.9M-parameter masked Diffusion Transformer with 1,250 target configurations, 7-dimensional conditions, and GPU batch inference.',
       'Raised discovery hit rate from a 93.2% supervised baseline to 98.9% after RL-style alignment.',
     ],
     tags: ['Diffusion', 'RL', 'PPO/GRPO/DPO', 'PyTorch'],

@@ -23,7 +23,7 @@ export const researchItems: ResearchItem[] = [
     tags: ['Diffusion', 'Post-Training', 'Reinforcement Learning', 'PyTorch'],
     featured: true,
     highlights: `
-- Built a 10.9M-parameter masked Diffusion Transformer with 1,250 target rows, 7-dimensional conditions, checkpointed GPU training, and batch inference.
+- Built a 10.9M-parameter masked Diffusion Transformer with 1,250 target configurations, 7-dimensional conditions, checkpointed GPU training, and batch inference.
 - Raised discovery hit rate from a 93.2% supervised baseline to 98.9% after RL-style alignment while tracking validity, novelty, feasibility, and target bounds.
 `
   },
