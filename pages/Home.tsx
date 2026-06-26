@@ -4,16 +4,16 @@ import { profile } from '../data/profile';
 
 const coreAreas = [
   {
-    title: 'AI Agent Evaluation',
-    description: 'Trace-level evaluation for tool-using agents: memory admission, planner behavior, policy diagnostics, execution, and audit-ready metrics.',
+    title: 'Agent Evaluation & Safety',
+    description: 'Trace-level evaluation for tool-using agents: retrieval exposure, memory admission, planner behavior, policy diagnostics, execution, and audit-ready metrics.',
   },
   {
-    title: 'Retrieval & Data Infrastructure',
-    description: 'Vector search and RAG infrastructure across FAISS, LanceDB, pgvector, and Qdrant with schema gates, latency budgets, and decision reports.',
+    title: 'Retrieval-Memory Systems',
+    description: 'Vector retrieval infrastructure across FAISS, LanceDB, pgvector, and Qdrant with adapter contracts, schema gates, latency budgets, and decision reports.',
   },
   {
-    title: 'ML Systems',
-    description: 'PyTorch diffusion and Transformer systems with DDP/BF16 training, batch inference, model selection, calibration, and OOD evaluation.',
+    title: 'Post-Training & ML Systems',
+    description: 'PyTorch diffusion and Transformer systems with PPO/GRPO/DPO alignment, DDP/BF16 training, batch inference, and reproducible experiment pipelines.',
   },
   {
     title: 'Product Engineering',
@@ -26,10 +26,10 @@ const selectedWork = [
     title: 'MEMTRACE',
     meta: 'Agent memory evaluation · Jan. 2026 - May 2026',
     href: '#/research#memtrace',
-    summary: 'Evaluation harness for persistent-memory risk in tool-using agents, with 396 trace records across 12 synthetic enterprise tasks.',
+    summary: 'Trace-level evaluation framework for persistent-memory risk in tool-using agents, with 396 records across 12 synthetic enterprise-assistant tasks.',
     points: [
       'Separates retrieval exposure, memory admission, planner proposal, policy diagnostics, and tool execution.',
-      'Uses Pydantic trace schemas, deterministic tools, causal-chain scoring, Wilson intervals, and no-inference metric regeneration.',
+      'Uses deterministic tools, Pydantic schemas, JSONL records, causal-chain scoring, Wilson intervals, audit manifests, and no-inference metric regeneration.',
     ],
     tags: ['LLM agents', 'Memory', 'Evaluation', 'Python'],
   },
@@ -37,10 +37,10 @@ const selectedWork = [
     title: 'RL-Aligned Conditional Diffusion Transformer',
     meta: 'Research assistant, UW-Madison · Sept. 2025 - Mar. 2026',
     href: '#/research#rl-inverse-design',
-    summary: 'Target-conditioned discrete diffusion system for constrained generation with classifier-free guidance, oracle-guided sampling, PPO, GRPO, and DPO.',
+    summary: 'Target-conditioned discrete diffusion pipeline that compares PPO, GRPO, and DPO alignment with KL control against a supervised reference policy.',
     points: [
-      'Built a 10.9M-parameter masked Diffusion Transformer with 1,250 target configurations, 7-dimensional conditions, and GPU batch inference.',
-      'Raised discovery hit rate from a 93.2% supervised baseline to 98.9% after RL-style alignment.',
+      'Built a 10.9M masked DiT with 1,250 target configurations under 7D conditions, checkpointing, batch inference, and structured metrics.',
+      'Raised discovery hit rate from 93.2% with supervised conditional diffusion to 98.9% with policy-aligned variants.',
     ],
     tags: ['Diffusion', 'RL', 'PPO/GRPO/DPO', 'PyTorch'],
   },
@@ -48,10 +48,10 @@ const selectedWork = [
     title: 'MaxionBench',
     meta: 'Retrieval decision benchmark · Sept. 2025 - Feb. 2026',
     href: '#/research#maxionbench',
-    summary: 'Conformance-gated benchmark for choosing retrieval infrastructure used as operational memory.',
+    summary: 'Conformance-gated benchmark for choosing retrieval infrastructure used as agent operational memory.',
     points: [
-      'Built shared adapters for FAISS, LanceDB, pgvector, and Qdrant with schema and lifecycle checks.',
-      'Validated 72 run directories with 0 schema errors and selected FAISS CPU/bge-small for 0.852 evidence coverage at 22.8 ms max p99 latency.',
+      'Built a Python package with CLI workflows, typed schemas, Docker-backed services, and FAISS/LanceDB/pgvector/Qdrant adapters.',
+      'Validated 72 strict-schema run directories with 0 errors and selected FAISS CPU/bge-small for 0.852 HotpotQA coverage@10 at 22.8-ms max p99.',
     ],
     tags: ['Retrieval', 'Vector search', 'Schemas', 'Docker'],
   },
@@ -73,7 +73,7 @@ const selectedWork = [
     summary: 'Masked discrete Diffusion Transformer stack across character, BPE, constrained-token, fragment, and graph representations.',
     points: [
       'Trained over 19.3M train and 1.0M validation objects with reproducible tokenization, BF16 DDP, and 8-GPU/2-node launch support.',
-      'Scaled denoisers from 10.9M to 681.1M parameters and reached 1.0 validity, 0.943 held-out R-squared, and 0.903 diversity.',
+      'Scaled denoisers from 10.9M to 681.1M parameters and reached 1.0 validity, 0.943 held-out R^2, 0.903 diversity, and 62.18 valid samples/s.',
     ],
     tags: ['Transformers', 'Discrete diffusion', 'Representation learning', 'Distributed training'],
   },

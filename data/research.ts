@@ -3,41 +3,41 @@ import { ResearchItem } from '../types';
 export const researchItems: ResearchItem[] = [
   {
     id: 'memtrace',
-    title: 'MEMTRACE: LLM-Agent Memory-Safety Evaluation Harness',
+    title: 'MEMTRACE: Memory-Safety Evaluation for Tool-Using Agents',
     typeOrVenue: 'Research software · Jan. 2026 - May 2026',
     summary:
-      'A Python/MLX harness for tracing persistent-memory risk from retrieval exposure through memory admission, planning, policy diagnostics, and tool execution.',
-    tags: ['LLM Agents', 'Evaluation', 'Memory Safety', 'MLX'],
+      'A trace-level Python evaluation framework that separates delayed prompt-injection risk across retrieval exposure, memory admission, planning, policy diagnostics, and tool execution.',
+    tags: ['LLM Agents', 'Evaluation', 'Memory Safety', 'Pydantic'],
     featured: true,
     highlights: `
-- Produced 396 trace records across 12 synthetic enterprise tasks; permissive memory stored poisoned facts in 6/72 cases, while provenance-aware memory stored 0/72.
-- Built Pydantic trace schemas, deterministic tools, causal-chain scorers, Wilson intervals, no-inference metric regeneration, and pytest-covered validation gates.
+- Generated 396 trace records across 12 synthetic enterprise-assistant tasks; permissive admission stored poisoned facts in 6/72 stateful attacks, while provenance-aware admission stored 0/72.
+- Built deterministic tool stubs, Pydantic trace schemas, JSONL records, causal-chain scorers, Wilson intervals, audit manifests, and no-inference metric regeneration.
 `
   },
   {
     id: 'rl-inverse-design',
-    title: 'RL-Aligned Conditional Diffusion Transformer',
+    title: 'RL-Aligned Conditional Diffusion Transformer for Targeted Generation',
     typeOrVenue: 'Research Assistant, UW-Madison · Sept. 2025 - Mar. 2026',
     summary:
-      'A target-conditioned discrete diffusion system for constrained generation with classifier-free guidance, oracle-guided sampling, reward shaping, PPO, GRPO, and DPO.',
+      'A target-conditioned discrete diffusion pipeline that turns reverse diffusion into a reward-optimized policy with trajectory replay, KL control, PPO, GRPO, and DPO comparisons.',
     tags: ['Diffusion', 'Post-Training', 'Reinforcement Learning', 'PyTorch'],
     featured: true,
     highlights: `
-- Built a 10.9M-parameter masked Diffusion Transformer with 1,250 target configurations, 7-dimensional conditions, checkpointed GPU training, and batch inference.
-- Raised discovery hit rate from a 93.2% supervised baseline to 98.9% after RL-style alignment while tracking validity, novelty, feasibility, and target bounds.
+- Built a reproducible PyTorch target-conditioned generation pipeline for 1,250 target configurations under 7D conditions, using a 10.9M masked DiT, checkpoints, batch inference, and structured metrics.
+- Raised discovery hit rate from a 93.2% supervised conditional-DiT baseline to 98.9% with policy-aligned variants while tracking validity, novelty, class matching, feasibility, quota fill, and macro target success.
 `
   },
   {
     id: 'maxionbench',
-    title: 'MaxionBench: Vector Retrieval Benchmark for Agentic Memory',
+    title: 'MaxionBench: Agent-Memory Retrieval Decision Benchmark',
     typeOrVenue: 'Research software · Sept. 2025 - Feb. 2026',
     summary:
-      'A reproducible benchmark for choosing retrieval engines under conformance, quality, latency, context-cost, and budget constraints.',
+      'A conformance-gated benchmark for choosing retrieval infrastructure used as agent operational memory under quality, latency, freshness, context-cost, and budget constraints.',
     tags: ['Retrieval', 'Vector Search', 'FAISS', 'Qdrant'],
     featured: true,
     highlights: `
-- Built shared adapters for FAISS, LanceDB, pgvector, and Qdrant across lifecycle, CRUD, filtering, batch query, flush, compaction, and stats operations.
-- Validated 72 archived run directories with 0 strict-schema errors and selected FAISS CPU/bge-small for 0.852 evidence coverage at 22.8 ms max p99 latency.
+- Built a conformance-gated Python package with CLI workflows, typed schemas, dataset loaders, Docker-backed services, and FAISS/LanceDB/pgvector/Qdrant adapters behind one contract.
+- Validated 72 strict-schema run directories with 0 errors and selected FAISS CPU/bge-small at 0.852 HotpotQA coverage@10 and 22.8-ms max p99 under a 200-ms policy.
 `
   },
   {
@@ -53,7 +53,7 @@ export const researchItems: ResearchItem[] = [
     featured: true,
     highlights: `
 - Built a PyTorch DiT training stack over 19.3M train and 1.0M validation objects with reproducible tokenization, BF16 DDP, and 8-GPU/2-node launch support.
-- Scaled denoisers from 10.9M to 681.1M parameters; evaluated 200K generated samples and reached 1.0 validity, 0.943 held-out R-squared, and 0.903 diversity.
+- Scaled denoisers from 10.9M to 681.1M parameters; evaluated 200,000 generated samples and reached 1.0 validity, 0.943 held-out R^2, 0.903 diversity, and 62.18 valid samples/s.
 `
   },
   {
@@ -69,7 +69,7 @@ export const researchItems: ResearchItem[] = [
     },
     featured: true,
     highlights: `
-- Benchmarked nine UQ methods on 15,334 samples across Tg, Eg, Tm, and Td with Optuna tuning, R-squared, Spearman correlation, and calibration metrics.
+- Benchmarked nine UQ methods on 15,334 samples across Tg, Eg, Tm, and Td with Optuna tuning, R^2, Spearman correlation, and calibration metrics.
 - Evaluated 240 experimental OOD Tg samples, 566 MD-derived OOD Tg samples, 442 high-Tg candidates, and nine structural families to guide model choice.
 `
   },

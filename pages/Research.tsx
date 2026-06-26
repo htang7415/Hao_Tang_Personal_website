@@ -8,7 +8,7 @@ const Research: React.FC = () => {
     <div className="max-w-5xl mx-auto px-6 py-24 md:py-28">
       <SectionTitle 
         title="Research" 
-        subtitle="AI systems, ML evaluation, retrieval infrastructure, generative modeling, and reliability research software."
+        subtitle="Agent evaluation, retrieval-memory infrastructure, post-training/RL, scalable diffusion systems, and reliability-focused ML research software."
       />
 
       <div className="space-y-12">
