@@ -3,7 +3,7 @@ import { Profile } from '../types';
 export const profile: Profile = {
   name: "Hao Tang",
   tagline: "AI research engineering and reliable ML systems",
-  email: "hao.tang@wisc.edu",
+  email: "hao.max.tang@gmail.com",
   // To replace the image:
   // 1. Add your image file to your project's public folder (e.g., 'me.jpg')
   // 2. Change the line below to: avatar: "/me.jpg"
