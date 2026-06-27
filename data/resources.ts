@@ -23,13 +23,6 @@ export const resources: ResourceItem[] = [
     url: 'https://www.youtube.com/c/lexfridman',
   },
   {
-    id: 'res4',
-    title: 'Dwarkesh Patel on YouTube',
-    description: 'Deeply researched interviews.',
-    category: 'Channel',
-    url: 'https://www.youtube.com/@DwarkeshPatel',
-  },
-  {
     id: 'res5',
     title: 'Andrej Karpathy on YouTube',
     description: 'Andrej Karpathy\'s deep dives into how LLMs and neural nets actually work.',
