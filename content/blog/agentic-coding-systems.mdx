@@ -541,6 +541,30 @@ ReAct gives the loop. SWE-agent gives the repository interface. Codex-style syst
 
 That combination is why the category matters. A coding agent is not merely a bigger autocomplete model. It is a coordinated runtime for bounded software work.
 
+## 10. Future Challenges
+
+Agentic coding systems are useful already, but several hard problems remain.
+
+### Better Long-horizon Planning
+
+Many coding tasks are not a single patch. They involve migration plans, staged refactors, dependency updates, test expansion, rollout strategy, and follow-up cleanup. Agents need stronger ways to preserve intent across long runs without drifting away from the original goal.
+
+### More Reliable Context Selection
+
+The system has to decide what the model should see. Too little context leads to shallow fixes. Too much context creates noise. The hard problem is building retrieval that understands code structure, runtime behavior, ownership boundaries, and recent changes well enough to surface the right evidence at the right time.
+
+### Stronger Verification
+
+Running existing tests is not enough when tests are weak, flaky, or missing. Future systems need better regression-test generation, environment reproduction, browser validation, static analysis, and ways to explain what was not verified. The agent should not only say "tests passed"; it should say what those tests actually cover.
+
+### Safer Tool Use
+
+As agents gain more tools, the risk surface grows: package installs, network access, cloud credentials, databases, production-like environments, and third-party APIs. Sandboxing and approvals need to become more granular, policy-aware, and understandable to users.
+
+### Human-agent Collaboration
+
+The best workflow is not full autonomy or constant interruption. It is selective collaboration: the agent should know when to proceed, when to ask, when to summarize uncertainty, and when to stop. Good handoffs may matter as much as good patches.
+
 ## Conclusion
 
 The durable mental model is:
