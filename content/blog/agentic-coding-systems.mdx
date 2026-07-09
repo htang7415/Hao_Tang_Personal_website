@@ -1,0 +1,570 @@
+---
+title: "Codex, ReAct, and SWE-agent: A Systems View of Agentic Coding"
+date: "2026-07-09"
+summary: "A clear systems map of how modern coding agents combine reasoning, tools, repository context, sandboxed execution, verification, and human review."
+tags: ["AI", "Agents", "System Design"]
+slug: "agentic-coding-systems"
+published: true
+readingTime: 14
+---
+
+Most discussions about AI coding tools start with one question: can the model write good code?
+
+That question is useful, but incomplete. The larger shift is from code suggestion to code operation. A modern coding agent does not only generate text. It can inspect a repository, choose tools, edit files, run commands, observe failures, repair its patch, and leave a reviewable trail.
+
+The compact mental model is:
+
+```text
+LLM + tools + environment + feedback loop + safety boundary
+= agentic coding system
+```
+
+<Callout type="info" title="Core idea">
+A coding agent is best understood as a controlled execution loop around a model. The model proposes actions; tools change or inspect the environment; observations flow back into the next decision.
+</Callout>
+
+This post builds the idea from shallow to deep:
+
+| Level | Concept | What it explains |
+| --- | --- | --- |
+| 1 | ReAct | How an LLM alternates between deciding and acting |
+| 2 | SWE-agent | How that loop works inside a real software repository |
+| 3 | Codex-style systems | How the pattern becomes a product with sandboxing, verification, traces, and review |
+
+I use "Codex-style" carefully. OpenAI has published product and developer documentation for Codex, but its full internal implementation is not public. When I discuss Codex-specific behavior, I cite public OpenAI sources. When I discuss architecture, I am describing a general system design pattern for agentic coding.
+
+## 1. From Suggestion to Operation
+
+Autocomplete predicts code. Chat assistants explain or draft code. Coding agents operate on code.
+
+| System type | What it does | Where the loop stops |
+| --- | --- | --- |
+| Code completion | Predicts the next code span | Before task understanding and verification |
+| Chat coding assistant | Explains code or drafts a patch | Before applying, running, and debugging |
+| Coding agent | Reads, edits, runs, observes, repairs, reports | After producing evidence for review |
+
+The key difference is feedback.
+
+A chat assistant might say, "Change this function and rerun the test." A coding agent can make the change, run the test, read the failure, inspect the related file, adjust the patch, and rerun the check. The agent may still be wrong, but its errors become visible and recoverable.
+
+OpenAI's Codex announcement describes this kind of workflow: Codex can write features, answer codebase questions, fix bugs, and propose pull requests; tasks run in isolated environments preloaded with the repository; Codex can read and edit files and run test harnesses, linters, and type checkers; completed work includes terminal logs and test outputs for review ([OpenAI Codex announcement](https://openai.com/index/introducing-codex/)).
+
+So the central question is no longer just "Can the model produce code?" It is:
+
+```text
+Can the system turn model output into bounded, observable, testable software work?
+```
+
+## 2. ReAct: The Smallest Useful Agent Loop
+
+ReAct means **Reasoning + Acting**. The ReAct paper introduced a pattern where a language model interleaves reasoning traces with task-specific actions, so it can update its plan while using external environments or tools for information ([ReAct paper](https://arxiv.org/abs/2210.03629)). Google Research's writeup frames the same mechanism as a loop where reasoning helps maintain a plan and actions return observations from the outside world ([Google Research ReAct post](https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/)).
+
+In practical system terms:
+
+```text
+Observation: task, current files, previous outputs
+Decision: choose the next useful action
+Action: search, inspect, edit, run, ask, or report
+Observation: tool result, command output, error, diff, test result
+Decision: update the plan
+...
+Final artifact: answer, patch, report, or PR
+```
+
+That loop is simple, but powerful. It turns a model from a one-shot generator into a controller that can react to the environment.
+
+A minimal version looks like this:
+
+```python
+state = initialize(task, environment)
+
+while not state.done:
+    action = model.choose_next_action(state)
+    checked_action = policy.validate(action, state)
+    observation = environment.execute(checked_action)
+    state = state.update(action, observation)
+
+    if verifier.has_enough_evidence(state):
+        state.done = True
+
+return state.final_artifact
+```
+
+Two details matter.
+
+First, production systems do not need to expose private chain-of-thought to users. What matters architecturally is that the model can decide, act, observe, and revise.
+
+Second, tool output quality directly affects the next decision. A vague error, huge log dump, or silent success gives the model a weak observation. A concise, structured observation gives it a better next step.
+
+## 3. SWE-agent: ReAct Inside a Repository
+
+SWE-agent applies the ReAct idea to software engineering:
+
+```text
+ReAct loop + repository tools + code editing + test execution
+```
+
+The key concept from the SWE-agent paper is the **Agent-Computer Interface**, or ACI. The authors argue that language-model agents are a new category of computer user, so they benefit from interfaces designed for their capabilities and failure modes, not just raw human-oriented shell access ([SWE-agent paper](https://arxiv.org/abs/2405.15793)).
+
+This is the important shift:
+
+```text
+Weak framing:
+    The model needs a bigger prompt.
+
+Better framing:
+    The model needs the right interface to the repository.
+```
+
+SWE-agent's ACI notes list several concrete interface decisions ([SWE-agent ACI notes](https://github.com/SWE-agent/SWE-agent/blob/main/docs/background/aci.md)):
+
+- Run a linter after edit commands and reject syntactically invalid edits.
+- Use a purpose-built file viewer instead of dumping whole files.
+- Provide compact repository search output.
+- Return explicit success messages when commands produce no output.
+
+Those details look small, but they are system-level design choices. A model that sees the right 100 lines of a file is more likely to edit correctly than a model buried under a 2,000-line paste. A model that gets a clear syntax error immediately can repair faster than one that discovers the error three steps later.
+
+A repository-oriented loop usually looks like this:
+
+```text
+Task or issue
+-> read project instructions
+-> search for relevant code
+-> inspect nearby files
+-> form a local hypothesis
+-> edit a small patch
+-> run targeted checks
+-> read failures
+-> repair
+-> run broader checks
+-> produce diff and evidence
+```
+
+This is why coding agents are more than prompt engineering. The model is not merely asked to "write the fix." It is placed in an environment where it can discover, test, and correct the fix through interaction.
+
+## 4. Codex-style Systems: Productizing the Pattern
+
+Codex is a concrete product example of agentic coding. Public Codex materials describe cloud tasks, CLI workflows, IDE and app surfaces, GitHub review flows, repository instructions, sandboxing, approvals, local review, web search, MCP integration, and traces or transcripts depending on the surface ([Codex CLI docs](https://developers.openai.com/codex/cli), [Codex sandbox docs](https://developers.openai.com/codex/concepts/sandboxing), [AGENTS.md guide](https://developers.openai.com/codex/guides/agents-md)).
+
+The public facts establish the product behavior. A general Codex-style architecture can be understood like this:
+
+```text
+User / IDE / GitHub / CLI
+        |
+        v
+Task Orchestrator
+        |
+        v
+Context Builder
+        |
+        v
+Agent Runtime
+        |
+        v
+Tool Execution Layer
+        |
+        v
+Sandbox + Approval Policy
+        |
+        v
+Verification Layer
+        |
+        v
+Diff / Logs / Trace / Review
+        |
+        v
+Human Review
+```
+
+Each layer exists because plain model output is not enough for software work.
+
+### Task Orchestrator
+
+The orchestrator turns a human request into an executable job. It decides which repository, branch, environment, permissions, and task state apply.
+
+For a cloud task, this can mean creating an isolated workspace. For a local CLI session, it can mean binding the agent to the current working directory. For a review workflow, it can mean reading a diff and producing prioritized findings without changing the working tree.
+
+OpenAI's Codex announcement says cloud tasks are processed independently in isolated environments preloaded with the codebase ([OpenAI Codex announcement](https://openai.com/index/introducing-codex/)). The Codex CLI docs describe interactive terminal workflows where Codex can read a repository, make edits, and run commands while the user reviews actions in real time ([Codex CLI docs](https://developers.openai.com/codex/cli)).
+
+### Context Builder
+
+The context builder decides what the model should see at each step.
+
+Good context is not maximum context. A coding agent needs the relevant task, project rules, current files, failing output, test names, current diff, and recent observations. Giving it the entire repository can waste attention and hide the important evidence.
+
+Useful context is layered:
+
+```text
+Task:
+    user request, issue, PR comment, bug report
+
+Project guidance:
+    AGENTS.md, README, setup docs, style rules
+
+Code evidence:
+    search results, symbols, relevant file ranges, current diff
+
+Runtime evidence:
+    test output, build errors, logs, browser results
+
+Agent state:
+    attempted fixes, rejected hypotheses, remaining risks
+```
+
+Codex supports durable repository guidance through `AGENTS.md`. The public guide says Codex reads `AGENTS.md` files before work and builds an instruction chain from global and project scopes, with closer project files overriding broader guidance ([AGENTS.md guide](https://developers.openai.com/codex/guides/agents-md)).
+
+The practical rule is:
+
+```text
+Context should be task-shaped, not repository-shaped.
+```
+
+### Tool Execution Layer
+
+Tools are how the agent acts.
+
+A useful coding-agent tool layer normally includes:
+
+```text
+read_file(path, range)
+search_text(query, scope)
+search_symbol(name)
+edit_file(path, patch)
+run_shell(command)
+run_tests(command)
+get_diff()
+open_browser(url)
+create_or_update_pr()
+```
+
+Tool design should optimize for the agent's next decision. The output should answer: what changed, what failed, what evidence matters, and what should be inspected next?
+
+Bad tool output:
+
+```text
+Huge raw log with no summary.
+```
+
+Better tool output:
+
+```text
+Command failed.
+Exit code: 1
+Relevant failure:
+    tests/test_auth.py::test_expired_token_rejected
+Reason:
+    AssertionError: expected 401, got 200
+Suggested next evidence:
+    auth/middleware.py, token validation branch
+```
+
+The tool layer is not a convenience wrapper. It is part of the agent's intelligence because it shapes what the model can observe.
+
+### Sandbox and Approval Policy
+
+An agent that can edit files and run shell commands needs a boundary.
+
+OpenAI's Codex sandbox documentation describes the sandbox as the boundary that lets Codex act without unrestricted access to a machine. The sandbox defines what commands can modify and whether they can use the network; approval policy decides when Codex must stop and ask before crossing those boundaries ([Codex sandbox docs](https://developers.openai.com/codex/concepts/sandboxing)).
+
+Separate the controls:
+
+| Control | Question it answers |
+| --- | --- |
+| Sandbox | What is technically allowed? |
+| Approval policy | When must the agent stop and ask? |
+| Audit trail | What happened, and how can we inspect it? |
+
+For local work, a typical lower-risk setup is:
+
+```text
+read files: allowed
+edit workspace files: allowed
+run routine local commands: allowed inside boundary
+use network: blocked unless configured or approved
+write outside workspace: requires approval
+full machine access: avoid unless the task and repository are trusted
+```
+
+This boundary is not just a security feature. It is what makes autonomy usable. The agent can keep moving on routine project work, but must pause before expanding its authority.
+
+### Verification Layer
+
+Verification turns a plausible patch into a patch with evidence.
+
+For coding agents, verification may include:
+
+- Unit tests
+- Integration tests
+- Type checking
+- Linting
+- Builds
+- Browser checks
+- Screenshot comparisons
+- Regression tests
+- Dedicated review passes
+
+The best verification flow is progressive:
+
+```text
+small edit
+-> run targeted test
+-> fix obvious failure
+-> rerun targeted test
+-> run broader checks
+-> inspect final diff
+-> summarize evidence and remaining risk
+```
+
+Passing tests are not proof of correctness. They are bounded evidence. A good final report should say which checks ran, which passed, which failed, and what remains unverified.
+
+### Trace and Observability
+
+Agent systems need to be debuggable.
+
+The trace should answer:
+
+```text
+What did the agent inspect?
+What did it change?
+Which commands did it run?
+Which tests passed or failed?
+Which approvals were requested?
+What evidence supports the final result?
+```
+
+OpenAI's Agents SDK documentation describes agents as LLMs equipped with instructions and tools, with support for guardrails, handoffs, sessions, sandbox agents, human-in-the-loop mechanisms, and tracing ([OpenAI Agents SDK](https://openai.github.io/openai-agents-python/)). Its tracing docs describe records of LLM generations, tool calls, handoffs, guardrails, and custom events for debugging and monitoring workflows ([Agents SDK tracing](https://openai.github.io/openai-agents-python/tracing/)).
+
+Even if a coding agent is not built with that SDK, the observability requirement is the same: engineers need to inspect the run, not merely read the final answer.
+
+## 5. The Feedback Loop Is the Product
+
+The most important mechanism is closed-loop correction:
+
+```text
+Plan
+-> Locate
+-> Edit
+-> Run
+-> Observe
+-> Repair
+-> Verify
+-> Report
+```
+
+This changes the failure mode.
+
+A one-shot code generator can hallucinate an API and stop. A coding agent can hallucinate an API, run the build, observe the missing symbol, search the dependency, patch the import, and rerun the check.
+
+The agent can still be wrong. The system improves the odds by making mistakes visible, recoverable, and reviewable.
+
+That is why the environment matters. A coding agent with no tests, no setup script, no project instructions, and no reproducible failure is mostly guessing. A coding agent with fast tests, clear docs, scoped tools, and a bounded sandbox has a path to convergence.
+
+## 6. Common Failure Modes
+
+Agentic coding systems fail in predictable ways.
+
+| Failure mode | What happens | Mitigation |
+| --- | --- | --- |
+| Context drift | The agent edits from stale or irrelevant context | Refresh search results, inspect the current diff, keep context task-shaped |
+| Overbroad edits | A small bug fix becomes a refactor | Prefer small patches and inspect diffs before finalizing |
+| Tool misuse | The agent runs unnecessary or risky commands | Sandbox, command policy, approvals, allowlists |
+| Verification gap | Tests pass but behavior is still wrong | Add targeted regression tests and report residual risk |
+| Flaky environment | Failures come from setup, timing, or dependencies | Reproduce, isolate, rerun, and label uncertainty |
+| Prompt injection | External content tries to redirect the agent | Treat external text as data, restrict network, require approvals |
+| Silent failure | A tool returns too little information | Return explicit success, failure, and next-evidence messages |
+
+The lesson is not "never trust agents." The lesson is that agents need the same engineering controls we use for other powerful automation: scoped authority, reproducible setup, small changes, verification, and auditability.
+
+## 7. Design Principles
+
+### 1. Start With the Environment
+
+The agent should not guess how to install dependencies, run tests, or start the app. A clear setup script and fast verification commands are part of the agent interface.
+
+### 2. Keep Actions Small
+
+Large patches make failures hard to attribute. Small edits keep the loop crisp: one hypothesis, one change, one check.
+
+### 3. Design Tools for Models
+
+Human shell tools are powerful, but not always model-friendly. File viewers, structured search, patch-based editors, and concise test summaries can outperform raw `cat`, unbounded `grep`, and huge logs.
+
+### 4. Separate Confidence From Evidence
+
+A model can sound confident before it has run anything. The system should distinguish predicted correctness from verified correctness.
+
+### 5. Put Safety at the Execution Boundary
+
+Prompt instructions are not enough. If a tool can delete files, access secrets, or send network requests, the runtime needs technical enforcement and approval gates.
+
+### 6. Preserve Human Review
+
+Agentic coding systems can reduce toil, but they should not remove engineering judgment. The final artifact should be a diff, a set of checks, and a clear summary of what changed and what was not verified.
+
+## 8. A Minimal Implementation Sketch
+
+A small coding-agent runtime can be expressed with five moving parts:
+
+```text
+State store:
+    task, open files, observations, modified files, test results
+
+Context builder:
+    turns state into compact model input
+
+Policy engine:
+    checks tools, permissions, network, filesystem scope
+
+Tool runner:
+    reads, edits, searches, executes, and captures output
+
+Verifier:
+    decides when to run checks and when evidence is sufficient
+```
+
+In pseudocode:
+
+```python
+def run_agent(task, workspace):
+    state = AgentState(task=task, workspace=workspace)
+
+    while not state.finished:
+        prompt = build_context(state)
+        action = model.select_action(prompt)
+
+        if policy.requires_approval(action, state):
+            approval = request_human_approval(action)
+            if not approval.granted:
+                state.record_denial(action)
+                continue
+
+        result = sandbox.execute(action)
+        state.record(action, result)
+
+        if verifier.should_run_checks(state):
+            checks = verifier.run(state.workspace)
+            state.record_checks(checks)
+
+        state.finished = verifier.ready_for_final_response(state)
+
+    return build_final_report(state)
+```
+
+The hard part is not writing the loop. The hard part is making every piece reliable: retrieval that finds the right files, editing that preserves syntax, command execution that is safe, tests that are meaningful, and reports that users can trust.
+
+### Toy Example: A Local Agent Loop
+
+Here is a small pseudocode example that shows the shape of the system without pretending to be a production agent:
+
+```python
+from dataclasses import dataclass, field
+
+
+@dataclass
+class AgentState:
+    task: str
+    observations: list[str] = field(default_factory=list)
+    modified_files: list[str] = field(default_factory=list)
+    checks: list[dict] = field(default_factory=list)
+
+
+TOOLS = {
+    "search_code": "Find files or symbols related to a query.",
+    "read_file": "Read a bounded line range from a file.",
+    "edit_file": "Apply a small patch to one file.",
+    "run_tests": "Run a targeted test command and return output.",
+}
+
+
+def run_coding_agent(task: str, max_steps: int = 12) -> dict:
+    state = AgentState(task=task)
+
+    for step in range(max_steps):
+        context = build_context(
+            task=state.task,
+            observations=state.observations[-6:],
+            modified_files=state.modified_files,
+            checks=state.checks,
+            available_tools=TOOLS,
+        )
+
+        action = model_choose_action(context)
+        safe_action = policy_check(action)
+
+        observation = execute_tool(safe_action)
+        state.observations.append(observation.summary)
+
+        if observation.modified_file:
+            state.modified_files.append(observation.modified_file)
+
+        if should_verify(state):
+            result = execute_tool({
+                "tool": "run_tests",
+                "command": "pytest tests/test_auth.py -q",
+            })
+            state.checks.append({
+                "command": result.command,
+                "passed": result.exit_code == 0,
+                "summary": result.summary,
+            })
+
+        if ready_to_report(state):
+            break
+
+    return {
+        "summary": summarize_changes(state),
+        "modified_files": sorted(set(state.modified_files)),
+        "checks": state.checks,
+        "remaining_risks": list_remaining_risks(state),
+    }
+```
+
+The important detail is not the syntax. It is the data flow:
+
+```text
+state -> context -> action -> policy -> tool result -> state -> verification -> report
+```
+
+In a real system, each placeholder would need serious engineering. `policy_check` would enforce filesystem, network, and command boundaries. `execute_tool` would run inside a sandbox. `build_context` would retrieve only task-relevant files. `ready_to_report` would require enough evidence, not just a confident model message.
+
+## 9. What Codex-style Systems Add
+
+ReAct gives the loop. SWE-agent gives the repository interface. Codex-style systems add the product and platform layers:
+
+- Multiple user surfaces: CLI, IDE, app, cloud, GitHub.
+- Project instructions through files such as `AGENTS.md`.
+- Sandboxed execution and approval policies.
+- Test, lint, type-check, and build feedback.
+- Logs, transcripts, traces, and reviewable evidence.
+- Human-in-the-loop workflows for accepting, revising, or rejecting changes.
+
+That combination is why the category matters. A coding agent is not merely a bigger autocomplete model. It is a coordinated runtime for bounded software work.
+
+## Conclusion
+
+The durable mental model is:
+
+```text
+Autocomplete predicts code.
+Chat assistants explain code.
+Agentic coding systems operate on code.
+```
+
+ReAct explains how an LLM can alternate between decisions and actions. SWE-agent shows that software engineering needs a purpose-built interface for repository work. Codex-style systems show what it takes to make that pattern usable: context, tools, sandboxing, verification, traces, and human review.
+
+The frontier is not only whether models can write better code. It is whether the surrounding system can make model actions observable, bounded, correctable, and useful inside real engineering workflows.
+
+## References
+
+- [Introducing Codex](https://openai.com/index/introducing-codex/) - OpenAI
+- [Introducing upgrades to Codex](https://openai.com/index/introducing-upgrades-to-codex/) - OpenAI
+- [Codex CLI documentation](https://developers.openai.com/codex/cli) - OpenAI Developers
+- [Codex sandboxing documentation](https://developers.openai.com/codex/concepts/sandboxing) - OpenAI Developers
+- [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md) - OpenAI Developers
+- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) - Yao et al.
+- [ReAct: Synergizing Reasoning and Acting in Language Models](https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/) - Google Research
+- [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](https://arxiv.org/abs/2405.15793) - Yang et al.
+- [SWE-agent Agent-Computer Interface notes](https://github.com/SWE-agent/SWE-agent/blob/main/docs/background/aci.md) - SWE-agent
+- [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/)
+- [OpenAI Agents SDK tracing](https://openai.github.io/openai-agents-python/tracing/)
