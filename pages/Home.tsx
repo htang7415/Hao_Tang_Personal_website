@@ -23,6 +23,17 @@ const coreAreas = [
 
 const selectedWork = [
   {
+    title: 'Quantify',
+    meta: 'Evidence-first AI verification · May 2026 - Present',
+    href: '#/research#quantify',
+    summary: 'Safety-constrained AI verification for factual public-company analysis against a declared frozen evidence release.',
+    points: [
+      'Limits a pinned LLM to structured candidate claims; deterministic code alone issues 1 of 5 evidence-scoped publication verdicts.',
+      'Built a 26.7K-LOC, 83-module system with 5-field fact retrieval, replayable evidence/policy hashes, and 403 pytest tests across 95 files.',
+    ],
+    tags: ['LLM evaluation', 'Grounding', 'Provenance', 'AWS'],
+  },
+  {
     title: 'MEMTRACE',
     meta: 'Agent memory evaluation · Jan. 2026 - May 2026',
     href: '#/research#memtrace',

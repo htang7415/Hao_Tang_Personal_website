@@ -2,6 +2,20 @@ import { ResearchItem } from '../types';
 
 export const researchItems: ResearchItem[] = [
   {
+    id: 'quantify',
+    title: 'Quantify: Evidence-First AI Research Referee',
+    typeOrVenue: 'Research software · May 2026 - Present',
+    summary:
+      'A safety-constrained AI system for verified public-company analysis: a pinned LLM proposes structured claims, while deterministic software alone evaluates evidence and composes the publication verdict.',
+    tags: ['AI Reliability', 'LLM Evaluation', 'Retrieval Grounding', 'AWS'],
+    featured: true,
+    highlights: `
+- Built a 26.7K-LOC evidence-first system spanning 83 Python modules; deterministic verification produces 1 of 5 scoped publication verdicts rather than treating fluent model output as evidence.
+- Implemented 5-field exact-fact retrieval, typed grounding, warrant and counterevidence checks, and 3 independently versioned hashes per result; validated failure paths with 403 pytest tests across 95 files.
+- Built a safety-constrained FastAPI/AWS core and an IAM-only asynchronous pilot; replayed a terminal journaled message without state or audit drift while keeping the pilot outside public-scale claims.
+`
+  },
+  {
     id: 'memtrace',
     title: 'MEMTRACE: Memory-Safety Evaluation for Tool-Using Agents',
     typeOrVenue: 'Research software · Jan. 2026 - May 2026',
