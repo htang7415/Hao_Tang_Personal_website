@@ -23,13 +23,13 @@ const coreAreas = [
 
 const selectedWork = [
   {
-    title: 'Quantify',
+    title: 'MeshStake',
     meta: 'Evidence-first AI verification · May 2026 - Present',
-    href: '#/research#quantify',
+    href: '#/research#meshstake',
     summary: 'Safety-constrained AI verification for factual public-company analysis against a declared frozen evidence release.',
     points: [
       'Limits a pinned LLM to structured candidate claims; deterministic code alone issues 1 of 5 evidence-scoped publication verdicts.',
-      'Built a 26.7K-LOC, 83-module system with 5-field fact retrieval, replayable evidence/policy hashes, and 403 pytest tests across 95 files.',
+      'Built a 45.6K-LOC, 128-module system across 9 domain subpackages with 5-field fact retrieval, replayable evidence/policy hashes, and 816 test functions across 135 Python test files.',
     ],
     tags: ['LLM evaluation', 'Grounding', 'Provenance', 'AWS'],
   },
