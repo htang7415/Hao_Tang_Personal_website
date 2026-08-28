@@ -9,6 +9,7 @@ export interface Product {
   tags: string[];
   url: string;
   featured: boolean;
+  highlights?: string[];
 }
 
 export interface ResearchItem {

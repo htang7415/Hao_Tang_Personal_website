@@ -17,16 +17,16 @@ const coreAreas = [
   },
   {
     title: 'Product Engineering',
-    description: 'SwiftUI/Core Data product apps with Supabase/PostgreSQL collaboration, exact domain logic, release validation, and tests.',
+    description: 'React/FastAPI and SwiftUI products with AWS and Supabase/PostgreSQL backends, exact domain logic, release validation, and automated tests.',
   },
 ];
 
 const selectedWork = [
   {
     title: 'MeshStake',
-    meta: 'Evidence-first AI verification · May 2026 - Present',
-    href: '#/research#meshstake',
-    summary: 'Safety-constrained AI verification for factual public-company analysis against a declared frozen evidence release.',
+    meta: 'Evidence-first AI product · May 2026 - Present',
+    href: '#/products#meshstake',
+    summary: 'Live AI product for verifying factual public-company analysis against a declared frozen evidence release.',
     points: [
       'Limits a pinned LLM to structured candidate claims; deterministic code alone issues 1 of 5 evidence-scoped publication verdicts.',
       'Built a 45.6K-LOC, 128-module system across 9 domain subpackages with 5-field fact retrieval, replayable evidence/policy hashes, and 816 test functions across 135 Python test files.',
@@ -158,9 +158,14 @@ const Home: React.FC = () => {
       <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center justify-between gap-4 mb-4">
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Selected Work</h2>
-          <a href="#/research" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
-            Research <ArrowRight size={15} />
-          </a>
+          <div className="flex items-center gap-4">
+            <a href="#/products" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+              Products <ArrowRight size={15} />
+            </a>
+            <a href="#/research" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+              Research <ArrowRight size={15} />
+            </a>
+          </div>
         </div>
 
         <div className="divide-y divide-slate-200 dark:divide-slate-800">

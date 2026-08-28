@@ -16,7 +16,7 @@ export const profile: Profile = {
   about: {
     paragraphs: [
       "I am an M.S. Computer Sciences student at UW-Madison building reliable AI infrastructure: evidence-first verification, agent evaluation harnesses, retrieval-memory benchmarks, post-training/RL workflows, and reproducible ML systems.",
-      "My recent work includes MeshStake, an evidence-first system for verified public-company analysis; MEMTRACE for persistent-memory safety evaluation; MaxionBench for retrieval decisions; RL-aligned diffusion for target-conditioned generation; PolyDiT for scalable discrete diffusion training; and HyprShare as a SwiftUI/Supabase product engineering project."
+      "My recent work includes MeshStake, an evidence-first product for verified public-company analysis; MEMTRACE for persistent-memory safety evaluation; MaxionBench for retrieval decisions; RL-aligned diffusion for target-conditioned generation; PolyDiT for scalable discrete diffusion training; and HyprShare as a SwiftUI/Supabase product engineering project."
     ]
   }
 };
