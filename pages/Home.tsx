@@ -2,81 +2,69 @@ import React from 'react';
 import { ArrowRight, Github, GraduationCap, Linkedin, Mail } from '../components/icons';
 import { profile } from '../data/profile';
 
-const coreAreas = [
+type Project = {
+  title: string;
+  meta: string;
+  href: string;
+  summary: string;
+  result: string;
+};
+
+const layers: { title: string; description: string; projects: Project[] }[] = [
   {
-    title: 'LLM Agents & Evaluation',
-    description: 'Bounded tool-calling agents, deterministic grounding guardrails, adversarial golden evals, and LLM judges calibrated against labeled answers.',
+    title: 'Reliable AI agents',
+    description: 'Agents that use tools, cite their sources, and never show what they cannot verify.',
+    projects: [
+      {
+        title: 'MeshStake',
+        meta: 'Live product · May 2026 - Present',
+        href: '#/products#meshstake',
+        summary: 'AI research agent for capital markets. The model plans and writes; deterministic code checks every number before it reaches the user.',
+        result: '34 of 36 answers passed the grounding check, and both failures were withheld.',
+      },
+    ],
   },
   {
-    title: 'LLM Serving & KV Cache',
-    description: 'vLLM and llama.cpp behind llm-d on Kubernetes: cache-aware routing, context management, and KV offload, with every result labeled real or simulated.',
+    title: 'Efficient LLM serving',
+    description: 'Keeping an agent\'s context cached as its requests move through engines, routers, and memory tiers.',
+    projects: [
+      {
+        title: 'MEMTRACE',
+        meta: 'Research platform · Sept. 2025 - Oct. 2026',
+        href: '#/research#memtrace',
+        summary: 'vLLM and llama.cpp behind llm-d on Kubernetes, with a Go gateway that manages agent context.',
+        result: 'Cut prefill recompute 14-39% on replayed GitHub Copilot traffic.',
+      },
+    ],
   },
   {
-    title: 'Model Training & Alignment',
-    description: 'PyTorch Diffusion Transformers trained with multi-node DDP on H100 GPUs, PPO/GRPO/DPO alignment, and uncertainty quantification.',
-  },
-  {
-    title: 'Product & Cloud Engineering',
-    description: 'Shipped products on serverless AWS and SwiftUI/Supabase, with cost control, tests, and live operations.',
+    title: 'Model training and alignment',
+    description: 'Training generative models, aligning them with reinforcement learning, and measuring how far to trust their predictions.',
+    projects: [
+      {
+        title: 'RL-Aligned Diffusion Transformer',
+        meta: 'Research · Sept. 2025 - Mar. 2026',
+        href: '#/research#rl-inverse-design',
+        summary: 'Aligned a conditional Diffusion Transformer to a multi-constraint reward with PPO, GRPO, and DPO.',
+        result: 'Raised discovery hit rate from 66.9% to 98.9% with PPO (79.7% quota fill).',
+      },
+      {
+        title: 'PolyDiT',
+        meta: 'Research · Sept. 2024 - Aug. 2025',
+        href: '#/research#polydit',
+        summary: 'Masked Diffusion Transformers trained across five data representations and four model sizes.',
+        result: 'Showed that no single representation wins on both validity and property prediction.',
+      },
+      {
+        title: 'Uncertainty Quantification Benchmark',
+        meta: 'Publication · JCIM 2025',
+        href: '#/research#uq-benchmark',
+        summary: 'Benchmarked nine uncertainty-quantification methods for property prediction.',
+        result: 'Found that no method wins everywhere: the right choice depends on the data regime.',
+      },
+    ],
   },
 ];
-
-const selectedWork = [
-  {
-    title: 'MeshStake',
-    meta: 'Live AI agent · May 2026 - Present',
-    href: '#/products#meshstake',
-    summary: 'AI research agent for capital markets that only shows source-verified numbers.',
-    points: [
-      'Answers in 2.8 s median at $0.0012 per answer; deterministic guardrails passed 34 of 36 answers and withheld both failures.',
-      'Cut AWS run-rate 95% (~$283 to $13/month) by migrating Aurora to DynamoDB.',
-    ],
-    tags: ['LLM agents', 'Guardrails', 'Evaluation', 'AWS'],
-  },
-  {
-    title: 'MEMTRACE',
-    meta: 'LLM serving research · Sept. 2025 - Oct. 2026',
-    href: '#/research#memtrace',
-    summary: 'Platform for serving LLM agents efficiently, measuring how serving decisions keep an agent\'s history in the KV cache.',
-    points: [
-      'Gateway context management cut prefill recompute 14-39% on replayed GitHub Copilot traffic.',
-      'A real SSD KV-offload tier cut TTFT p95 41-53% for calls returning after a pause.',
-    ],
-    tags: ['vLLM', 'llm-d', 'KV cache', 'Go'],
-  },
-  {
-    title: 'RL-Aligned Conditional Diffusion Transformer',
-    meta: 'Research assistant, UW-Madison · Sept. 2025 - Mar. 2026',
-    href: '#/research#rl-inverse-design',
-    summary: 'Aligns a conditional Diffusion Transformer to a multi-constraint reward with PPO, GRPO, and DPO under KL control.',
-    points: [
-      'Raised discovery hit rate from 66.9% to 93.2% (conditional) and 98.9% (PPO, 79.7% quota fill).',
-    ],
-    tags: ['Diffusion', 'RL', 'PPO/GRPO/DPO', 'PyTorch'],
-  },
-  {
-    title: 'HyprShare',
-    meta: 'iOS app on the App Store · May 2025 - Nov. 2025',
-    href: '#/products#hyprshare',
-    summary: 'SwiftUI app for shared bills and group plans, with offline-first sync to Supabase/PostgreSQL.',
-    points: [
-      'Shipped for iPhone and iPad in 8 languages, with 67 SQL migrations and group-scoped row-level security.',
-    ],
-    tags: ['SwiftUI', 'Core Data', 'Supabase', 'iOS'],
-  },
-  {
-    title: 'PolyDiT',
-    meta: 'Research assistant, UW-Madison · Sept. 2024 - Aug. 2025',
-    href: '#/research#polydit',
-    summary: 'Masked Diffusion Transformers across five data representations.',
-    points: [
-      'Trained 10.9M-681.1M-parameter models with PyTorch DDP on 2 nodes × 4 H100 GPUs; best held-out R^2 0.943.',
-    ],
-    tags: ['Transformers', 'Diffusion', 'Distributed training'],
-  },
-];
-
-const externalHref = (href: string) => href.startsWith('http');
 
 const Home: React.FC = () => {
   return (
@@ -126,24 +114,8 @@ const Home: React.FC = () => {
       </section>
 
       <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-5">Core Areas</h2>
-        <div className="space-y-5">
-          {coreAreas.map((area) => (
-            <div key={area.title}>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
-                {area.title}
-              </h3>
-              <p className="mt-1 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                {area.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="max-w-3xl mx-auto px-6 py-10 border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center justify-between gap-4 mb-4">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Selected Work</h2>
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">What I Build</h2>
           <div className="flex items-center gap-4">
             <a href="#/products" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
               Products <ArrowRight size={15} />
@@ -154,42 +126,51 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="divide-y divide-slate-200 dark:divide-slate-800">
-          {selectedWork.map((item) => (
-            <article key={item.title} className="py-7 first:pt-0">
+        <div className="space-y-10">
+          {layers.map((layer, index) => (
+            <div key={layer.title}>
               <p className="text-xs font-medium uppercase text-slate-500 dark:text-slate-500">
-                {item.meta}
+                {String(index + 1).padStart(2, '0')}
               </p>
-              <a
-                href={item.href}
-                target={externalHref(item.href) ? '_blank' : undefined}
-                rel={externalHref(item.href) ? 'noopener noreferrer' : undefined}
-                className="group mt-2 inline-flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400"
-              >
-                {item.title}
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </a>
-              <p className="mt-2 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                {item.summary}
+              <h3 className="mt-1 text-lg font-semibold text-slate-900 dark:text-slate-100">
+                {layer.title}
+              </h3>
+              <p className="mt-1 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                {layer.description}
               </p>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                {item.points.map((point) => (
-                  <li key={point} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-blue-600 dark:bg-blue-400" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.tags.map((tag) => (
-                  <span key={tag} className="inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
-                    {tag}
-                  </span>
+              <div className="mt-4 space-y-4 border-l-2 border-slate-200 dark:border-slate-800 pl-5">
+                {layer.projects.map((project) => (
+                  <article key={project.title}>
+                    <a
+                      href={project.href}
+                      className="group inline-flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                      {project.title}
+                      <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                    </a>
+                    <p className="text-xs font-medium uppercase text-slate-500 dark:text-slate-500">
+                      {project.meta}
+                    </p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {project.summary}
+                    </p>
+                    <p className="mt-1 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                      {project.result}
+                    </p>
+                  </article>
                 ))}
               </div>
-            </article>
+            </div>
           ))}
         </div>
+
+        <p className="mt-10 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Also shipped:{' '}
+          <a href="#/products#hyprshare" className="font-medium text-blue-600 dark:text-blue-400 hover:underline">
+            HyprShare
+          </a>
+          , an iOS app on the App Store for shared bills and group plans.
+        </p>
       </section>
 
       <section className="max-w-3xl mx-auto px-6 py-10">

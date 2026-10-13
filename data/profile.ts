@@ -15,8 +15,7 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "I am an M.S. Computer Sciences student at UW-Madison (graduating Aug. 2026). I build LLM agents that hold up in production, the serving infrastructure underneath them, and the models they run.",
-      "Recent work: MeshStake, a live AI research agent for capital markets that only shows source-verified numbers; MEMTRACE, a platform for serving LLM agents efficiently with vLLM, llm-d, and KV-cache management; and research on RL-aligned diffusion and Diffusion Transformers trained on 8 H100 GPUs."
+      "I am an M.S. Computer Sciences student at UW-Madison, graduating in August 2026. I build AI systems end to end: LLM agents people can trust, the infrastructure that serves them efficiently, and the models underneath."
     ]
   }
 };
