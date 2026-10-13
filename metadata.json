@@ -1,5 +1,5 @@
 {
   "name": "Hao Tang Portfolio",
-  "description": "Personal website for Hao Tang, focused on AI research engineering, agent evaluation, retrieval-memory systems, post-training/RL, ML infrastructure, and product software.",
+  "description": "Personal website for Hao Tang: LLM agents, LLM serving infrastructure, and ML systems.",
   "requestFramePermissions": []
 }

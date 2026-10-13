@@ -2,7 +2,7 @@ import { Profile } from '../types';
 
 export const profile: Profile = {
   name: "Hao Tang",
-  tagline: "Reliable AI systems, retrieval, and ML engineering",
+  tagline: "LLM agents, serving infrastructure, and ML systems",
   email: "hao.max.tang@gmail.com",
   // To replace the image:
   // 1. Add your image file to your project's public folder (e.g., 'me.jpg')
@@ -15,8 +15,8 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "I am an M.S. Computer Sciences student at UW-Madison building reliable AI infrastructure: evidence-first verification, agent evaluation harnesses, retrieval-memory benchmarks, post-training/RL workflows, and reproducible ML systems.",
-      "My recent work includes MeshStake, an evidence-first product for verified public-company analysis; MEMTRACE for persistent-memory safety evaluation; MaxionBench for retrieval decisions; RL-aligned diffusion for target-conditioned generation; PolyDiT for scalable discrete diffusion training; and HyprShare as a SwiftUI/Supabase product engineering project."
+      "I am an M.S. Computer Sciences student at UW-Madison (graduating Aug. 2026). I build LLM agents that hold up in production, the serving infrastructure underneath them, and the models they run.",
+      "Recent work: MeshStake, a live AI research agent for capital markets that only shows source-verified numbers; MEMTRACE, a platform for serving LLM agents efficiently with vLLM, llm-d, and KV-cache management; and research on RL-aligned diffusion and Diffusion Transformers trained on 8 H100 GPUs."
     ]
   }
 };

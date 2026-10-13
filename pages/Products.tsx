@@ -7,7 +7,7 @@ const Products: React.FC = () => {
     <div className="max-w-5xl mx-auto px-6 py-24 md:py-28">
       <SectionTitle 
         title="Product Engineering" 
-        subtitle="Live products spanning evidence-first AI verification, cloud-backed professional workflows, and native collaborative mobile software."
+        subtitle="Products I designed, built, and shipped: a live AI agent and an iOS app."
       />
 
       <div className="max-w-2xl space-y-8">

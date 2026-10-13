@@ -3,15 +3,19 @@ import { ResearchItem } from '../types';
 export const researchItems: ResearchItem[] = [
   {
     id: 'memtrace',
-    title: 'MEMTRACE: Memory-Safety Evaluation for Tool-Using Agents',
-    typeOrVenue: 'Research software · Jan. 2026 - May 2026',
+    title: 'MEMTRACE: LLM Agent Serving and KV-Cache Research Platform',
+    typeOrVenue: 'Research platform · Sept. 2025 - Oct. 2026',
     summary:
-      'A trace-level Python evaluation framework that separates delayed prompt-injection risk across retrieval exposure, memory admission, planning, policy diagnostics, and tool execution.',
-    tags: ['LLM Agents', 'Evaluation', 'Memory Safety', 'Pydantic'],
+      'A platform for measuring how serving decisions (engine, routing, context, KV-cache tier) decide whether an LLM agent\'s history stays cached. vLLM and llama.cpp run behind llm-d on Kubernetes with a Go gateway in front, and every result is labeled real or simulated.',
+    tags: ['LLM Serving', 'vLLM', 'llm-d', 'KV Cache', 'Go', 'Kubernetes'],
+    links: {
+      code: 'https://github.com/htang7415/MEMTRACE'
+    },
     featured: true,
     highlights: `
-- Generated 396 trace records across 12 synthetic enterprise-assistant tasks; permissive admission stored poisoned facts in 6/72 stateful attacks, while provenance-aware admission stored 0/72.
-- Built deterministic tool stubs, Pydantic trace schemas, JSONL records, causal-chain scorers, Wilson intervals, audit manifests, and no-inference metric regeneration.
+- Cache-aware context management in the Go gateway cut prefill recompute 14-39% on 4 paired GitHub Copilot replays, and Gemini prompt tokens 50% over 100 paired tasks with no detectable accuracy loss.
+- A real SSD KV-offload tier (one replica, Qwen3-0.6B, 3 paired repeats, pre-registered rules) cut the prefix recomputed by calls returning after a pause from 33-43% to 2-15%, and their TTFT p95 by 41-53%; the median barely moved.
+- Cache-aware llm-d routing reached 1.8-2.3× random routing's throughput on 4 simulated replicas calibrated to vLLM; a KV-cache simulator matched a real engine's prefix reuse within 0.7 points.
 `
   },
   {
@@ -19,25 +23,12 @@ export const researchItems: ResearchItem[] = [
     title: 'RL-Aligned Conditional Diffusion Transformer for Targeted Generation',
     typeOrVenue: 'Research Assistant, UW-Madison · Sept. 2025 - Mar. 2026',
     summary:
-      'A target-conditioned discrete diffusion pipeline that turns reverse diffusion into a reward-optimized policy with trajectory replay, KL control, PPO, GRPO, and DPO comparisons.',
+      'Treats reverse diffusion as a policy: a conditional masked Diffusion Transformer is aligned to a multi-constraint reward with PPO, GRPO, and DPO under KL control.',
     tags: ['Diffusion', 'Post-Training', 'Reinforcement Learning', 'PyTorch'],
     featured: true,
     highlights: `
-- Built a reproducible PyTorch target-conditioned generation pipeline for 1,250 target configurations under 7D conditions, using a 10.9M masked DiT, checkpoints, batch inference, and structured metrics.
-- Raised discovery hit rate from a 93.2% supervised conditional-DiT baseline to 98.9% with policy-aligned variants while tracking validity, novelty, class matching, feasibility, quota fill, and macro target success.
-`
-  },
-  {
-    id: 'maxionbench',
-    title: 'MaxionBench: Agent-Memory Retrieval Decision Benchmark',
-    typeOrVenue: 'Research software · Sept. 2025 - Feb. 2026',
-    summary:
-      'A conformance-gated benchmark for choosing retrieval infrastructure used as agent operational memory under quality, latency, freshness, context-cost, and budget constraints.',
-    tags: ['Retrieval', 'Vector Search', 'FAISS', 'Qdrant'],
-    featured: true,
-    highlights: `
-- Built a conformance-gated Python package with CLI workflows, typed schemas, dataset loaders, Docker-backed services, and FAISS/LanceDB/pgvector/Qdrant adapters behind one contract.
-- Validated 72 strict-schema run directories with 0 errors and selected FAISS CPU/bge-small at 0.852 HotpotQA coverage@10 and 22.8-ms max p99 under a 200-ms policy.
+- A 10.9M-parameter conditional DiT trained on 1,250 labeled condition rows raised discovery hit rate from 66.9% (frozen guidance) to 93.2%.
+- RL alignment raised it further: 98.9% with PPO (79.7% quota fill) and 98.2% with GRPO (93.5% fill).
 `
   },
   {
@@ -45,15 +36,15 @@ export const researchItems: ResearchItem[] = [
     title: 'PolyDiT: Scalable Multi-Representation Diffusion Transformers',
     typeOrVenue: 'Research Assistant, UW-Madison · Sept. 2024 - Aug. 2025',
     summary:
-      'A masked discrete Diffusion Transformer stack across character, BPE, constrained-token, fragment, and graph representations.',
+      'Masked discrete Diffusion Transformers across five representations (character, BPE, constrained tokens, fragments, graphs), testing how representation and model size shape generation and learned features.',
     tags: ['Diffusion Models', 'Transformers', 'Distributed Training'],
     links: {
       code: 'https://github.com/htang7415/PolyDiffusion'
     },
     featured: true,
     highlights: `
-- Built a PyTorch DiT training stack over 19.3M train and 1.0M validation objects with reproducible tokenization, BF16 DDP, and 8-GPU/2-node launch support.
-- Scaled denoisers from 10.9M to 681.1M parameters; evaluated 200,000 generated samples and reached 1.0 validity, 0.943 held-out R^2, 0.903 diversity, and 62.18 valid samples/s.
+- Trained 10.9M-681.1M-parameter denoisers on 19.3M training objects with PyTorch DDP (NCCL, BF16) on 2 nodes × 4 H100 GPUs.
+- Evaluated 200,000 generations: no single representation won both validity and property prediction; best held-out R^2 0.943 and up to 62.18 valid samples/s.
 `
   },
   {
@@ -61,7 +52,7 @@ export const researchItems: ResearchItem[] = [
     title: 'Uncertainty-Aware ML Model Selection Benchmark',
     typeOrVenue: 'Nov. 2023 - Apr. 2024 · JCIM, 2025',
     summary:
-      'A model-selection benchmark for uncertainty-aware property prediction under in-distribution, OOD, high-Tg, and family-specific settings.',
+      'A benchmark for choosing uncertainty-aware models for property prediction across in-distribution, out-of-distribution, high-Tg, and polymer-family settings.',
     tags: ['Uncertainty Quantification', 'Bayesian ML', 'Calibration'],
     links: {
       pdf: 'https://pubs.acs.org/doi/full/10.1021/acs.jcim.5c00550',
@@ -69,8 +60,8 @@ export const researchItems: ResearchItem[] = [
     },
     featured: true,
     highlights: `
-- Benchmarked nine UQ methods on 15,334 samples across Tg, Eg, Tm, and Td with Optuna tuning, R^2, Spearman correlation, and calibration metrics.
-- Evaluated 240 experimental OOD Tg samples, 566 MD-derived OOD Tg samples, 442 high-Tg candidates, and nine structural families to guide model choice.
+- Designed the methodology and implemented the evaluation framework: nine UQ methods on 15,334 samples (Tg, Eg, Tm, Td), scored on R^2, Spearman error ranking, and calibration area.
+- No method wins everywhere: Ensemble led in-distribution, BNN-MCMC gave the best OOD balance, and NGBoost ranked first on 442 high-Tg polymers.
 `
   },
   {
@@ -86,7 +77,7 @@ export const researchItems: ResearchItem[] = [
     featured: true,
     highlights: `
 - Modeled thickness, material-property, and fiber-angle uncertainty as spatial random fields using Karhunen-Loeve expansion and isogeometric Galerkin projection.
-- Validated probabilistic buckling against SFEM and 10,000-sample MCS, reducing tested response error below 1.5% and runtime from 515 s to 11 s.
+- Kept buckling-statistic errors below 1.5% against 10,000-sample Monte Carlo (SFEM reached 6.72%), and matched SFEM's reliability accuracy in 11 s instead of 515 s.
 `
   }
 ];

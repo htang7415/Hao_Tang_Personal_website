@@ -4,89 +4,75 @@ import { profile } from '../data/profile';
 
 const coreAreas = [
   {
-    title: 'Agent Evaluation & Safety',
-    description: 'Trace-level evaluation for tool-using agents: retrieval exposure, memory admission, planner behavior, policy diagnostics, execution, and audit-ready metrics.',
+    title: 'LLM Agents & Evaluation',
+    description: 'Bounded tool-calling agents, deterministic grounding guardrails, adversarial golden evals, and LLM judges calibrated against labeled answers.',
   },
   {
-    title: 'Retrieval-Memory Systems',
-    description: 'Vector retrieval infrastructure across FAISS, LanceDB, pgvector, and Qdrant with adapter contracts, schema gates, latency budgets, and decision reports.',
+    title: 'LLM Serving & KV Cache',
+    description: 'vLLM and llama.cpp behind llm-d on Kubernetes: cache-aware routing, context management, and KV offload, with every result labeled real or simulated.',
   },
   {
-    title: 'Post-Training & ML Systems',
-    description: 'PyTorch diffusion and Transformer systems with PPO/GRPO/DPO alignment, DDP/BF16 training, batch inference, and reproducible experiment pipelines.',
+    title: 'Model Training & Alignment',
+    description: 'PyTorch Diffusion Transformers trained with multi-node DDP on H100 GPUs, PPO/GRPO/DPO alignment, and uncertainty quantification.',
   },
   {
-    title: 'Product Engineering',
-    description: 'React/FastAPI and SwiftUI products with AWS and Supabase/PostgreSQL backends, exact domain logic, release validation, and automated tests.',
+    title: 'Product & Cloud Engineering',
+    description: 'Shipped products on serverless AWS and SwiftUI/Supabase, with cost control, tests, and live operations.',
   },
 ];
 
 const selectedWork = [
   {
     title: 'MeshStake',
-    meta: 'Evidence-first AI product · May 2026 - Present',
+    meta: 'Live AI agent · May 2026 - Present',
     href: '#/products#meshstake',
-    summary: 'Live AI product for verifying factual public-company analysis against a declared frozen evidence release.',
+    summary: 'AI research agent for capital markets that only shows source-verified numbers.',
     points: [
-      'Limits a pinned LLM to structured candidate claims; deterministic code alone issues 1 of 5 evidence-scoped publication verdicts.',
-      'Built a 45.6K-LOC, 128-module system across 9 domain subpackages with 5-field fact retrieval, replayable evidence/policy hashes, and 816 test functions across 135 Python test files.',
+      'Answers in 2.8 s median at $0.0012 per answer; deterministic guardrails passed 34 of 36 answers and withheld both failures.',
+      'Cut AWS run-rate 95% (~$283 to $13/month) by migrating Aurora to DynamoDB.',
     ],
-    tags: ['LLM evaluation', 'Grounding', 'Provenance', 'AWS'],
+    tags: ['LLM agents', 'Guardrails', 'Evaluation', 'AWS'],
   },
   {
     title: 'MEMTRACE',
-    meta: 'Agent memory evaluation · Jan. 2026 - May 2026',
+    meta: 'LLM serving research · Sept. 2025 - Oct. 2026',
     href: '#/research#memtrace',
-    summary: 'Trace-level evaluation framework for persistent-memory risk in tool-using agents, with 396 records across 12 synthetic enterprise-assistant tasks.',
+    summary: 'Platform for serving LLM agents efficiently, measuring how serving decisions keep an agent\'s history in the KV cache.',
     points: [
-      'Separates retrieval exposure, memory admission, planner proposal, policy diagnostics, and tool execution.',
-      'Uses deterministic tools, Pydantic schemas, JSONL records, causal-chain scoring, Wilson intervals, audit manifests, and no-inference metric regeneration.',
+      'Gateway context management cut prefill recompute 14-39% on replayed GitHub Copilot traffic.',
+      'A real SSD KV-offload tier cut TTFT p95 41-53% for calls returning after a pause.',
     ],
-    tags: ['LLM agents', 'Memory', 'Evaluation', 'Python'],
+    tags: ['vLLM', 'llm-d', 'KV cache', 'Go'],
   },
   {
     title: 'RL-Aligned Conditional Diffusion Transformer',
     meta: 'Research assistant, UW-Madison · Sept. 2025 - Mar. 2026',
     href: '#/research#rl-inverse-design',
-    summary: 'Target-conditioned discrete diffusion pipeline that compares PPO, GRPO, and DPO alignment with KL control against a supervised reference policy.',
+    summary: 'Aligns a conditional Diffusion Transformer to a multi-constraint reward with PPO, GRPO, and DPO under KL control.',
     points: [
-      'Built a 10.9M masked DiT with 1,250 target configurations under 7D conditions, checkpointing, batch inference, and structured metrics.',
-      'Raised discovery hit rate from 93.2% with supervised conditional diffusion to 98.9% with policy-aligned variants.',
+      'Raised discovery hit rate from 66.9% to 93.2% (conditional) and 98.9% (PPO, 79.7% quota fill).',
     ],
     tags: ['Diffusion', 'RL', 'PPO/GRPO/DPO', 'PyTorch'],
   },
   {
-    title: 'MaxionBench',
-    meta: 'Retrieval decision benchmark · Sept. 2025 - Feb. 2026',
-    href: '#/research#maxionbench',
-    summary: 'Conformance-gated benchmark for choosing retrieval infrastructure used as agent operational memory.',
-    points: [
-      'Built a Python package with CLI workflows, typed schemas, Docker-backed services, and FAISS/LanceDB/pgvector/Qdrant adapters.',
-      'Validated 72 strict-schema run directories with 0 errors and selected FAISS CPU/bge-small for 0.852 HotpotQA coverage@10 at 22.8-ms max p99.',
-    ],
-    tags: ['Retrieval', 'Vector search', 'Schemas', 'Docker'],
-  },
-  {
     title: 'HyprShare',
-    meta: 'Group expense iOS app · May 2025 - Nov. 2025',
-    href: 'https://hyprshare.vercel.app/',
-    summary: 'Native SwiftUI expense and planning app with exact split/settlement logic, invite/QR joins, notifications, localization, and Supabase/PostgreSQL sync.',
+    meta: 'iOS app on the App Store · May 2025 - Nov. 2025',
+    href: '#/products#hyprshare',
+    summary: 'SwiftUI app for shared bills and group plans, with offline-first sync to Supabase/PostgreSQL.',
     points: [
-      'Designed a 10-entity Core Data ledger with Decimal arithmetic, residual-cent rounding, sync metadata, and soft deletes.',
-      'Built a 2,548-line sync engine with Supabase/PostgreSQL, row-level security, Edge Functions, APNs, and XCTest/UI coverage.',
+      'Shipped for iPhone and iPad in 8 languages, with 67 SQL migrations and group-scoped row-level security.',
     ],
     tags: ['SwiftUI', 'Core Data', 'Supabase', 'iOS'],
   },
   {
     title: 'PolyDiT',
-    meta: 'Multi-representation diffusion modeling · Sept. 2024 - Aug. 2025',
+    meta: 'Research assistant, UW-Madison · Sept. 2024 - Aug. 2025',
     href: '#/research#polydit',
-    summary: 'Masked discrete Diffusion Transformer stack across character, BPE, constrained-token, fragment, and graph representations.',
+    summary: 'Masked Diffusion Transformers across five data representations.',
     points: [
-      'Trained over 19.3M train and 1.0M validation objects with reproducible tokenization, BF16 DDP, and 8-GPU/2-node launch support.',
-      'Scaled denoisers from 10.9M to 681.1M parameters and reached 1.0 validity, 0.943 held-out R^2, 0.903 diversity, and 62.18 valid samples/s.',
+      'Trained 10.9M-681.1M-parameter models with PyTorch DDP on 2 nodes × 4 H100 GPUs; best held-out R^2 0.943.',
     ],
-    tags: ['Transformers', 'Discrete diffusion', 'Representation learning', 'Distributed training'],
+    tags: ['Transformers', 'Diffusion', 'Distributed training'],
   },
 ];
 
@@ -209,7 +195,7 @@ const Home: React.FC = () => {
       <section className="max-w-3xl mx-auto px-6 py-10">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Contact</h2>
         <p className="mt-2 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-          I am open to AI Engineer, Machine Learning Engineer, Software Development Engineer, and research-engineering conversations around reliable AI systems, retrieval, and ML infrastructure.
+          I am open to AI Engineer, AI Infrastructure, Machine Learning Engineer, and Software Engineer roles.
         </p>
         <a href={`mailto:${profile.email}`} className="mt-4 inline-flex items-center gap-2 text-base font-medium text-blue-600 dark:text-blue-400 hover:underline">
           <Mail size={18} />
