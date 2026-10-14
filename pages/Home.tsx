@@ -20,7 +20,7 @@ const layers: { title: string; description: string; projects: Project[] }[] = [
         meta: 'Live product · May 2026 - Present',
         href: '#/products#meshstake',
         summary: 'AI research agent for capital markets. The model plans and writes; deterministic code checks every number before it reaches the user.',
-        result: '34 of 36 answers passed the grounding check, and both failures were withheld.',
+        result: 'Answers that fail the grounding check are withheld, never shown.',
       },
     ],
   },
