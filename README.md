@@ -10,13 +10,28 @@ View your app in AI Studio: https://ai.studio/apps/drive/1fKs2p00zcsSfM1RZAwuWqt
 
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+   `npm ci --no-audit --no-fund`
+2. Run the app:
    `npm run dev`
 
 
-## vercel deployment:
-1. npm run build (don't forget this step)
-2. git push
-3. deploy project on vercel
+## Engineering workflow
+
+Use Node 22 (`.nvmrc`) and Python 3. Verification requires no API key:
+
+```bash
+npm ci --no-audit --no-fund
+npm run verify
+python3 scripts/secret_scan.py
+```
+
+`npm run verify` checks tracked-file hygiene, workflow tests, TypeScript, MDX loader tests,
+production build and local preview/asset integrity. Keep the lockfile committed.
+
+Follow [AGENTS.md](AGENTS.md) and [the engineering workflow](docs/engineering-workflow.md)
+for dedicated worktrees, exact-SHA evidence, PR/ChatGPT review and explicit owner approval.
+Vercel's existing Git integration owns PR previews and production. An approved merge may deploy
+production before Main CI finishes; separate production authorization is required before that merge.
+No Actions deployment or separate Staging environment is added. Preview/production verification
+and authorized rollback are documented in the workflow; current integration evidence is in the
+[workflow audit](docs/workflow-audit.md).

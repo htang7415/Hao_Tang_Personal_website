@@ -39,7 +39,9 @@
     "utils/**/*.ts",
     "types.ts",
     "*.d.ts",
-    "vite.config.ts"
+    "vite.config.ts",
+    "vitest.config.ts",
+    "tests/**/*.ts"
   ],
   "exclude": [
     "node_modules",
