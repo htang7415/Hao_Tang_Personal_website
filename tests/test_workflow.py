@@ -58,6 +58,18 @@ class EvidenceTests(unittest.TestCase):
                 self.assertEqual(evidence.record(receipt, [sys.executable, "-c", "pass"]), 1)
                 self.assertFalse(json.loads(receipt.read_text())["source_unchanged"])
 
+    def test_stale_optional_review_is_diagnostic_but_open_threads_still_block(self):
+        pr = dict(head={"sha": self.sha}, state="open", html_url="test-pr", changed_files=0,
+                  base={"ref": "main", "sha": "b" * 40, "repo": {"full_name": evidence.REPOSITORY}},
+                  draft=False, mergeable=True)
+        review = {"state": "CHANGES_REQUESTED", "user": {"login": "chatgpt-codex-connector[bot]"}}
+        for threads, expected in [([], 0), ([{"path": "file", "line": 1}], 1)]:
+            with patch.object(evidence, "api", side_effect=[pr, [[]], [[review]], pr]), \
+                 patch.object(evidence, "local_evidence", return_value=True), \
+                 patch.object(evidence, "ci_snapshot", return_value=True), \
+                 patch.object(evidence, "open_threads", return_value=threads):
+                self.assertEqual(evidence.report(1, self.sha, []), expected)
+
     def test_only_executed_success_passes(self):
         self.assertTrue(self.check())
         for state in ["failure", "skipped", "cancelled", "timed_out", None]:

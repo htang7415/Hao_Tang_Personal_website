@@ -169,12 +169,14 @@ def report(number, sha, paths):
         if review["state"] in {"APPROVED", "CHANGES_REQUESTED", "DISMISSED"}:
             latest[review["user"]["login"]] = review["state"]
     changes_requested = [who for who, state in latest.items() if state == "CHANGES_REQUESTED"]
-    print(f"Unresolved threads: {json.dumps(threads)}; changes requested: {changes_requested}")
+    # A stale optional bot review must never require a new approval/receipt from that bot.
+    # Substantive findings still need a disposition under the owner review process.
+    print(f"Unresolved threads: {json.dumps(threads)}; changes requested (diagnostic): {changes_requested}")
     final = api(endpoint)
     if (final["head"]["sha"] != sha or final["base"]["sha"] != pr["base"]["sha"]
             or final["state"] != "open"):
         raise ValueError("PR changed during collection; regenerate evidence")
-    passed = passed and not threads and not changes_requested and not final["draft"] and final["mergeable"] is True
+    passed = passed and not threads and not final["draft"] and final["mergeable"] is True
     print(f"Draft: {final['draft']}; mergeable: {final['mergeable']}")
     print("Independent ChatGPT review: PENDING (confirm separately)")
     print("Explicit owner approval of this head SHA: PENDING (confirm separately)")

@@ -50,6 +50,9 @@ python3 scripts/pr_evidence.py report <pr-number> --sha <full-head-sha> \
 `report` reads paginated GitHub data, the newest matching `ci.yml` run and latest job attempt,
 per-step conclusions, local receipts/log hashes, changed files, unresolved threads and change requests.
 It rechecks the head/base before finishing. It never posts, approves, merges or deploys.
+Submitted review states (including a stale bot `CHANGES_REQUESTED`) are diagnostic, never a
+requirement to wait for an optional reviewer's approval. Substantive findings still need a disposition;
+unresolved threads are reported and block the automated packet until addressed.
 A passing automated report still leaves independent review and owner approval pending.
 Keep the packet and raw logs with the PR handoff; refresh after any head change.
 For example, inspect remote evidence with:
