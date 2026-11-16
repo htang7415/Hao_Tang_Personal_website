@@ -15,7 +15,7 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "I am an M.S. Computer Sciences student at UW-Madison, graduating in August 2026. I build AI systems end to end: LLM agents people can trust, the infrastructure that serves them efficiently, and the models underneath."
+      "I am a software and AI engineer with an M.S. in Computer Sciences from UW–Madison (August 2026). My work spans native iOS apps, Industry Intelligence, open-source inference routing, and research on LLM serving and generative models."
     ]
   }
 };
