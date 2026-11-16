@@ -12,28 +12,42 @@ type Project = {
 
 const layers: { title: string; description: string; projects: Project[] }[] = [
   {
-    title: 'Reliable AI agents',
-    description: 'Agents that use tools, cite their sources, and never show what they cannot verify.',
+    title: 'Product engineering',
+    description: 'Native iOS discovery and evidence workflows for Industry Intelligence.',
     projects: [
       {
         title: 'MeshStake',
-        meta: 'Live product · May 2026 - Present',
+        meta: 'In development · May 2026 - Present',
         href: '#/products#meshstake',
-        summary: 'AI research agent for capital markets. The model plans and writes; deterministic code checks every number before it reaches the user.',
-        result: 'Answers that fail the grounding check are withheld, never shown.',
+        summary: 'Industry Intelligence focused initially on AI Infrastructure, with reviewed filings and source-rights controls.',
+        result: 'Filing Search passed Staging acceptance; Production Intelligence remains disabled.',
+      },
+      {
+        title: 'MeshForth',
+        meta: 'App Store · iOS 1.1',
+        href: '#/products#meshforth',
+        summary: 'Native SwiftUI discovery with reviewed activities, Apple Maps places, and private saved discoveries.',
+        result: 'Published iOS 1.1 with Explore and Saved; future Capture and Reflect features remain planned.',
       },
     ],
   },
   {
-    title: 'Efficient LLM serving',
-    description: 'Keeping an agent\'s context cached as its requests move through engines, routers, and memory tiers.',
+    title: 'LLM serving and open source',
+    description: 'Research on agent context and KV caches, alongside upstream inference-router contributions.',
     projects: [
       {
+        title: 'llm-d router contributions',
+        meta: 'Upstream contribution · Nov. 2026',
+        href: '#/research#llm-d',
+        summary: 'Added opt-in exploration for zero-score endpoints while preserving default weighted routing.',
+        result: 'PR #3972 merged November 15; the multi-role overflow proposal in #3965 remains open.',
+      },
+      {
         title: 'MEMTRACE',
-        meta: 'Research platform · Sept. 2025 - Oct. 2026',
+        meta: 'Historical research · Sept. 2025 - Oct. 2026',
         href: '#/research#memtrace',
-        summary: 'vLLM and llama.cpp behind llm-d on Kubernetes, with a Go gateway that manages agent context.',
-        result: 'Cut prefill recompute 14-39% on replayed GitHub Copilot traffic.',
+        summary: 'An independent open-source platform on one Apple Silicon Mac, with vLLM, llama.cpp, llm-d, and a Go gateway.',
+        result: 'Cut prefill recompute 14–39% in four paired Copilot replays on Qwen3-8B.',
       },
     ],
   },
@@ -165,11 +179,11 @@ const Home: React.FC = () => {
         </div>
 
         <p className="mt-10 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          Also shipped:{' '}
+          Previously shipped:{' '}
           <a href="#/products#hyprshare" className="font-medium text-blue-600 dark:text-blue-400 hover:underline">
             HyprShare
           </a>
-          , an iOS app on the App Store for shared bills and group plans.
+          , an iOS app for shared bills and group plans.
         </p>
       </section>
 
