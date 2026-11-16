@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Github, GraduationCap, Linkedin } from './icons';
 import { profile } from '../data/profile';
 
@@ -11,6 +12,10 @@ const Footer: React.FC = () => {
         <div className="text-slate-500 dark:text-slate-400 text-sm">
           &copy; {currentYear} {profile.name}. All rights reserved.
         </div>
+        <nav aria-label="More" className="flex gap-5 text-sm text-slate-600 dark:text-slate-400">
+          <Link to="/resources" className="hover:underline">Resources</Link>
+          <Link to="/interests" className="hover:underline">Interests</Link>
+        </nav>
         <div className="flex space-x-6">
           <a href={profile.social.github} aria-label="GitHub profile" className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
             <span className="sr-only">GitHub</span>

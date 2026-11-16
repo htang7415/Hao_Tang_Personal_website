@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 
 // Pages
 import Home from './pages/Home';
+import OpenSource from './pages/OpenSource';
 import Products from './pages/Products';
 import Research from './pages/Research';
 import Blogs from './pages/Blogs';
@@ -34,6 +35,7 @@ const App: React.FC = () => {
           <main className="flex-grow w-full">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/open-source" element={<OpenSource />} />
               <Route path="/products" element={<Products />} />
               <Route path="/research" element={<Research />} />
               <Route path="/blogs" element={<Blogs />} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FlaskConical, Heart, Home, Library, Menu, Moon, Package, PenTool, Sun, X } from './icons';
+import { FlaskConical, GitBranch, Home, Menu, Moon, Package, PenTool, Sun, X } from './icons';
 import { useTheme } from './ThemeContext';
 import { profile } from '../data/profile';
 
@@ -19,11 +19,10 @@ const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'Home', path: '/', icon: Home },
-    { label: 'Product', path: '/products', icon: Package },
+    { label: 'Open Source', path: '/open-source', icon: GitBranch },
+    { label: 'Projects', path: '/products', icon: Package },
     { label: 'Research', path: '/research', icon: FlaskConical },
-    { label: 'Blogs', path: '/blogs', icon: PenTool },
-    { label: 'Resources', path: '/resources', icon: Library },
-    { label: 'Interests', path: '/interests', icon: Heart },
+    { label: 'Writing', path: '/blogs', icon: PenTool },
   ];
 
   return (
@@ -44,13 +43,13 @@ const Header: React.FC = () => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1 p-1 rounded-full transition-all">
+        <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-1 p-1 rounded-full transition-all">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `px-4 py-2 rounded-full text-sm lg:text-base font-medium transition-all duration-300 ease-out ${
+                `px-3 py-2 rounded-full text-sm lg:text-base font-medium transition-all duration-300 ease-out ${
                   isActive
                     ? 'bg-slate-900 text-white shadow-md dark:bg-blue-600 dark:text-white dark:shadow-blue-900/20'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'
@@ -78,7 +77,7 @@ const Header: React.FC = () => {
           </button>
 
           <button
-            className="md:hidden p-2 text-slate-900 dark:text-slate-100"
+            className="lg:hidden p-2 text-slate-900 dark:text-slate-100"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isMenuOpen}
@@ -89,8 +88,8 @@ const Header: React.FC = () => {
       </div>
 
       {/* Mobile Nav Menu */}
-      <div className={`md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-xl transition-all duration-300 origin-top ${isMenuOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 h-0 overflow-hidden'}`}>
-        <div className="px-4 py-6 space-y-2">
+      <div hidden={!isMenuOpen} className={`lg:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-xl transition-all duration-300 origin-top ${isMenuOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 h-0 overflow-hidden'}`}>
+        <nav aria-label="Mobile navigation" className="px-4 py-6 space-y-2 max-h-[80vh] overflow-y-auto">
           {navLinks.map((link) => {
               const Icon = link.icon;
               return (
@@ -115,7 +114,7 @@ const Header: React.FC = () => {
                 </NavLink>
               );
           })}
-        </div>
+        </nav>
       </div>
     </header>
   );

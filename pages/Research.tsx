@@ -6,9 +6,9 @@ import { ArrowUpRight } from '../components/icons';
 const Research: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto px-6 py-24 md:py-28">
-      <SectionTitle 
+      <SectionTitle as="h1"
         title="Research" 
-        subtitle="LLM serving, RL alignment, Diffusion Transformers, and uncertainty quantification."
+        subtitle="Diffusion Transformers, RL alignment, distributed training and uncertainty quantification."
       />
 
       <div className="space-y-12">
