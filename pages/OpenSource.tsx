@@ -8,7 +8,7 @@ const OpenSource: React.FC = () => (
       <p className="mt-5 mb-10 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
         My upstream contributions to llm-d-router focus on inference scheduling, endpoint selection and resource constraints.
       </p>
-      <Contributions />
+      <Contributions as="h2" />
       <p className="mt-10 text-sm text-slate-500 dark:text-slate-400">
         Status checked November 16, 2026. Follow each pull request for the current review and implementation.
       </p>

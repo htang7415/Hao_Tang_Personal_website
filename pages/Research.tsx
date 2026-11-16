@@ -16,9 +16,9 @@ const Research: React.FC = () => {
           <article key={item.id} id={item.id} className="group relative scroll-mt-28">
             
             <div className="mb-4">
-              <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors">
                 {item.title}
-              </h3>
+              </h2>
               <span className="text-sm font-mono text-slate-500 uppercase tracking-wide mt-2 block">
                 {item.typeOrVenue}
               </span>
@@ -30,9 +30,9 @@ const Research: React.FC = () => {
 
             {item.highlights && (
               <div className="mb-7">
-                <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-3">
+                <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-3">
                   Key Highlights
-                </h4>
+                </h3>
                 <ul className="list-disc list-outside pl-6 space-y-2 text-base text-slate-600 dark:text-slate-300">
                   {item.highlights
                     .split('\n')

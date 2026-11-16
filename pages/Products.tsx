@@ -16,7 +16,7 @@ const Products: React.FC = () => {
             <Card className="flex flex-col h-full">
               <div className="flex-grow">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 leading-tight">{p.name}</h3>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 leading-tight">{p.name}</h2>
                 </div>
                 <p className="text-sm font-mono text-slate-500 mb-5">{p.role} · {p.year}</p>
                 <p className="text-blue-600 dark:text-blue-400 text-base font-medium mb-4">{p.subtitle}</p>
