@@ -2,23 +2,6 @@ import { ResearchItem } from '../types';
 
 export const researchItems: ResearchItem[] = [
   {
-    id: 'memtrace',
-    title: 'MEMTRACE: LLM Agent Serving and KV-Cache Research Platform',
-    typeOrVenue: 'Research platform · Sept. 2025 - Oct. 2026',
-    summary:
-      'A platform for measuring how serving decisions (engine, routing, context, KV-cache tier) decide whether an LLM agent\'s history stays cached. vLLM and llama.cpp run behind llm-d on Kubernetes with a Go gateway in front, and every result is labeled real or simulated.',
-    tags: ['LLM Serving', 'vLLM', 'llm-d', 'KV Cache', 'Go', 'Kubernetes'],
-    links: {
-      code: 'https://github.com/htang7415/MEMTRACE'
-    },
-    featured: true,
-    highlights: `
-- Cache-aware context management in the Go gateway cut prefill recompute 14-39% on 4 paired GitHub Copilot replays, and Gemini prompt tokens 50% over 100 paired tasks with no detectable accuracy loss.
-- A real SSD KV-offload tier (one replica, Qwen3-0.6B, 3 paired repeats, pre-registered rules) cut the prefix recomputed by calls returning after a pause from 33-43% to 2-15%, and their TTFT p95 by 41-53%; the median barely moved.
-- Cache-aware llm-d routing reached 1.8-2.3× random routing's throughput on 4 simulated replicas calibrated to vLLM; a KV-cache simulator matched a real engine's prefix reuse within 0.7 points.
-`
-  },
-  {
     id: 'rl-inverse-design',
     title: 'RL-Aligned Conditional Diffusion Transformer for Targeted Generation',
     typeOrVenue: 'Research Assistant, UW-Madison · Sept. 2025 - Mar. 2026',
@@ -38,9 +21,6 @@ export const researchItems: ResearchItem[] = [
     summary:
       'Masked discrete Diffusion Transformers across five representations (character, BPE, constrained tokens, fragments, graphs), testing how representation and model size shape generation and learned features.',
     tags: ['Diffusion Models', 'Transformers', 'Distributed Training'],
-    links: {
-      code: 'https://github.com/htang7415/PolyDiffusion'
-    },
     featured: true,
     highlights: `
 - Trained 10.9M-681.1M-parameter denoisers on 19.3M training objects with PyTorch DDP (NCCL, BF16) on 2 nodes × 4 H100 GPUs.
@@ -56,7 +36,7 @@ export const researchItems: ResearchItem[] = [
     tags: ['Uncertainty Quantification', 'Bayesian ML', 'Calibration'],
     links: {
       pdf: 'https://pubs.acs.org/doi/full/10.1021/acs.jcim.5c00550',
-      code: 'https://github.com/htang7415/Uncertianty_quantification_Polymer_informatics'
+      code: 'https://github.com/htang7415/Polymer_UQ'
     },
     featured: true,
     highlights: `
