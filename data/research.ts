@@ -38,9 +38,6 @@ export const researchItems: ResearchItem[] = [
     summary:
       'Masked discrete Diffusion Transformers across five representations (character, BPE, constrained tokens, fragments, graphs), testing how representation and model size shape generation and learned features.',
     tags: ['Diffusion Models', 'Transformers', 'Distributed Training'],
-    links: {
-      code: 'https://github.com/htang7415/PolyDiffusion'
-    },
     featured: true,
     highlights: `
 - Trained 10.9M-681.1M-parameter denoisers on 19.3M training objects with PyTorch DDP (NCCL, BF16) on 2 nodes × 4 H100 GPUs.
@@ -56,7 +53,7 @@ export const researchItems: ResearchItem[] = [
     tags: ['Uncertainty Quantification', 'Bayesian ML', 'Calibration'],
     links: {
       pdf: 'https://pubs.acs.org/doi/full/10.1021/acs.jcim.5c00550',
-      code: 'https://github.com/htang7415/Uncertianty_quantification_Polymer_informatics'
+      code: 'https://github.com/htang7415/Polymer_UQ'
     },
     featured: true,
     highlights: `

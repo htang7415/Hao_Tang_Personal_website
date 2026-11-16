@@ -10,14 +10,17 @@ const Research: React.FC = () => {
       <p className="mt-5 mb-12 max-w-2xl text-lg text-slate-600 dark:text-slate-300">Academic work in generative modeling, reinforcement learning alignment and uncertainty quantification, followed by an independent serving research project.</p>
 
       <div className="space-y-12">
-        {[...researchItems.filter(item => item.id !== 'memtrace'), ...researchItems.filter(item => item.id === 'memtrace')].map((item) => (
+        {[...researchItems.filter(item => item.id !== 'memtrace'), ...researchItems.filter(item => item.id === 'memtrace')].map((item) => {
+          const Title = item.id === 'memtrace' ? 'h3' : 'h2';
+          const Findings = item.id === 'memtrace' ? 'h4' : 'h3';
+          return (
           <article key={item.id} id={item.id} className="group relative scroll-mt-28">
             {item.id === 'memtrace' && <h2 className="section-heading mb-7">Earlier Independent Research</h2>}
             
             <div className="mb-4">
-              <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors">
+              <Title className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors">
                 {item.title}
-              </h2>
+              </Title>
               <span className="text-sm text-slate-500 dark:text-slate-400 mt-2 block">
                 {item.typeOrVenue}
               </span>
@@ -29,9 +32,9 @@ const Research: React.FC = () => {
 
             {item.highlights && (
               <div className="mb-7">
-                <h3 className="text-base font-medium text-slate-800 dark:text-slate-200 mb-3">
+                <Findings className="text-base font-medium text-slate-800 dark:text-slate-200 mb-3">
                   Findings & Methods
-                </h3>
+                </Findings>
                 <ul className="list-disc list-outside pl-6 space-y-2 text-base text-slate-600 dark:text-slate-300">
                   {item.highlights
                     .split('\n')
@@ -69,7 +72,8 @@ const Research: React.FC = () => {
               </div>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
