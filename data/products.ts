@@ -39,11 +39,11 @@ export const products: Product[] = [
     name: 'HyprShare',
     subtitle: 'Earlier iOS App for Shared Bills and Group Plans',
     description:
-      'A native SwiftUI app on the App Store (iPhone and iPad, 8 languages) that gives groups one place for shared bills, debt settlement, and co-edited plans, with invite-code, QR, and deep-link onboarding.',
+      'An earlier native SwiftUI app for iPhone and iPad, shipped through the App Store in 8 languages. It brought shared bills, debt settlement, and co-edited plans together with invite-code, QR, and deep-link onboarding.',
     role: 'Founder & iOS/Backend Engineer',
     year: 'May 2025 - Nov. 2025',
     tags: ['SwiftUI', 'Core Data', 'Supabase', 'PostgreSQL', 'RLS', 'XCTest'],
-    url: 'https://apps.apple.com/de/app/hyprshare/id6754544881',
+    url: 'https://hyprshare.vercel.app/',
     featured: false,
     highlights: [
       'Offline-first: every edit lands in a local Core Data replica, then syncs to Supabase/PostgreSQL with last-writer-wins conflict handling and soft-delete reconciliation.',

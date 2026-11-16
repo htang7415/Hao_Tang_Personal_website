@@ -183,7 +183,7 @@ const Home: React.FC = () => {
           <a href="#/products#hyprshare" className="font-medium text-blue-600 dark:text-blue-400 hover:underline">
             HyprShare
           </a>
-          , an iOS app on the App Store for shared bills and group plans.
+          , an iOS app for shared bills and group plans.
         </p>
       </section>
 
