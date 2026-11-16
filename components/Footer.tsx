@@ -7,10 +7,15 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="border-t border-slate-200 dark:border-slate-800 py-8 mt-auto">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="text-slate-500 dark:text-slate-400 text-sm">
           &copy; {currentYear} {profile.name}. All rights reserved.
         </div>
+        <nav aria-label="Secondary navigation" className="flex gap-5 text-sm">
+          <a className="editorial-link" href="#/blogs">Writing</a>
+          <a className="editorial-link" href="#/resources">Resources</a>
+          <a className="editorial-link" href="#/interests">Interests</a>
+        </nav>
         <div className="flex space-x-6">
           <a href={profile.social.github} aria-label="GitHub profile" className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
             <span className="sr-only">GitHub</span>
