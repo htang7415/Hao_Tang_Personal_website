@@ -2,7 +2,7 @@ import { Profile } from '../types';
 
 export const profile: Profile = {
   name: "Hao Tang",
-  tagline: "LLM agents, serving infrastructure, and ML systems",
+  tagline: "AI Systems & Software Engineering",
   email: "hao.max.tang@gmail.com",
   // To replace the image:
   // 1. Add your image file to your project's public folder (e.g., 'me.jpg')
@@ -15,7 +15,7 @@ export const profile: Profile = {
   },
   about: {
     paragraphs: [
-      "I am an M.S. Computer Sciences student at UW-Madison, graduating in August 2026. I build AI systems end to end: LLM agents people can trust, the infrastructure that serves them efficiently, and the models underneath."
+      "I work on inference routing, AI application infrastructure and software products, with a background in machine learning research. I hold an M.S. in Computer Sciences from UW–Madison."
     ]
   }
 };

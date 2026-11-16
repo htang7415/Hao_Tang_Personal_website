@@ -161,12 +161,12 @@ const Interests: React.FC = () => {
         {/* Controls */}
         <div className="flex flex-col md:flex-row gap-8 justify-between mb-10">
           {/* Status Tabs */}
-          <div className="flex p-1.5 bg-slate-100 dark:bg-slate-800 rounded-xl self-start">
+          <div className="flex flex-wrap p-1.5 bg-slate-100 dark:bg-slate-800 rounded-xl self-start">
             {(['All', 'Reading', 'Read', 'Want to Read'] as const).map((status) => (
               <button
                 key={status}
                 onClick={() => setFilterStatus(status)}
-                className={`px-6 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                className={`px-3 sm:px-6 py-2.5 text-sm font-medium rounded-lg transition-all ${
                   filterStatus === status
                     ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300'

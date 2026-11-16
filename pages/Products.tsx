@@ -1,47 +1,36 @@
 import React from 'react';
-import { Card, SectionTitle, Badge } from '../components/LayoutComponents';
+import { ArrowUpRight } from '../components/icons';
 import { products } from '../data/products';
+import type { Product } from '../types';
 
-const Products: React.FC = () => {
-  return (
-    <div className="max-w-5xl mx-auto px-6 py-24 md:py-28">
-      <SectionTitle 
-        title="Product Engineering" 
-        subtitle="Products I designed, built, and shipped: a live AI agent and an iOS app."
-      />
-
-      <div className="max-w-2xl space-y-8">
-        {products.map((p) => (
-          <article key={p.id} id={p.id} className="scroll-mt-28">
-            <Card href={p.url} className="flex flex-col h-full">
-              <div className="flex-grow">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 leading-tight">{p.name}</h3>
-                </div>
-                <p className="text-sm font-mono text-slate-500 mb-5">{p.role} · {p.year}</p>
-                <p className="text-blue-600 dark:text-blue-400 text-base font-medium mb-4">{p.subtitle}</p>
-                <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed">{p.description}</p>
-
-                {p.highlights && (
-                  <ul className="mt-5 list-disc list-outside pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {p.highlights.map((highlight) => (
-                      <li key={highlight} className="pl-1">{highlight}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              <div className="flex flex-wrap gap-2 pt-6 border-t border-slate-100 dark:border-slate-800/50 mt-6">
-                {p.tags.map(tag => (
-                  <Badge key={tag} color={tag === 'AI Reliability' ? 'accent' : 'default'}>{tag}</Badge>
-                ))}
-              </div>
-            </Card>
-          </article>
-        ))}
-      </div>
+const ProjectNotes: React.FC<{ project: Product }> = ({ project }) => (
+  <article id={project.id} className="scroll-mt-28 border-t border-slate-200 dark:border-slate-800 py-9 md:grid md:grid-cols-[1fr_2fr] gap-10">
+    <div>
+      <h2 className="text-2xl font-semibold tracking-tight">{project.name}</h2>
+      <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{project.role} · {project.year}</p>
+      <a className="editorial-link text-sm mt-4" href={project.url}>{project.id === 'meshforth' ? 'View on the App Store' : 'Visit project'} <ArrowUpRight size={15} /></a>
+      <p className="mt-5 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{project.tags.join(' · ')}</p>
     </div>
-  );
-};
+    <div className="mt-6 md:mt-0">
+      <h3 className="text-lg font-medium">{project.subtitle}</h3>
+      <p className="mt-3 text-slate-600 dark:text-slate-300 leading-relaxed">{project.description}</p>
+      <ul className="mt-5 list-disc pl-5 space-y-3 text-slate-600 dark:text-slate-300 leading-relaxed">
+        {project.highlights?.map(highlight => <li key={highlight}>{highlight}</li>)}
+      </ul>
+    </div>
+  </article>
+);
 
+const Products: React.FC = () => (
+  <div className="max-w-5xl mx-auto px-6 pt-14 md:pt-20 pb-16">
+    <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Projects</h1>
+    <p className="mt-5 mb-10 max-w-2xl text-lg text-slate-600 dark:text-slate-300">Engineering notes on evidence publication, native discovery and account lifecycle design.</p>
+    {products.filter(project => project.featured).map(project => <ProjectNotes key={project.id} project={project} />)}
+    <section aria-labelledby="earlier-projects" className="mt-8">
+      <h2 id="earlier-projects" className="section-heading mb-3">Earlier Work</h2>
+      <p className="mb-6 text-sm text-slate-500 dark:text-slate-400">Historical project records, preserved separately from current work.</p>
+      {products.filter(project => !project.featured).map(project => <ProjectNotes key={project.id} project={project} />)}
+    </section>
+  </div>
+);
 export default Products;

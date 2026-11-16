@@ -1,38 +1,40 @@
 import React from 'react';
-import { SectionTitle, Badge } from '../components/LayoutComponents';
+import { Badge } from '../components/LayoutComponents';
 import { researchItems } from '../data/research';
 import { ArrowUpRight } from '../components/icons';
 
 const Research: React.FC = () => {
   return (
-    <div className="max-w-5xl mx-auto px-6 py-24 md:py-28">
-      <SectionTitle 
-        title="Research" 
-        subtitle="LLM serving, RL alignment, Diffusion Transformers, and uncertainty quantification."
-      />
+    <div className="max-w-5xl mx-auto px-6 pt-14 md:pt-20 pb-16">
+      <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Research</h1>
+      <p className="mt-5 mb-12 max-w-2xl text-lg text-slate-600 dark:text-slate-300">Academic work in generative modeling, reinforcement learning alignment and uncertainty quantification, followed by an independent serving research project.</p>
 
       <div className="space-y-12">
-        {researchItems.map((item) => (
+        {[...researchItems.filter(item => item.id !== 'memtrace'), ...researchItems.filter(item => item.id === 'memtrace')].map((item) => {
+          const Title = item.id === 'memtrace' ? 'h3' : 'h2';
+          const Findings = item.id === 'memtrace' ? 'h4' : 'h3';
+          return (
           <article key={item.id} id={item.id} className="group relative scroll-mt-28">
+            {item.id === 'memtrace' && <h2 className="section-heading mb-7">Earlier Independent Research</h2>}
             
             <div className="mb-4">
-              <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors">
+              <Title className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors">
                 {item.title}
-              </h3>
-              <span className="text-sm font-mono text-slate-500 uppercase tracking-wide mt-2 block">
+              </Title>
+              <span className="text-sm text-slate-500 dark:text-slate-400 mt-2 block">
                 {item.typeOrVenue}
               </span>
             </div>
 
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-7 leading-relaxed font-light">
+            <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 mb-7 leading-relaxed">
               {item.summary}
             </p>
 
             {item.highlights && (
               <div className="mb-7">
-                <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-3">
-                  Key Highlights
-                </h4>
+                <Findings className="text-base font-medium text-slate-800 dark:text-slate-200 mb-3">
+                  Findings & Methods
+                </Findings>
                 <ul className="list-disc list-outside pl-6 space-y-2 text-base text-slate-600 dark:text-slate-300">
                   {item.highlights
                     .split('\n')
@@ -70,7 +72,8 @@ const Research: React.FC = () => {
               </div>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
