@@ -4,18 +4,19 @@ export const products: Product[] = [
   {
     id: 'meshstake',
     name: 'MeshStake',
-    subtitle: 'Industry Intelligence · Initially AI Infrastructure',
+    subtitle: 'AI-Native Industry Intelligence · 1.1 in Production',
     description:
-      'Developing Discover, Library, and Search around reviewed evidence. Filing Search has Staging acceptance; Production Intelligence remains disabled. The earlier capital-markets agent and daily News have been retired.',
+      'Tracks Energy, Chips, Infrastructure, Models, and Applications through reviewed Events, including cited SEC financial comparisons. Discover also features Latest News, with Search and a private Library for saving and following.',
     role: 'Founder & AI/Software Engineer',
     year: 'May 2026 - Present',
-    tags: ['Python', 'AWS', 'React', 'TypeScript', 'Evidence Validation'],
+    tags: ['Claude', 'Agent Harness', 'Evaluation', 'Python', 'AWS'],
     url: 'https://meshstake.com/',
     featured: true,
     highlights: [
-      'Implemented independently composed filing lineages with rights and expiry checks; multi-filing behavior is verified offline, with Production flags off.',
-      'NVIDIA filing Search passed Staging desktop/mobile and account-isolation acceptance; this does not establish public Intelligence availability.',
-      'Historical October 2026 architecture: reduced measured AWS run-rate about 95% ($283 to $13/month) through Aurora/RDS Proxy retirement and DynamoDB migration.',
+      'The first documented Production run of the Claude editorial agent screened 9 leads and proposed 5 reviewable Event candidates in 7 calls at $0.0019. Publication requires separate approval.',
+      'The fail-closed harness enforces source rights, caps requests at 18,000 bytes and replies at 800 tokens, checks claims against verbatim evidence, replays recorded results, and reserves spend.',
+      'A labeled editorial holdout yielded 19/20 precision@5, 16/16 critical coverage, and 0/190 citation problems at $0.0009 in model cost per Event.',
+      'Raised a live Claude research agent from 7/18 to 17/18 on unchanged labeled cases in Staging by resizing its token bound from measured requests and narrowing quote selection.',
     ],
   },
   {
@@ -23,13 +24,14 @@ export const products: Product[] = [
     name: 'MeshForth',
     subtitle: 'Native iOS Discovery · App Store-published 1.1',
     description:
-      'A SwiftUI app for discovering reviewed activities and Apple Maps places, with Explore and a private Saved list. iOS 1.1 is published; Capture, Reflect, and AI Moment Match remain future work.',
+      'A SwiftUI app for iPhone and iPad. Browse reviewed activity ideas in Explore, discover nearby places with Apple Maps, and keep activities and places in one private Saved list.',
     role: 'Independent iOS/Backend Engineer',
     year: 'iOS 1.1 · Nov. 2026',
-    tags: ['SwiftUI', 'MapKit', 'Supabase', 'PostgreSQL', 'TypeScript'],
+    tags: ['SwiftUI', 'MapKit', 'Supabase', 'PostgreSQL', 'TypeScript', 'Claude API'],
     url: 'https://apps.apple.com/us/app/meshforth/id6823819592',
     featured: true,
     highlights: [
+      'Matched 36/40 live Claude intent cases with 100% strict-schema replies and no flagged sensitive terms at about $0.007 per 40-case run, with consent gating and on-device fallback.',
       'Unified saved activities and places under live-session authorization and per-user PostgreSQL row-level security.',
       'Implemented retryable account deletion with Keychain receipts, bounded cleanup, and a deletion journal for recovery.',
     ],
