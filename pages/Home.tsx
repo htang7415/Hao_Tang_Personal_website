@@ -17,17 +17,17 @@ const layers: { title: string; description: string; projects: Project[] }[] = [
     projects: [
       {
         title: 'MeshStake',
-        meta: 'In development · May 2026 - Present',
+        meta: 'Production 1.1 · May 2026 - Present',
         href: '#/products#meshstake',
-        summary: 'Industry Intelligence focused initially on AI Infrastructure, with reviewed filings and source-rights controls.',
-        result: 'Filing Search passed Staging acceptance; Production Intelligence remains disabled.',
+        summary: 'AI-native industry intelligence: a Claude editorial agent behind a fail-closed harness proposes cited, reviewable Events.',
+        result: 'Reached 19/20 precision@5 and 0/190 citation problems on a labeled holdout at $0.0009 model cost per Event.',
       },
       {
         title: 'MeshForth',
         meta: 'App Store · iOS 1.1',
         href: '#/products#meshforth',
         summary: 'Native SwiftUI discovery with reviewed activities, Apple Maps places, and private saved discoveries.',
-        result: 'Published iOS 1.1 with Explore and Saved; future Capture and Reflect features remain planned.',
+        result: 'Published iOS 1.1; Claude intent matched 36/40 live cases with 100% strict-schema replies and on-device fallback.',
       },
     ],
   },
